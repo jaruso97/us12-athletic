@@ -223,7 +223,22 @@ const GlobalStyles = () => (
 
 function ScoreTicker({ dark }) {
   const bg = dark ? "#111118" : "#1a1a2e";
-  const doubled = [...SCORES, ...SCORES];
+  const [liveScores, setLiveScores] = useState(SCORES);
+
+  useEffect(() => {
+    const fetchScores = async () => {
+      try {
+        const res = await fetch("/api/scores");
+        const data = await res.json();
+        if (data.games && data.games.length > 0) setLiveScores(data.games);
+      } catch { /* fall back to static */ }
+    };
+    fetchScores();
+    const interval = setInterval(fetchScores, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const doubled = [...liveScores, ...liveScores];
   return (
     <div style={{ background: bg, borderBottom: `2px solid ${DET_COLOR}30` }}>
       <div style={{ display: "flex", alignItems: "stretch", maxWidth: "100%" }}>

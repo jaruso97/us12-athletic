@@ -45,7 +45,7 @@ const ALL_ARTICLES = [
     title: "Lions Dominate NFC North with Explosive Offense, Eye Super Bowl Run",
     excerpt: "Detroit's high-powered offense continues to silence doubters as Jared Goff puts up another 300-yard performance in a commanding divisional victory that has Lions fans dreaming of February.",
     author: "Marcus Johnson", time: "2h ago", readTime: "4 min",
-    image: "https://picsum.photos/seed/lion_stadium/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG",
     tags: ["Lions","NFL","Playoffs"], trending: true, hot: true, views: 24300
   },
   {
@@ -53,7 +53,7 @@ const ALL_ARTICLES = [
     title: "Tigers Prospect Pipeline Ranked Among MLB's Best Heading Into Trade Deadline",
     excerpt: "Detroit's rebuilding effort is paying dividends as scouts rave about the organization's depth of pitching talent coming through the minors.",
     author: "Sarah Chen", time: "4h ago", readTime: "3 min",
-    image: "https://picsum.photos/seed/baseball_stadium/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_gate_D_entrance.JPG",
     tags: ["Tigers","MLB","Prospects"], trending: true, views: 18100
   },
   {
@@ -61,7 +61,7 @@ const ALL_ARTICLES = [
     title: "Red Wings Turn Back the Clock with Dominant Performance at Little Caesars Arena",
     excerpt: "Detroit's historic franchise showed flashes of the dynasty era with a convincing 4-1 victory over division rivals that has the building buzzing with old-time energy.",
     author: "Tom Bradley", time: "6h ago", readTime: "5 min",
-    image: "https://picsum.photos/seed/hockey_rink/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_10_(Little_Caesars_Arena).jpg",
     tags: ["Red Wings","NHL"], views: 12400
   },
   {
@@ -69,7 +69,7 @@ const ALL_ARTICLES = [
     title: "Cade Cunningham Named Eastern Conference Player of the Week After Back-to-Back 30-Point Games",
     excerpt: "The young star continues his ascent with jaw-dropping performances that have Detroit fans dreaming of playoff basketball for the first time in years.",
     author: "Lisa Park", time: "8h ago", readTime: "4 min",
-    image: "https://picsum.photos/seed/basketball_arena/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_09_(Little_Caesars_Arena).jpg",
     tags: ["Pistons","NBA","Cade"], trending: true, views: 21700
   },
   {
@@ -77,7 +77,7 @@ const ALL_ARTICLES = [
     title: "Lions Offensive Line Rated Among Top 5 in NFL by PFF Analytics Report",
     excerpt: "Detroit's rebuilt offensive unit is providing a fortress for Goff as the Lions cement their championship-contending identity heading into the stretch run.",
     author: "Marcus Johnson", time: "1d ago", readTime: "3 min",
-    image: "https://picsum.photos/seed/football_field/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_View_of_Downtown_Detroit_-_Ford_Field_and_Comerica_Park.jpg",
     tags: ["Lions","NFL","Analytics"], views: 9800
   },
   {
@@ -85,7 +85,7 @@ const ALL_ARTICLES = [
     title: "Tigers Sign Two Highly-Touted International Prospects to Minor League Deals",
     excerpt: "Detroit's front office accelerates its aggressive rebuild with signings from the Dominican Republic and Venezuela that scouts project as future rotation pieces.",
     author: "Sarah Chen", time: "1d ago", readTime: "2 min",
-    image: "https://picsum.photos/seed/baseball_player/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_ferris_wheel.JPG",
     tags: ["Tigers","MLB","International"], views: 7200
   },
   {
@@ -93,7 +93,7 @@ const ALL_ARTICLES = [
     title: "Caleb Williams Shows Star Potential in Commanding Soldier Field Victory",
     excerpt: "The No. 1 overall pick silences every critic with a masterclass performance at home, throwing for 347 yards and 3 touchdowns as the Bears look like a team transformed.",
     author: "Derek Williams", time: "1h ago", readTime: "5 min",
-    image: "https://picsum.photos/seed/chicago_stadium/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/2014_NHL_Stadium_Series,_Soldier_Field_Pano.JPG",
     tags: ["Bears","NFL","Caleb"], trending: true, hot: true, views: 31200
   },
   {
@@ -101,7 +101,7 @@ const ALL_ARTICLES = [
     title: "Bulls Front Office Explores Blockbuster Trade as Deadline Looms Large",
     excerpt: "Chicago's brass is reportedly willing to move significant assets to add a third star alongside their young core in a win-now push that has the city buzzing.",
     author: "Angela Martinez", time: "3h ago", readTime: "4 min",
-    image: "https://picsum.photos/seed/nba_chicago/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/United_Center,_Chicago.JPG",
     tags: ["Bulls","NBA","Trade"], trending: true, views: 27800
   },
   {
@@ -109,7 +109,7 @@ const ALL_ARTICLES = [
     title: "Cubs Starting Rotation Looking Lights-Out in Spring, Raising World Series Hopes",
     excerpt: "Wrigley faithful have every reason to believe this year as Chicago's pitching staff posts eye-popping numbers in camp under a new pitching coordinator.",
     author: "James O'Brien", time: "5h ago", readTime: "4 min",
-    image: "https://picsum.photos/seed/wrigley_field/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Wrigley_Field_Marquee_as_of_mid-2015.JPG",
     tags: ["Cubs","MLB","Spring"], views: 15600
   },
   {
@@ -117,7 +117,7 @@ const ALL_ARTICLES = [
     title: "Bedard on Pace for Calder Trophy After Monster March Performance",
     excerpt: "Chicago's franchise cornerstone continues to electrify the United Center with an unprecedented rookie run that has hockey pundits comparing him to the all-time greats.",
     author: "Kyle Foster", time: "7h ago", readTime: "4 min",
-    image: "https://picsum.photos/seed/hawks_chicago/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_11_(Little_Caesars_Arena).jpg",
     tags: ["Blackhawks","NHL","Bedard"], trending: true, views: 19300
   },
   {
@@ -125,7 +125,7 @@ const ALL_ARTICLES = [
     title: "White Sox Rebuild Accelerates as Top Draft Class Dominates Minor Leagues",
     excerpt: "Chicago's south side team shows encouraging signs of life as their top picks tear through affiliate levels, raising hopes for a faster timeline to competitiveness.",
     author: "Angela Martinez", time: "9h ago", readTime: "3 min",
-    image: "https://picsum.photos/seed/sox_baseball/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/US_Cellular_Field.jpg",
     tags: ["White Sox","MLB","Rebuild"], views: 8900
   },
   {
@@ -133,7 +133,7 @@ const ALL_ARTICLES = [
     title: "Bears Defense Leads NFL in Sacks Following Transformative Offseason Overhaul",
     excerpt: "Chicago's defensive coordinator has quietly assembled one of the most feared pass-rushing units in the league, providing Caleb Williams with a complete team around him.",
     author: "Derek Williams", time: "1d ago", readTime: "3 min",
-    image: "https://picsum.photos/seed/bears_defense/1200/675",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Luxury_suites_Soldier_Field.JPG",
     tags: ["Bears","NFL","Defense"], views: 13100
   },
 ];
@@ -175,42 +175,42 @@ const ODDS_DATA = [
 const fmt = (n) => n >= 1000 ? (n / 1000).toFixed(1) + "k" : n;
 
 const RUMORS = [
-  { id:"r1", team:"lions", city:"detroit", sport:"NFL", title:"Lions Exploring Contract Extension for Star Pass Rusher Before Free Agency", source:"ESPN", time:"1h ago", hot:true, likes:342, image:"https://picsum.photos/seed/lions_rumor1/800/450" },
-  { id:"r2", team:"bears", city:"chicago", sport:"NFL", title:"Bears Linked to Top Wide Receiver in Upcoming NFL Draft Class", source:"The Athletic", time:"2h ago", hot:true, likes:287, image:"https://picsum.photos/seed/bears_rumor1/800/450" },
-  { id:"r3", team:"bulls", city:"chicago", sport:"NBA", title:"Chicago Bulls In Talks With Multiple Teams Over Three-Team Blockbuster", source:"Bleacher Report", time:"3h ago", hot:false, likes:198, image:"https://picsum.photos/seed/bulls_rumor1/800/450" },
-  { id:"r4", team:"pistons", city:"detroit", sport:"NBA", title:"Pistons Eyeing Two Free Agent Targets to Complement Cade Cunningham", source:"HoopsHype", time:"4h ago", hot:false, likes:156, image:"https://picsum.photos/seed/pistons_rumor/800/450" },
-  { id:"r5", team:"cubs", city:"chicago", sport:"MLB", title:"Cubs Close to Finalizing Multi-Year Deal With Top Bullpen Arm", source:"MLB Network", time:"5h ago", hot:true, likes:221, image:"https://picsum.photos/seed/cubs_rumor/800/450" },
-  { id:"r6", team:"tigers", city:"detroit", sport:"MLB", title:"Detroit Tigers Pursuing Veteran Shortstop to Bridge Gap During Rebuild", source:"MLB Pipeline", time:"6h ago", hot:false, likes:134, image:"https://picsum.photos/seed/tigers_rumor/800/450" },
-  { id:"r7", team:"blackhawks", city:"chicago", sport:"NHL", title:"Blackhawks Could Move Veteran Defenseman to Accelerate Rebuild", source:"The Fourth Period", time:"8h ago", hot:false, likes:109, image:"https://picsum.photos/seed/hawks_rumor/800/450" },
-  { id:"r8", team:"redwings", city:"detroit", sport:"NHL", title:"Red Wings Scouting European Market for Top Forward Ahead of Deadline", source:"NHL Network", time:"10h ago", hot:false, likes:97, image:"https://picsum.photos/seed/wings_rumor/800/450" },
+  { id:"r1", team:"lions", city:"detroit", sport:"NFL", title:"Lions Exploring Contract Extension for Star Pass Rusher Before Free Agency", source:"ESPN", time:"1h ago", hot:true, likes:342, image:"https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG" },
+  { id:"r2", team:"bears", city:"chicago", sport:"NFL", title:"Bears Linked to Top Wide Receiver in Upcoming NFL Draft Class", source:"The Athletic", time:"2h ago", hot:true, likes:287, image:"https://commons.wikimedia.org/wiki/Special:FilePath/2014_NHL_Stadium_Series,_Soldier_Field_Pano.JPG" },
+  { id:"r3", team:"bulls", city:"chicago", sport:"NBA", title:"Chicago Bulls In Talks With Multiple Teams Over Three-Team Blockbuster", source:"Bleacher Report", time:"3h ago", hot:false, likes:198, image:"https://commons.wikimedia.org/wiki/Special:FilePath/United_Center,_Chicago.JPG" },
+  { id:"r4", team:"pistons", city:"detroit", sport:"NBA", title:"Pistons Eyeing Two Free Agent Targets to Complement Cade Cunningham", source:"HoopsHype", time:"4h ago", hot:false, likes:156, image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_09_(Little_Caesars_Arena).jpg" },
+  { id:"r5", team:"cubs", city:"chicago", sport:"MLB", title:"Cubs Close to Finalizing Multi-Year Deal With Top Bullpen Arm", source:"MLB Network", time:"5h ago", hot:true, likes:221, image:"https://commons.wikimedia.org/wiki/Special:FilePath/Wrigley_Field_Marquee_as_of_mid-2015.JPG" },
+  { id:"r6", team:"tigers", city:"detroit", sport:"MLB", title:"Detroit Tigers Pursuing Veteran Shortstop to Bridge Gap During Rebuild", source:"MLB Pipeline", time:"6h ago", hot:false, likes:134, image:"https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_ferris_wheel.JPG" },
+  { id:"r7", team:"blackhawks", city:"chicago", sport:"NHL", title:"Blackhawks Could Move Veteran Defenseman to Accelerate Rebuild", source:"The Fourth Period", time:"8h ago", hot:false, likes:109, image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_11_(Little_Caesars_Arena).jpg" },
+  { id:"r8", team:"redwings", city:"detroit", sport:"NHL", title:"Red Wings Scouting European Market for Top Forward Ahead of Deadline", source:"NHL Network", time:"10h ago", hot:false, likes:97, image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_10_(Little_Caesars_Arena).jpg" },
 ];
 
 const VIDEOS = [
-  { id:"v1", title:"Lions Highlights: Goff Drops 4 TDs in Dominant NFC North Win", team:"Lions", duration:"4:22", thumb:"https://picsum.photos/seed/lions_vid1/800/450", views:"128k", youtubeId:"dQw4w9WgXcQ" },
-  { id:"v2", title:"Caleb Williams Best Plays: Week 14 vs. Rival NFC North Opponents", team:"Bears", duration:"6:15", thumb:"https://picsum.photos/seed/bears_vid1/800/450", views:"94k", youtubeId:"dQw4w9WgXcQ" },
-  { id:"v3", title:"Cade Cunningham 30-Point Game Extended Highlights", team:"Pistons", duration:"8:44", thumb:"https://picsum.photos/seed/pistons_vid/800/450", views:"76k", youtubeId:"dQw4w9WgXcQ" },
-  { id:"v4", title:"Bedard Hat Trick: Full Highlights from Saturday Night at the UC", team:"Blackhawks", duration:"5:02", thumb:"https://picsum.photos/seed/hawks_vid/800/450", views:"112k", youtubeId:"dQw4w9WgXcQ" },
-  { id:"v5", title:"Cubs Walk-Off Win: Full 9th Inning Breakdown", team:"Cubs", duration:"3:58", thumb:"https://picsum.photos/seed/cubs_vid/800/450", views:"63k", youtubeId:"dQw4w9WgXcQ" },
-  { id:"v6", title:"Red Wings Power Play Goals Compilation — 2025 Season", team:"Red Wings", duration:"7:11", thumb:"https://picsum.photos/seed/wings_vid/800/450", views:"44k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v1", title:"Lions Highlights: Goff Drops 4 TDs in Dominant NFC North Win", team:"Lions", duration:"4:22", thumb:"https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG", views:"128k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v2", title:"Caleb Williams Best Plays: Week 14 vs. Rival NFC North Opponents", team:"Bears", duration:"6:15", thumb:"https://commons.wikimedia.org/wiki/Special:FilePath/Luxury_suites_Soldier_Field.JPG", views:"94k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v3", title:"Cade Cunningham 30-Point Game Extended Highlights", team:"Pistons", duration:"8:44", thumb:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_09_(Little_Caesars_Arena).jpg", views:"76k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v4", title:"Bedard Hat Trick: Full Highlights from Saturday Night at the UC", team:"Blackhawks", duration:"5:02", thumb:"https://commons.wikimedia.org/wiki/Special:FilePath/United_Center,_Chicago.JPG", views:"112k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v5", title:"Cubs Walk-Off Win: Full 9th Inning Breakdown", team:"Cubs", duration:"3:58", thumb:"https://commons.wikimedia.org/wiki/Special:FilePath/Wrigley_Field_Marquee_as_of_mid-2015.JPG", views:"63k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v6", title:"Red Wings Power Play Goals Compilation — 2025 Season", team:"Red Wings", duration:"7:11", thumb:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_10_(Little_Caesars_Arena).jpg", views:"44k", youtubeId:"dQw4w9WgXcQ" },
 ];
 
 const PODCAST_EPISODES = [
-  { id:"p1", title:"Lions Super Bowl Window: How Real Is It?", duration:"58:22", date:"Apr 22", guest:"Marcus Johnson & Sarah Chen", image:"https://picsum.photos/seed/pod1/400/400" },
-  { id:"p2", title:"Caleb Williams' Breakout Year & Bears' Super Bowl Timeline", duration:"52:14", date:"Apr 19", guest:"Derek Williams", image:"https://picsum.photos/seed/pod2/400/400" },
-  { id:"p3", title:"NBA Trade Deadline Fallout: Bulls and Pistons Breakdown", duration:"1:04:33", date:"Apr 17", guest:"Lisa Park & Angela Martinez", image:"https://picsum.photos/seed/pod3/400/400" },
-  { id:"p4", title:"Bedard vs. The All-Time Rookies: Where Does He Rank?", duration:"44:07", date:"Apr 15", guest:"Kyle Foster", image:"https://picsum.photos/seed/pod4/400/400" },
-  { id:"p5", title:"Cubs Rotation Deep Dive: Can They Win the NL?", duration:"49:55", date:"Apr 12", guest:"James O'Brien", image:"https://picsum.photos/seed/pod5/400/400" },
+  { id:"p1", title:"Lions Super Bowl Window: How Real Is It?", duration:"58:22", date:"Apr 22", guest:"Marcus Johnson & Sarah Chen", image:"https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG" },
+  { id:"p2", title:"Caleb Williams' Breakout Year & Bears' Super Bowl Timeline", duration:"52:14", date:"Apr 19", guest:"Derek Williams", image:"https://commons.wikimedia.org/wiki/Special:FilePath/2014_NHL_Stadium_Series,_Soldier_Field_Pano.JPG" },
+  { id:"p3", title:"NBA Trade Deadline Fallout: Bulls and Pistons Breakdown", duration:"1:04:33", date:"Apr 17", guest:"Lisa Park & Angela Martinez", image:"https://commons.wikimedia.org/wiki/Special:FilePath/United_Center,_Chicago.JPG" },
+  { id:"p4", title:"Bedard vs. The All-Time Rookies: Where Does He Rank?", duration:"44:07", date:"Apr 15", guest:"Kyle Foster", image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_11_(Little_Caesars_Arena).jpg" },
+  { id:"p5", title:"Cubs Rotation Deep Dive: Can They Win the NL?", duration:"49:55", date:"Apr 12", guest:"James O'Brien", image:"https://commons.wikimedia.org/wiki/Special:FilePath/Wrigley_Field_Marquee_as_of_mid-2015.JPG" },
 ];
 
 const GALLERY = [
-  { id:"g1", image:"https://picsum.photos/seed/gallery_lions/800/600", caption:"Lions celebrate NFC North title", team:"Lions" },
-  { id:"g2", image:"https://picsum.photos/seed/gallery_bears/800/600", caption:"Caleb Williams TD walk-off", team:"Bears" },
-  { id:"g3", image:"https://picsum.photos/seed/gallery_cade/800/600", caption:"Cade Cunningham MVP candidate", team:"Pistons" },
-  { id:"g4", image:"https://picsum.photos/seed/gallery_bedard/800/600", caption:"Bedard hat trick celebration", team:"Blackhawks" },
-  { id:"g5", image:"https://picsum.photos/seed/gallery_cubs/800/600", caption:"Wrigley Field sold out game day", team:"Cubs" },
-  { id:"g6", image:"https://picsum.photos/seed/gallery_wings/800/600", caption:"Red Wings outdoor game", team:"Red Wings" },
-  { id:"g7", image:"https://picsum.photos/seed/gallery_tigers/800/600", caption:"Comerica Park sunset game", team:"Tigers" },
-  { id:"g8", image:"https://picsum.photos/seed/gallery_bulls/800/600", caption:"United Center playoff energy", team:"Bulls" },
+  { id:"g1", image:"https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG", caption:"Ford Field — Home of the Detroit Lions", team:"Lions" },
+  { id:"g2", image:"https://commons.wikimedia.org/wiki/Special:FilePath/2014_NHL_Stadium_Series,_Soldier_Field_Pano.JPG", caption:"Soldier Field packed for a winter classic — Chicago", team:"Bears" },
+  { id:"g3", image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_09_(Little_Caesars_Arena).jpg", caption:"Little Caesars Arena — Detroit Pistons home court", team:"Pistons" },
+  { id:"g4", image:"https://commons.wikimedia.org/wiki/Special:FilePath/United_Center,_Chicago.JPG", caption:"United Center — Home of Bulls & Blackhawks", team:"Blackhawks" },
+  { id:"g5", image:"https://commons.wikimedia.org/wiki/Special:FilePath/Wrigley_Field_Marquee_as_of_mid-2015.JPG", caption:"Wrigley Field marquee — Chicago Cubs iconic venue", team:"Cubs" },
+  { id:"g6", image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_10_(Little_Caesars_Arena).jpg", caption:"Little Caesars Arena — Detroit Red Wings on home ice", team:"Red Wings" },
+  { id:"g7", image:"https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_ferris_wheel.JPG", caption:"Comerica Park — A Detroit landmark since 2000", team:"Tigers" },
+  { id:"g8", image:"https://commons.wikimedia.org/wiki/Special:FilePath/US_Cellular_Field.jpg", caption:"Guaranteed Rate Field — Chicago White Sox ballpark", team:"White Sox" },
 ];
 
 const POLLS = [

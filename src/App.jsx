@@ -530,17 +530,23 @@ function ArticlePage({ article, dark, bookmarks, toggleBookmark, onBack, related
     setContent(""); setLoading(true);
     const generate = async () => {
       try {
-        const res = await fetch("https://api.anthropic.com/v1/messages", {
+        const res = await fetch("/api/article", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            model: "claude-sonnet-4-20250514",
-            max_tokens: 1000,
-            messages: [{ role: "user", content: `You are a professional sports journalist. Write a compelling 4-paragraph news article for this story about the ${article.team.charAt(0).toUpperCase() + article.team.slice(1)}:\n\nHeadline: "${article.title}"\nContext: ${article.excerpt}\n\nWrite in the style of The Athletic or ESPN — authoritative, detailed, with invented but realistic player quotes, specific stats, and expert context. Use paragraph breaks. No headers or bullets. Start directly with the story.` }]
+            title: article.title,
+            excerpt: article.excerpt,
+            team: article.team,
+            city: article.city,
+            sport: article.sport
           })
         });
         const data = await res.json();
-        setContent(data.content[0].text);
+        if (data.content) {
+          setContent(data.content);
+        } else {
+          setContent("Article content could not be loaded. Please try again shortly.");
+        }
       } catch {
         setContent("Article content could not be loaded. Please check your connection and try again.");
       }
@@ -714,9 +720,10 @@ function CityPage({ city, dark, articles, bookmarks, toggleBookmark, onArticleCl
         {teams.map(t => <button key={t.id} className="team-pill" onClick={() => setFilter(t.id)} style={{ padding: "7px 18px", borderRadius: 22, border: `1px solid ${filter === t.id ? t.color : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: filter === t.id ? t.color : "transparent", color: filter === t.id ? "#fff" : (dark ? "#888" : "#666"), fontSize: 13, fontWeight: 700, cursor: "pointer" }}>{t.name}</button>)}
       </div>
       {filtered.length > 0 && <div style={{ marginBottom: 28 }}><HeroCard article={filtered[0]} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(filtered[0])} /></div>}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, marginBottom: 40 }}>
         {filtered.slice(1).map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
       </div>
+      <LiveNewsSection dark={dark} city={city} />
     </div>
   );
 }
@@ -748,6 +755,9 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
               {filteredChi.slice(0, 4).map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
             </div>
           </div>
+          {/* Live News Section */}
+          <LiveNewsSection dark={dark} city="all" />
+
           {/* Fan Polls Section */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
@@ -761,6 +771,140 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
         </div>
         <div className="hide-mobile"><Sidebar dark={dark} articles={articles} onArticleClick={onArticleClick} /></div>
       </div>
+    </div>
+  );
+}
+
+// ─── LIVE NEWS CARD ──────────────────────────────────────────────────────────
+function LiveNewsCard({ article, dark }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const textMuted = dark ? "#888" : "#666";
+  const bg2 = dark ? "#0D0D0F" : "#f5f5f5";
+
+  const timeAgo = (iso) => {
+    const diff = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 60) return `${mins}m ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `${hrs}h ago`;
+    return `${Math.floor(hrs / 24)}d ago`;
+  };
+
+  return (
+    <a href={article.url} target="_blank" rel="noopener noreferrer"
+      style={{ textDecoration: "none", color: "inherit", display: "block" }}
+      className="article-card">
+      <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, overflow: "hidden", height: "100%", display: "flex", flexDirection: "column" }}>
+        <div style={{ position: "relative", aspectRatio: "16/10", overflow: "hidden", background: bg2, flexShrink: 0 }}>
+          {article.image ? (
+            <img src={article.image} alt={article.title} loading="lazy"
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              onError={e => { e.target.style.display = "none"; e.target.parentNode.style.background = bg2; }} />
+          ) : (
+            <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Newspaper size={32} color={textMuted} strokeWidth={1} />
+            </div>
+          )}
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)" }} />
+          <div style={{ position: "absolute", top: 10, left: 10 }}>
+            <span style={{ background: DET_COLOR, color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 3 }}>
+              LIVE NEWS
+            </span>
+          </div>
+          <div style={{ position: "absolute", bottom: 10, right: 10 }}>
+            <ExternalLink size={14} color="rgba(255,255,255,0.7)" />
+          </div>
+        </div>
+        <div style={{ padding: "14px 16px 16px", flex: 1, display: "flex", flexDirection: "column" }}>
+          <h3 className="headline-font" style={{ fontSize: 19, lineHeight: 1.2, marginBottom: 8 }}>{article.title}</h3>
+          {article.excerpt && (
+            <p style={{ fontSize: 13, color: textMuted, lineHeight: 1.5, marginBottom: 10, flex: 1,
+              display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+              {article.excerpt}
+            </p>
+          )}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 12, color: textMuted, marginTop: "auto" }}>
+            <span style={{ fontWeight: 700, color: dark ? "#bbb" : "#444" }}>{article.source}</span>
+            <span style={{ opacity: 0.4 }}>·</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 4 }}><Clock size={11} />{timeAgo(article.publishedAt)}</span>
+            <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4 }}>
+              <ExternalLink size={11} /> Read Full Story
+            </span>
+          </div>
+        </div>
+      </div>
+    </a>
+  );
+}
+
+// ─── LIVE NEWS SECTION ───────────────────────────────────────────────────────
+function LiveNewsSection({ dark, city = "all" }) {
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const textMuted = dark ? "#888" : "#666";
+  const border = dark ? "#1e1e28" : "#e5e5e5";
+
+  const fetchNews = async () => {
+    setLoading(true); setError(false);
+    try {
+      const res = await fetch(`/api/news?city=${city}`);
+      const data = await res.json();
+      if (data.articles && data.articles.length > 0) {
+        setNews(data.articles.slice(0, 6));
+        setLastUpdated(new Date());
+      } else {
+        setError(true);
+      }
+    } catch {
+      setError(true);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchNews(); }, [city]);
+
+  if (error) return null;
+
+  return (
+    <div style={{ marginBottom: 44 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 4, height: 32, background: LIVE_GREEN, borderRadius: 2 }} />
+          <h2 className="headline-font" style={{ fontSize: 32, lineHeight: 1 }}>LATEST NEWS</h2>
+          <span style={{ display: "flex", alignItems: "center", gap: 5, background: LIVE_GREEN + "22", color: LIVE_GREEN, fontSize: 11, fontWeight: 700, padding: "3px 9px", borderRadius: 12, letterSpacing: "0.08em" }}>
+            <span className="live-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: LIVE_GREEN, display: "inline-block" }} />
+            LIVE
+          </span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          {lastUpdated && <span style={{ fontSize: 12, color: textMuted }}>Updated {lastUpdated.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}</span>}
+          <button onClick={fetchNews} style={{ background: "none", border: `1px solid ${border}`, borderRadius: 6, cursor: "pointer", padding: "5px 12px", fontSize: 12, fontWeight: 700, color: textMuted, display: "flex", alignItems: "center", gap: 5 }}>
+            <RefreshCw size={12} /> Refresh
+          </button>
+        </div>
+      </div>
+
+      {loading ? (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
+          {[1,2,3,4,5,6].map(i => (
+            <div key={i} style={{ borderRadius: 10, overflow: "hidden" }}>
+              <div className={dark ? "skeleton" : "skeleton-light"} style={{ height: 180 }} />
+              <div style={{ padding: "14px 16px 16px", display: "flex", flexDirection: "column", gap: 8 }}>
+                <div className={dark ? "skeleton" : "skeleton-light"} style={{ height: 16, width: "90%" }} />
+                <div className={dark ? "skeleton" : "skeleton-light"} style={{ height: 16, width: "75%" }} />
+                <div className={dark ? "skeleton" : "skeleton-light"} style={{ height: 12, width: "50%" }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
+          {news.map(article => <LiveNewsCard key={article.id} article={article} dark={dark} />)}
+        </div>
+      )}
     </div>
   );
 }

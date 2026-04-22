@@ -4,7 +4,10 @@ import {
   X, Menu, ArrowLeft, Clock, User, Flame, Radio, Mail, Trophy,
   TrendingUp, Zap, RefreshCw, Bell, Share, Link2,
   ShoppingBag, TrendingDown, DollarSign, CheckCircle, Star, Package,
-  BarChart2, Lock, Percent, AlertTriangle, ChevronDown, ChevronUp
+  BarChart2, Lock, Percent, AlertTriangle, ChevronDown, ChevronUp,
+  Play, Pause, Volume2, Heart, MessageCircle, Send, ThumbsUp,
+  Repeat2, ExternalLink, Video, Mic, Image, Users, UserCheck,
+  Newspaper, ArrowRight, SkipForward, SkipBack
 } from "lucide-react";
 
 const DET_COLOR = "#C8102E";
@@ -171,6 +174,51 @@ const ODDS_DATA = [
 
 const fmt = (n) => n >= 1000 ? (n / 1000).toFixed(1) + "k" : n;
 
+const RUMORS = [
+  { id:"r1", team:"lions", city:"detroit", sport:"NFL", title:"Lions Exploring Contract Extension for Star Pass Rusher Before Free Agency", source:"ESPN", time:"1h ago", hot:true, likes:342, image:"https://picsum.photos/seed/lions_rumor1/800/450" },
+  { id:"r2", team:"bears", city:"chicago", sport:"NFL", title:"Bears Linked to Top Wide Receiver in Upcoming NFL Draft Class", source:"The Athletic", time:"2h ago", hot:true, likes:287, image:"https://picsum.photos/seed/bears_rumor1/800/450" },
+  { id:"r3", team:"bulls", city:"chicago", sport:"NBA", title:"Chicago Bulls In Talks With Multiple Teams Over Three-Team Blockbuster", source:"Bleacher Report", time:"3h ago", hot:false, likes:198, image:"https://picsum.photos/seed/bulls_rumor1/800/450" },
+  { id:"r4", team:"pistons", city:"detroit", sport:"NBA", title:"Pistons Eyeing Two Free Agent Targets to Complement Cade Cunningham", source:"HoopsHype", time:"4h ago", hot:false, likes:156, image:"https://picsum.photos/seed/pistons_rumor/800/450" },
+  { id:"r5", team:"cubs", city:"chicago", sport:"MLB", title:"Cubs Close to Finalizing Multi-Year Deal With Top Bullpen Arm", source:"MLB Network", time:"5h ago", hot:true, likes:221, image:"https://picsum.photos/seed/cubs_rumor/800/450" },
+  { id:"r6", team:"tigers", city:"detroit", sport:"MLB", title:"Detroit Tigers Pursuing Veteran Shortstop to Bridge Gap During Rebuild", source:"MLB Pipeline", time:"6h ago", hot:false, likes:134, image:"https://picsum.photos/seed/tigers_rumor/800/450" },
+  { id:"r7", team:"blackhawks", city:"chicago", sport:"NHL", title:"Blackhawks Could Move Veteran Defenseman to Accelerate Rebuild", source:"The Fourth Period", time:"8h ago", hot:false, likes:109, image:"https://picsum.photos/seed/hawks_rumor/800/450" },
+  { id:"r8", team:"redwings", city:"detroit", sport:"NHL", title:"Red Wings Scouting European Market for Top Forward Ahead of Deadline", source:"NHL Network", time:"10h ago", hot:false, likes:97, image:"https://picsum.photos/seed/wings_rumor/800/450" },
+];
+
+const VIDEOS = [
+  { id:"v1", title:"Lions Highlights: Goff Drops 4 TDs in Dominant NFC North Win", team:"Lions", duration:"4:22", thumb:"https://picsum.photos/seed/lions_vid1/800/450", views:"128k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v2", title:"Caleb Williams Best Plays: Week 14 vs. Rival NFC North Opponents", team:"Bears", duration:"6:15", thumb:"https://picsum.photos/seed/bears_vid1/800/450", views:"94k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v3", title:"Cade Cunningham 30-Point Game Extended Highlights", team:"Pistons", duration:"8:44", thumb:"https://picsum.photos/seed/pistons_vid/800/450", views:"76k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v4", title:"Bedard Hat Trick: Full Highlights from Saturday Night at the UC", team:"Blackhawks", duration:"5:02", thumb:"https://picsum.photos/seed/hawks_vid/800/450", views:"112k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v5", title:"Cubs Walk-Off Win: Full 9th Inning Breakdown", team:"Cubs", duration:"3:58", thumb:"https://picsum.photos/seed/cubs_vid/800/450", views:"63k", youtubeId:"dQw4w9WgXcQ" },
+  { id:"v6", title:"Red Wings Power Play Goals Compilation — 2025 Season", team:"Red Wings", duration:"7:11", thumb:"https://picsum.photos/seed/wings_vid/800/450", views:"44k", youtubeId:"dQw4w9WgXcQ" },
+];
+
+const PODCAST_EPISODES = [
+  { id:"p1", title:"Lions Super Bowl Window: How Real Is It?", duration:"58:22", date:"Apr 22", guest:"Marcus Johnson & Sarah Chen", image:"https://picsum.photos/seed/pod1/400/400" },
+  { id:"p2", title:"Caleb Williams' Breakout Year & Bears' Super Bowl Timeline", duration:"52:14", date:"Apr 19", guest:"Derek Williams", image:"https://picsum.photos/seed/pod2/400/400" },
+  { id:"p3", title:"NBA Trade Deadline Fallout: Bulls and Pistons Breakdown", duration:"1:04:33", date:"Apr 17", guest:"Lisa Park & Angela Martinez", image:"https://picsum.photos/seed/pod3/400/400" },
+  { id:"p4", title:"Bedard vs. The All-Time Rookies: Where Does He Rank?", duration:"44:07", date:"Apr 15", guest:"Kyle Foster", image:"https://picsum.photos/seed/pod4/400/400" },
+  { id:"p5", title:"Cubs Rotation Deep Dive: Can They Win the NL?", duration:"49:55", date:"Apr 12", guest:"James O'Brien", image:"https://picsum.photos/seed/pod5/400/400" },
+];
+
+const GALLERY = [
+  { id:"g1", image:"https://picsum.photos/seed/gallery_lions/800/600", caption:"Lions celebrate NFC North title", team:"Lions" },
+  { id:"g2", image:"https://picsum.photos/seed/gallery_bears/800/600", caption:"Caleb Williams TD walk-off", team:"Bears" },
+  { id:"g3", image:"https://picsum.photos/seed/gallery_cade/800/600", caption:"Cade Cunningham MVP candidate", team:"Pistons" },
+  { id:"g4", image:"https://picsum.photos/seed/gallery_bedard/800/600", caption:"Bedard hat trick celebration", team:"Blackhawks" },
+  { id:"g5", image:"https://picsum.photos/seed/gallery_cubs/800/600", caption:"Wrigley Field sold out game day", team:"Cubs" },
+  { id:"g6", image:"https://picsum.photos/seed/gallery_wings/800/600", caption:"Red Wings outdoor game", team:"Red Wings" },
+  { id:"g7", image:"https://picsum.photos/seed/gallery_tigers/800/600", caption:"Comerica Park sunset game", team:"Tigers" },
+  { id:"g8", image:"https://picsum.photos/seed/gallery_bulls/800/600", caption:"United Center playoff energy", team:"Bulls" },
+];
+
+const POLLS = [
+  { id:"poll1", question:"Who wins the NFC North this season?", options:["Detroit Lions","Chicago Bears","Green Bay Packers","Minnesota Vikings"], votes:[1240,890,654,432] },
+  { id:"poll2", question:"Which Detroit team will have the best 2025?", options:["Lions","Tigers","Pistons","Red Wings"], votes:[892,234,567,445] },
+  { id:"poll3", question:"Best Chicago sports moment of 2025?", options:["Bears Week 1 Win","Bulls playoff push","Cubs no-hitter","Blackhawks Bedard hat trick"], votes:[445,312,289,521] },
+];
+
 const GlobalStyles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&display=swap');
@@ -280,8 +328,8 @@ function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMob
             <span className="headline-font" style={{ fontSize: 28, lineHeight: 1 }}>US-<span style={{ color: DET_COLOR }}>1</span><span style={{ color: CHI_COLOR }}>2</span> ATHLETIC</span>
           </div>
           <nav className="hide-mobile" style={{ display: "flex", gap: 4, flex: 1 }}>
-            {[{ id: "home", label: "Home" }, { id: "detroit", label: "Detroit" }, { id: "chicago", label: "Chicago" }, { id: "scores", label: "Scores" }, { id: "odds", label: "Odds" }, { id: "merch", label: "Merch" }, { id: "newsletter", label: "Newsletter" }, { id: "about", label: "About" }].map(({ id, label }) => (
-              <button key={id} className={`nav-link${page === id ? " active" : ""}`} onClick={() => setPage(id)} style={{ background: "none", border: "none", cursor: "pointer", padding: "8px 10px", fontSize: 13, fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: page === id ? (id === "detroit" ? DET_COLOR : id === "chicago" ? CHI_COLOR : id === "odds" ? LIVE_GREEN : id === "scores" ? LIVE_GREEN : id === "merch" ? "#FFD700" : (dark ? "#f0f0f0" : "#111")) : textMuted }}>
+            {[{ id: "home", label: "Home" }, { id: "detroit", label: "Detroit" }, { id: "chicago", label: "Chicago" }, { id: "scores", label: "Scores" }, { id: "rumors", label: "Rumors" }, { id: "media", label: "Media" }, { id: "odds", label: "Odds" }, { id: "merch", label: "Merch" }, { id: "myteams", label: "My Teams" }, { id: "newsletter", label: "Newsletter" }, { id: "about", label: "About" }].map(({ id, label }) => (
+              <button key={id} className={`nav-link${page === id ? " active" : ""}`} onClick={() => setPage(id)} style={{ background: "none", border: "none", cursor: "pointer", padding: "8px 9px", fontSize: 12, fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase", color: page === id ? (id === "detroit" ? DET_COLOR : id === "chicago" ? CHI_COLOR : id === "odds" ? LIVE_GREEN : id === "scores" ? LIVE_GREEN : id === "merch" ? "#FFD700" : id === "rumors" ? "#FF4500" : id === "myteams" ? DET_COLOR : (dark ? "#f0f0f0" : "#111")) : textMuted }}>
                 {label}
               </button>
             ))}
@@ -296,7 +344,7 @@ function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMob
         </div>
         {mobileMenuOpen && (
           <div style={{ padding: "12px 0 16px", borderTop: `1px solid ${border}` }}>
-            {["home", "detroit", "chicago", "scores", "odds", "merch", "newsletter", "about"].map(id => (
+            {["home", "detroit", "chicago", "scores", "rumors", "media", "odds", "merch", "myteams", "newsletter", "about"].map(id => (
               <button key={id} onClick={() => { setPage(id); setMobileMenuOpen(false); }} style={{ display: "block", width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "10px 4px", fontSize: 16, fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: dark ? "#f0f0f0" : "#111" }}>
                 {id.charAt(0).toUpperCase() + id.slice(1)}
               </button>
@@ -563,6 +611,9 @@ function ArticlePage({ article, dark, bookmarks, toggleBookmark, onBack, related
           </div>
         </div>
       </div>
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 20px 40px" }}>
+        <CommentsSection dark={dark} articleId={article.id} />
+      </div>
       {relatedArticles.length > 0 && (
         <div style={{ maxWidth: 900, margin: "0 auto 40px", padding: "0 20px" }}>
           <h3 className="headline-font" style={{ fontSize: 26, marginBottom: 16 }}>MORE STORIES</h3>
@@ -681,7 +732,8 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
   return (
     <div style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 20px 60px" }}>
       <div style={{ marginBottom: 24 }}><HeroCard article={featuredArticle} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(featuredArticle)} /></div>
-      <div style={{ marginBottom: 36 }}><TrendingStrip dark={dark} /></div>
+      <div style={{ marginBottom: 24 }}><TrendingStrip dark={dark} /></div>
+      <div style={{ marginBottom: 28 }}><AdBanner dark={dark} size="leaderboard" /></div>
       <div className="main-grid" style={{ display: "grid", gridTemplateColumns: "1fr min(320px, 30%)", gap: 32 }}>
         <div>
           <div style={{ marginBottom: 44 }}>
@@ -690,10 +742,20 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
               {filteredDet.slice(0, 4).map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
             </div>
           </div>
-          <div>
+          <div style={{ marginBottom: 44 }}>
             <SectionHeader title="CHICAGO SPORTS" color={CHI_COLOR} onMore={() => setPage("chicago")} filterTeams={CHICAGO_TEAMS} activeFilter={chiFilter} setFilter={setChiFilter} dark={dark} />
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
               {filteredChi.slice(0, 4).map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
+            </div>
+          </div>
+          {/* Fan Polls Section */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+              <div style={{ width: 4, height: 28, background: "#FF4500", borderRadius: 2 }} />
+              <h2 className="headline-font" style={{ fontSize: 28 }}>FAN POLLS</h2>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
+              {POLLS.map(poll => <PollWidget key={poll.id} poll={poll} dark={dark} />)}
             </div>
           </div>
         </div>
@@ -1127,6 +1189,26 @@ function OddsPage({ dark }) {
         <span>Odds shown are for informational and entertainment purposes only. Gambling involves risk. Please bet responsibly. Must be 21+ and located in a jurisdiction where sports betting is legal. If you or someone you know has a gambling problem, call 1-800-GAMBLER.</span>
       </div>
 
+      {/* Affiliate Banners */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12, marginBottom: 28 }}>
+        {[
+          { name: "DraftKings", promo: "Bet $5, Get $200 in Bonus Bets", color: "#00B140", bg: "#00B14015" },
+          { name: "FanDuel", promo: "No Sweat First Bet up to $1,000", color: "#1493FF", bg: "#1493FF15" },
+          { name: "BetMGM", promo: "First Bet Offer up to $1,500", color: "#C8A84B", bg: "#C8A84B15" },
+          { name: "Caesars", promo: "First Bet on Caesars up to $1,000", color: "#9B5DE5", bg: "#9B5DE515" },
+        ].map(a => (
+          <div key={a.name} style={{ background: a.bg, border: `1px solid ${a.color}33`, borderRadius: 10, padding: "14px 16px", cursor: "pointer" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+              <span style={{ fontWeight: 800, fontSize: 15, color: a.color }}>{a.name}</span>
+              <ExternalLink size={13} color={a.color} />
+            </div>
+            <p style={{ fontSize: 12, color: textMuted, lineHeight: 1.4, marginBottom: 8 }}>{a.promo}</p>
+            <div style={{ background: a.color, color: "#fff", fontSize: 12, fontWeight: 700, padding: "5px 12px", borderRadius: 5, textAlign: "center" }}>CLAIM OFFER</div>
+            <p style={{ fontSize: 10, color: textMuted, marginTop: 6, textAlign: "center" }}>21+. T&Cs apply.</p>
+          </div>
+        ))}
+      </div>
+
       {/* Filters */}
       <div style={{ display: "flex", gap: 16, marginBottom: 28, flexWrap: "wrap" }}>
         <div style={{ display: "flex", gap: 6 }}>
@@ -1444,13 +1526,474 @@ function ScoresPage({ dark }) {
   );
 }
 
+// ─── AD BANNER ───────────────────────────────────────────────────────────────
+function AdBanner({ dark, size = "leaderboard" }) {
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const bg = dark ? "#111118" : "#f8f8f8";
+  const textMuted = dark ? "#555" : "#bbb";
+  const isLarge = size === "leaderboard";
+  return (
+    <div style={{ background: bg, border: `1px solid ${border}`, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 6, padding: isLarge ? "20px" : "14px", minHeight: isLarge ? 100 : 60, position: "relative" }}>
+      <span style={{ position: "absolute", top: 6, right: 8, fontSize: 10, color: textMuted, letterSpacing: "0.08em" }}>ADVERTISEMENT</span>
+      <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+        {[
+          { label: "DraftKings", color: "#00B140", text: "Bet $5 Get $200" },
+          { label: "FanDuel", color: "#1493FF", text: "No Sweat First Bet" },
+          { label: "BetMGM", color: "#C8A84B", text: "Bet $10 Win $200" },
+        ].slice(0, isLarge ? 3 : 1).map(ad => (
+          <div key={ad.label} style={{ textAlign: "center" }}>
+            <div style={{ background: ad.color, color: "#fff", fontWeight: 800, fontSize: 13, padding: "6px 16px", borderRadius: 6, marginBottom: 3, cursor: "pointer" }}>{ad.label}</div>
+            <div style={{ fontSize: 11, color: textMuted }}>{ad.text}</div>
+          </div>
+        ))}
+      </div>
+      <p style={{ fontSize: 10, color: textMuted, textAlign: "center" }}>21+ only. Gambling problem? Call 1-800-GAMBLER.</p>
+    </div>
+  );
+}
+
+// ─── POLL WIDGET ──────────────────────────────────────────────────────────────
+function PollWidget({ poll, dark }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const textMuted = dark ? "#888" : "#666";
+  const [voted, setVoted] = useState(null);
+  const [votes, setVotes] = useState(poll.votes);
+  const total = votes.reduce((a, b) => a + b, 0);
+
+  const vote = (i) => {
+    if (voted !== null) return;
+    setVoted(i);
+    setVotes(prev => prev.map((v, idx) => idx === i ? v + 1 : v));
+  };
+
+  return (
+    <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 20 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+        <ThumbsUp size={16} color={DET_COLOR} />
+        <span style={{ fontSize: 12, fontWeight: 700, color: DET_COLOR, letterSpacing: "0.08em" }}>FAN POLL</span>
+      </div>
+      <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 14, lineHeight: 1.4 }}>{poll.question}</h3>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {poll.options.map((opt, i) => {
+          const pct = total > 0 ? Math.round((votes[i] / (total + (voted !== null ? 0 : 0))) * 100) : 0;
+          const isWinner = voted !== null && votes[i] === Math.max(...votes);
+          return (
+            <div key={i} onClick={() => vote(i)} style={{ position: "relative", cursor: voted === null ? "pointer" : "default", borderRadius: 8, overflow: "hidden", border: `1px solid ${voted === i ? DET_COLOR : border}` }}>
+              {voted !== null && <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${pct}%`, background: voted === i ? DET_COLOR + "33" : (dark ? "#1e1e28" : "#f0f0f0"), transition: "width 0.5s ease" }} />}
+              <div style={{ position: "relative", padding: "10px 14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontSize: 14, fontWeight: voted === i ? 700 : 500 }}>{opt}</span>
+                {voted !== null && <span style={{ fontSize: 13, fontWeight: 700, color: isWinner ? DET_COLOR : textMuted }}>{pct}%</span>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <p style={{ fontSize: 12, color: textMuted, marginTop: 10 }}>{(total + (voted !== null ? 1 : 0)).toLocaleString()} votes</p>
+    </div>
+  );
+}
+
+// ─── COMMENTS SECTION ────────────────────────────────────────────────────────
+function CommentsSection({ dark, articleId }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const bg2 = dark ? "#0D0D0F" : "#f5f5f5";
+  const textMuted = dark ? "#888" : "#666";
+
+  const INIT_COMMENTS = {
+    d1: [
+      { id:1, name:"LionsNation88", avatar:"LN", color:DET_COLOR, time:"1h ago", text:"This team is absolutely for real. No more 'same old Lions' — this is a completely different franchise.", likes:47 },
+      { id:2, name:"DetroitFanatic", avatar:"DF", color:"#0076B6", time:"2h ago", text:"Goff deserves all the credit he's been denied. The guy is playing at an elite level right now.", likes:31 },
+    ],
+    c1: [
+      { id:1, name:"BearDown2025", avatar:"BD", color:CHI_COLOR, time:"30m ago", text:"Caleb Williams is going to be something special. That performance gave me chills.", likes:63 },
+      { id:2, name:"ChiSportsFan", avatar:"CS", color:"#C83803", time:"1h ago", text:"Finally a Bears QB worth getting excited about. Building something real on the north side.", likes:28 },
+    ],
+  };
+
+  const [comments, setComments] = useState(INIT_COMMENTS[articleId] || []);
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
+  const [liked, setLiked] = useState([]);
+
+  const submit = () => {
+    if (!text.trim() || !name.trim()) return;
+    const newComment = { id: Date.now(), name, avatar: name.slice(0, 2).toUpperCase(), color: DET_COLOR, time: "Just now", text, likes: 0 };
+    setComments(prev => [newComment, ...prev]);
+    setText(""); setName("");
+  };
+
+  const toggleLike = (id) => {
+    setLiked(prev => prev.includes(id) ? prev.filter(l => l !== id) : [...prev, id]);
+    setComments(prev => prev.map(c => c.id === id ? { ...c, likes: liked.includes(id) ? c.likes - 1 : c.likes + 1 } : c));
+  };
+
+  return (
+    <div style={{ maxWidth: 720, marginTop: 40, paddingTop: 32, borderTop: `1px solid ${border}` }}>
+      <h3 className="headline-font" style={{ fontSize: 26, marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
+        <MessageCircle size={20} /> COMMENTS ({comments.length})
+      </h3>
+
+      {/* Comment form */}
+      <div style={{ background: bg2, borderRadius: 10, padding: 16, marginBottom: 28, border: `1px solid ${border}` }}>
+        <input value={name} onChange={e => setName(e.target.value)} placeholder="Your name" style={{ width: "100%", background: dark ? "#13131b" : "#fff", border: `1px solid ${border}`, borderRadius: 6, padding: "8px 12px", fontSize: 14, color: dark ? "#f0f0f0" : "#111", outline: "none", marginBottom: 10 }} />
+        <textarea value={text} onChange={e => setText(e.target.value)} placeholder="Join the conversation..." rows={3} style={{ width: "100%", background: dark ? "#13131b" : "#fff", border: `1px solid ${border}`, borderRadius: 6, padding: "10px 12px", fontSize: 14, color: dark ? "#f0f0f0" : "#111", outline: "none", resize: "vertical", fontFamily: "inherit", marginBottom: 10 }} />
+        <button onClick={submit} style={{ background: DET_COLOR, color: "#fff", border: "none", borderRadius: 6, padding: "9px 20px", cursor: "pointer", fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+          <Send size={14} /> Post Comment
+        </button>
+      </div>
+
+      {/* Comments list */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        {comments.length === 0 ? (
+          <p style={{ color: textMuted, fontSize: 14, textAlign: "center", padding: "24px 0" }}>Be the first to comment!</p>
+        ) : comments.map(c => (
+          <div key={c.id} style={{ display: "flex", gap: 12 }}>
+            <div style={{ width: 38, height: 38, borderRadius: "50%", background: c.color + "33", border: `2px solid ${c.color}44`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 13, fontWeight: 700, color: c.color }}>{c.avatar}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                <span style={{ fontWeight: 700, fontSize: 14 }}>{c.name}</span>
+                <span style={{ fontSize: 12, color: textMuted }}>{c.time}</span>
+              </div>
+              <p style={{ fontSize: 14, lineHeight: 1.6, color: dark ? "#d0d0d0" : "#333", marginBottom: 8 }}>{c.text}</p>
+              <button onClick={() => toggleLike(c.id)} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 5, fontSize: 13, color: liked.includes(c.id) ? DET_COLOR : textMuted, fontWeight: liked.includes(c.id) ? 700 : 400 }}>
+                <Heart size={13} fill={liked.includes(c.id) ? DET_COLOR : "none"} color={liked.includes(c.id) ? DET_COLOR : textMuted} /> {c.likes}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── MEDIA PAGE ──────────────────────────────────────────────────────────────
+function MediaPage({ dark }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const bg2 = dark ? "#0D0D0F" : "#f5f5f5";
+  const textMuted = dark ? "#888" : "#666";
+  const [playingEp, setPlayingEp] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [playingVideo, setPlayingVideo] = useState(null);
+  const [lightboxImg, setLightboxImg] = useState(null);
+  const [tab, setTab] = useState("videos");
+
+  useEffect(() => {
+    let t;
+    if (playing) t = setInterval(() => setProgress(p => p >= 100 ? 0 : p + 0.2), 300);
+    return () => clearInterval(t);
+  }, [playing]);
+
+  const selectEp = (ep) => { setPlayingEp(ep); setProgress(0); setPlaying(true); };
+
+  return (
+    <div className="fade-up" style={{ maxWidth: 1280, margin: "0 auto", padding: "30px 20px 60px" }}>
+      <div style={{ marginBottom: 28 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
+          <Video size={28} color={DET_COLOR} />
+          <h1 className="headline-font" style={{ fontSize: 48 }}>MEDIA CENTER</h1>
+        </div>
+        <p style={{ color: textMuted, fontSize: 15 }}>Highlights, podcasts, and photo galleries from Detroit & Chicago sports.</p>
+      </div>
+
+      {/* Tabs */}
+      <div style={{ display: "flex", gap: 4, marginBottom: 28, borderBottom: `1px solid ${border}`, paddingBottom: 0 }}>
+        {[{id:"videos",label:"🎬 Highlights"},{id:"podcast",label:"🎙️ Podcast"},{id:"gallery",label:"📸 Gallery"}].map(t => (
+          <button key={t.id} onClick={() => setTab(t.id)} style={{ background: "none", border: "none", cursor: "pointer", padding: "10px 20px", fontSize: 15, fontWeight: 700, color: tab === t.id ? DET_COLOR : textMuted, borderBottom: `2px solid ${tab === t.id ? DET_COLOR : "transparent"}`, marginBottom: -1 }}>{t.label}</button>
+        ))}
+      </div>
+
+      {/* VIDEOS TAB */}
+      {tab === "videos" && (
+        <>
+          {playingVideo && (
+            <div style={{ marginBottom: 32, borderRadius: 12, overflow: "hidden", background: "#000", aspectRatio: "16/9", position: "relative" }}>
+              <img src={playingVideo.thumb} alt={playingVideo.title} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.3 }} />
+              <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12 }}>
+                <Play size={64} color="#fff" fill="#fff" />
+                <p style={{ color: "#fff", fontWeight: 700, fontSize: 16, textAlign: "center", maxWidth: 500, padding: "0 20px" }}>{playingVideo.title}</p>
+                <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 13 }}>Video player would embed here with real YouTube ID</p>
+              </div>
+              <button onClick={() => setPlayingVideo(null)} style={{ position: "absolute", top: 12, right: 12, background: "rgba(0,0,0,0.6)", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}><X size={16} /></button>
+            </div>
+          )}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
+            {VIDEOS.map(v => (
+              <div key={v.id} className="article-card" onClick={() => setPlayingVideo(v)} style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, overflow: "hidden" }}>
+                <div style={{ position: "relative", aspectRatio: "16/9" }}>
+                  <img src={v.thumb} alt={v.title} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ width: 48, height: 48, borderRadius: "50%", background: "rgba(255,255,255,0.9)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Play size={20} color="#111" fill="#111" style={{ marginLeft: 3 }} />
+                    </div>
+                  </div>
+                  <span style={{ position: "absolute", bottom: 8, right: 8, background: "rgba(0,0,0,0.8)", color: "#fff", fontSize: 12, fontWeight: 700, padding: "2px 7px", borderRadius: 4 }}>{v.duration}</span>
+                  <span style={{ position: "absolute", top: 8, left: 8, background: DET_COLOR, color: "#fff", fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 3 }}>{v.team}</span>
+                </div>
+                <div style={{ padding: "12px 14px" }}>
+                  <h3 style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.4, marginBottom: 6 }}>{v.title}</h3>
+                  <span style={{ fontSize: 12, color: textMuted }}>{v.views} views</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* PODCAST TAB */}
+      {tab === "podcast" && (
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) 340px", gap: 28 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {PODCAST_EPISODES.map(ep => (
+              <div key={ep.id} onClick={() => selectEp(ep)} style={{ background: surface, border: `1px solid ${playingEp?.id === ep.id ? DET_COLOR : border}`, borderRadius: 10, padding: 16, cursor: "pointer", display: "flex", gap: 14, alignItems: "center", transition: "border-color 0.2s" }}>
+                <div style={{ position: "relative", flexShrink: 0 }}>
+                  <img src={ep.image} alt={ep.title} style={{ width: 64, height: 64, borderRadius: 8, objectFit: "cover" }} />
+                  {playingEp?.id === ep.id && playing && (
+                    <div style={{ position: "absolute", inset: 0, borderRadius: 8, background: "rgba(200,16,46,0.7)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Pause size={20} color="#fff" />
+                    </div>
+                  )}
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h3 style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.35, marginBottom: 4 }}>{ep.title}</h3>
+                  <p style={{ fontSize: 12, color: textMuted, marginBottom: 4 }}>with {ep.guest}</p>
+                  <div style={{ display: "flex", gap: 12, fontSize: 12, color: textMuted }}>
+                    <span><Clock size={11} style={{ display: "inline", marginRight: 3 }} />{ep.duration}</span>
+                    <span>{ep.date}</span>
+                  </div>
+                </div>
+                <div style={{ width: 36, height: 36, borderRadius: "50%", background: playingEp?.id === ep.id ? DET_COLOR : bg2, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  {playingEp?.id === ep.id && playing ? <Pause size={14} color="#fff" /> : <Play size={14} color={playingEp?.id === ep.id ? "#fff" : textMuted} style={{ marginLeft: 2 }} />}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Player */}
+          <div style={{ position: "sticky", top: 80 }}>
+            <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 14, overflow: "hidden" }}>
+              <div style={{ background: `linear-gradient(135deg, ${DET_COLOR}22, ${CHI_COLOR}22)`, padding: 24, textAlign: "center" }}>
+                <img src={playingEp?.image || PODCAST_EPISODES[0].image} alt="" style={{ width: 120, height: 120, borderRadius: 12, objectFit: "cover", marginBottom: 14, boxShadow: "0 8px 24px rgba(0,0,0,0.3)" }} />
+                <h3 style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.35, marginBottom: 6 }}>{playingEp?.title || PODCAST_EPISODES[0].title}</h3>
+                <p style={{ fontSize: 12, color: textMuted }}>{playingEp?.guest || PODCAST_EPISODES[0].guest}</p>
+              </div>
+              <div style={{ padding: "16px 20px 20px" }}>
+                {/* Progress bar */}
+                <div style={{ height: 4, background: dark ? "#1e1e28" : "#eee", borderRadius: 2, marginBottom: 8, cursor: "pointer", position: "relative" }}>
+                  <div style={{ height: "100%", width: `${progress}%`, background: DET_COLOR, borderRadius: 2, transition: "width 0.3s" }} />
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: textMuted, marginBottom: 16 }}>
+                  <span>{Math.floor(progress * 0.58)}:00</span>
+                  <span>{playingEp?.duration || PODCAST_EPISODES[0].duration}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}>
+                  <button onClick={() => setProgress(p => Math.max(0, p - 5))} style={{ background: "none", border: "none", cursor: "pointer", color: textMuted }}><SkipBack size={22} /></button>
+                  <button onClick={() => setPlaying(!playing)} style={{ width: 52, height: 52, borderRadius: "50%", background: DET_COLOR, border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
+                    {playing ? <Pause size={22} /> : <Play size={22} style={{ marginLeft: 3 }} />}
+                  </button>
+                  <button onClick={() => setProgress(p => Math.min(100, p + 5))} style={{ background: "none", border: "none", cursor: "pointer", color: textMuted }}><SkipForward size={22} /></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* GALLERY TAB */}
+      {tab === "gallery" && (
+        <>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 12 }}>
+            {GALLERY.map(g => (
+              <div key={g.id} className="hero-card" onClick={() => setLightboxImg(g)} style={{ borderRadius: 10, overflow: "hidden", aspectRatio: "4/3", cursor: "pointer" }}>
+                <img src={g.image} alt={g.caption} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)" }} />
+                <div style={{ position: "absolute", bottom: 10, left: 12, right: 12 }}>
+                  <span style={{ background: DET_COLOR, color: "#fff", fontSize: 10, fontWeight: 700, padding: "2px 7px", borderRadius: 3, marginBottom: 4, display: "inline-block" }}>{g.team}</span>
+                  <p style={{ color: "#fff", fontSize: 13, fontWeight: 600 }}>{g.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          {lightboxImg && (
+            <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.95)", zIndex: 300, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }} onClick={() => setLightboxImg(null)}>
+              <div onClick={e => e.stopPropagation()} style={{ maxWidth: 900, width: "100%" }}>
+                <img src={lightboxImg.image} alt={lightboxImg.caption} style={{ width: "100%", borderRadius: 10 }} />
+                <p style={{ color: "#fff", textAlign: "center", marginTop: 12, fontSize: 15 }}>{lightboxImg.caption}</p>
+                <button onClick={() => setLightboxImg(null)} style={{ position: "absolute", top: 20, right: 20, background: "rgba(255,255,255,0.15)", border: "none", borderRadius: "50%", width: 40, height: 40, cursor: "pointer", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}><X size={18} /></button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─── RUMORS PAGE ─────────────────────────────────────────────────────────────
+function RumorsPage({ dark, onArticleClick }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const bg2 = dark ? "#0D0D0F" : "#f5f5f5";
+  const textMuted = dark ? "#888" : "#666";
+  const [filter, setFilter] = useState("ALL");
+  const [likedRumors, setLikedRumors] = useState([]);
+
+  const sports = ["ALL", "NFL", "NBA", "MLB", "NHL"];
+  const filtered = filter === "ALL" ? RUMORS : RUMORS.filter(r => r.sport === filter);
+  const toggleLike = (id) => setLikedRumors(prev => prev.includes(id) ? prev.filter(l => l !== id) : [...prev, id]);
+
+  return (
+    <div className="fade-up" style={{ maxWidth: 1280, margin: "0 auto", padding: "30px 20px 60px" }}>
+      <div style={{ marginBottom: 28 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
+          <Newspaper size={28} color="#FF4500" />
+          <h1 className="headline-font" style={{ fontSize: 48 }}>TRADE RUMORS</h1>
+        </div>
+        <p style={{ color: textMuted, fontSize: 15 }}>Latest intel on moves, extensions, and transactions across Detroit & Chicago.</p>
+      </div>
+
+      {/* Sport filters */}
+      <div style={{ display: "flex", gap: 8, marginBottom: 28, flexWrap: "wrap" }}>
+        {sports.map(s => <button key={s} onClick={() => setFilter(s)} className="team-pill" style={{ padding: "6px 16px", borderRadius: 20, border: `1px solid ${filter === s ? "#FF4500" : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: filter === s ? "#FF450022" : "transparent", color: filter === s ? "#FF4500" : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>{s}</button>)}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr min(320px,30%)", gap: 28 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {filtered.map(r => (
+            <div key={r.id} style={{ background: surface, border: `1px solid ${r.hot ? "#FF450044" : border}`, borderRadius: 12, overflow: "hidden", display: "flex" }}>
+              <img src={r.image} alt={r.title} style={{ width: 120, height: "100%", objectFit: "cover", flexShrink: 0 }} />
+              <div style={{ padding: "14px 16px", flex: 1 }}>
+                <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
+                  {r.hot && <span style={{ background: "#FF4500", color: "#fff", fontSize: 10, fontWeight: 800, padding: "2px 7px", borderRadius: 3, display: "flex", alignItems: "center", gap: 3 }}><Flame size={9} /> HOT</span>}
+                  <span style={{ background: r.city === "detroit" ? DET_COLOR : CHI_COLOR, color: "#fff", fontSize: 10, fontWeight: 700, padding: "2px 7px", borderRadius: 3 }}>{r.sport}</span>
+                  <span style={{ background: bg2, color: textMuted, fontSize: 10, fontWeight: 600, padding: "2px 7px", borderRadius: 3 }}>{r.team.toUpperCase()}</span>
+                </div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.35, marginBottom: 8 }}>{r.title}</h3>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 12, color: textMuted }}>
+                  <span>{r.source}</span>
+                  <span>·</span>
+                  <span><Clock size={11} style={{ display: "inline", marginRight: 3 }} />{r.time}</span>
+                  <button onClick={() => toggleLike(r.id)} style={{ marginLeft: "auto", background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontSize: 12, color: likedRumors.includes(r.id) ? DET_COLOR : textMuted, fontWeight: likedRumors.includes(r.id) ? 700 : 400 }}>
+                    <Heart size={12} fill={likedRumors.includes(r.id) ? DET_COLOR : "none"} color={likedRumors.includes(r.id) ? DET_COLOR : textMuted} />
+                    {r.likes + (likedRumors.includes(r.id) ? 1 : 0)}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Sidebar with polls and ads */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <PollWidget poll={POLLS[0]} dark={dark} />
+          <AdBanner dark={dark} size="sidebar" />
+          <PollWidget poll={POLLS[2]} dark={dark} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── MY TEAMS PAGE ───────────────────────────────────────────────────────────
+function MyTeamsPage({ dark, articles, onArticleClick, bookmarks, toggleBookmark }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const textMuted = dark ? "#888" : "#666";
+  const allTeams = [
+    ...DETROIT_TEAMS.map(t => ({ ...t, city: "detroit" })),
+    ...CHICAGO_TEAMS.map(t => ({ ...t, city: "chicago" }))
+  ];
+  const [followed, setFollowed] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("us12_followed") || '["lions","bears"]'); } catch { return ["lions", "bears"]; }
+  });
+
+  const toggleFollow = (id) => {
+    setFollowed(prev => {
+      const next = prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id];
+      try { localStorage.setItem("us12_followed", JSON.stringify(next)); } catch {}
+      return next;
+    });
+  };
+
+  const myArticles = followed.length > 0 ? articles.filter(a => followed.includes(a.team)) : articles;
+
+  return (
+    <div className="fade-up" style={{ maxWidth: 1280, margin: "0 auto", padding: "30px 20px 60px" }}>
+      <div style={{ marginBottom: 28 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
+          <UserCheck size={28} color={DET_COLOR} />
+          <h1 className="headline-font" style={{ fontSize: 48 }}>MY TEAMS</h1>
+        </div>
+        <p style={{ color: textMuted, fontSize: 15 }}>Follow your teams to get a personalized news feed.</p>
+      </div>
+
+      {/* Team grid */}
+      <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 14, padding: 24, marginBottom: 36 }}>
+        <h2 className="headline-font" style={{ fontSize: 24, marginBottom: 20 }}>CHOOSE YOUR TEAMS</h2>
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+            <div style={{ width: 4, height: 20, background: DET_COLOR, borderRadius: 2 }} />
+            <span style={{ fontWeight: 700, fontSize: 14, letterSpacing: "0.08em" }}>DETROIT</span>
+          </div>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            {DETROIT_TEAMS.map(t => (
+              <button key={t.id} onClick={() => toggleFollow(t.id)} style={{ padding: "10px 18px", borderRadius: 8, border: `2px solid ${followed.includes(t.id) ? t.color : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: followed.includes(t.id) ? t.color : "transparent", color: followed.includes(t.id) ? "#fff" : textMuted, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 7, transition: "all 0.15s" }}>
+                {followed.includes(t.id) ? <UserCheck size={14} /> : <Users size={14} />}
+                {t.name} <span style={{ opacity: 0.7, fontSize: 12 }}>{t.sport}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+            <div style={{ width: 4, height: 20, background: CHI_COLOR, borderRadius: 2 }} />
+            <span style={{ fontWeight: 700, fontSize: 14, letterSpacing: "0.08em" }}>CHICAGO</span>
+          </div>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            {CHICAGO_TEAMS.map(t => (
+              <button key={t.id} onClick={() => toggleFollow(t.id)} style={{ padding: "10px 18px", borderRadius: 8, border: `2px solid ${followed.includes(t.id) ? t.color : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: followed.includes(t.id) ? t.color : "transparent", color: followed.includes(t.id) ? "#fff" : textMuted, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 7, transition: "all 0.15s" }}>
+                {followed.includes(t.id) ? <UserCheck size={14} /> : <Users size={14} />}
+                {t.name} <span style={{ opacity: 0.7, fontSize: 12 }}>{t.sport}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Personalized feed */}
+      <div>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+          <div style={{ width: 4, height: 28, background: DET_COLOR, borderRadius: 2 }} />
+          <h2 className="headline-font" style={{ fontSize: 28 }}>YOUR FEED</h2>
+          <span style={{ background: DET_COLOR + "22", color: DET_COLOR, fontSize: 12, fontWeight: 700, padding: "3px 10px", borderRadius: 12 }}>{myArticles.length} stories</span>
+        </div>
+        {followed.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "48px 20px", color: textMuted }}>
+            <Users size={48} strokeWidth={1} style={{ marginBottom: 12 }} />
+            <p style={{ fontSize: 16 }}>Follow some teams above to build your personalized feed!</p>
+          </div>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
+            {myArticles.map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(() => { try { return localStorage.getItem("us12_dark") !== "false"; } catch { return true; } });
   const [page, setPage] = useState("home");
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [bookmarks, setBookmarks] = useState([]);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleDark = (v) => { setDark(v); try { localStorage.setItem("us12_dark", String(v)); } catch {} };
 
   const handleArticleClick = useCallback((article) => { setSelectedArticle(article); setPage("article"); setMobileMenuOpen(false); }, []);
   const toggleBookmark = useCallback((id) => { setBookmarks(prev => prev.includes(id) ? prev.filter(b => b !== id) : [...prev, id]); }, []);
@@ -1463,6 +2006,10 @@ export default function App() {
     if (page === "scores") return <ScoresPage dark={dark} />;
     if (page === "newsletter") return <NewsletterPage dark={dark} />;
     if (page === "odds") return <OddsPage dark={dark} />;
+    if (page === "merch") return <MerchPage dark={dark} />;
+    if (page === "media") return <MediaPage dark={dark} />;
+    if (page === "rumors") return <RumorsPage dark={dark} onArticleClick={handleArticleClick} />;
+    if (page === "myteams") return <MyTeamsPage dark={dark} articles={ALL_ARTICLES} onArticleClick={handleArticleClick} bookmarks={bookmarks} toggleBookmark={toggleBookmark} />;
     if (page === "about") return <AboutPage dark={dark} />;
     return <HomePage dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} setPage={setPage} />;
   };
@@ -1470,7 +2017,7 @@ export default function App() {
   return (
     <div className={`app ${dark ? "dark" : "light"}`}>
       <GlobalStyles />
-      <Header dark={dark} setDark={setDark} page={page} setPage={p => { setPage(p); setMobileMenuOpen(false); window.scrollTo({top:0,behavior:"smooth"}); }} onSearch={() => setSearchOpen(true)} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+      <Header dark={dark} setDark={toggleDark} page={page} setPage={p => { setPage(p); setMobileMenuOpen(false); window.scrollTo({top:0,behavior:"smooth"}); }} onSearch={() => setSearchOpen(true)} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
       <ScoreTicker dark={dark} />
       <main>{renderPage()}</main>
       <Footer dark={dark} />

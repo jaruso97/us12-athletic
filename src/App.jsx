@@ -280,8 +280,8 @@ function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMob
             <span className="headline-font" style={{ fontSize: 28, lineHeight: 1 }}>US-<span style={{ color: DET_COLOR }}>1</span><span style={{ color: CHI_COLOR }}>2</span> ATHLETIC</span>
           </div>
           <nav className="hide-mobile" style={{ display: "flex", gap: 4, flex: 1 }}>
-            {[{ id: "home", label: "Home" }, { id: "detroit", label: "Detroit" }, { id: "chicago", label: "Chicago" }, { id: "odds", label: "Odds" }, { id: "merch", label: "Merch" }, { id: "newsletter", label: "Newsletter" }, { id: "about", label: "About" }].map(({ id, label }) => (
-              <button key={id} className={`nav-link${page === id ? " active" : ""}`} onClick={() => setPage(id)} style={{ background: "none", border: "none", cursor: "pointer", padding: "8px 12px", fontSize: 14, fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: page === id ? (id === "detroit" ? DET_COLOR : id === "chicago" ? CHI_COLOR : id === "odds" ? LIVE_GREEN : id === "merch" ? "#FFD700" : (dark ? "#f0f0f0" : "#111")) : textMuted }}>
+            {[{ id: "home", label: "Home" }, { id: "detroit", label: "Detroit" }, { id: "chicago", label: "Chicago" }, { id: "scores", label: "Scores" }, { id: "odds", label: "Odds" }, { id: "merch", label: "Merch" }, { id: "newsletter", label: "Newsletter" }, { id: "about", label: "About" }].map(({ id, label }) => (
+              <button key={id} className={`nav-link${page === id ? " active" : ""}`} onClick={() => setPage(id)} style={{ background: "none", border: "none", cursor: "pointer", padding: "8px 10px", fontSize: 13, fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: page === id ? (id === "detroit" ? DET_COLOR : id === "chicago" ? CHI_COLOR : id === "odds" ? LIVE_GREEN : id === "scores" ? LIVE_GREEN : id === "merch" ? "#FFD700" : (dark ? "#f0f0f0" : "#111")) : textMuted }}>
                 {label}
               </button>
             ))}
@@ -296,7 +296,7 @@ function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMob
         </div>
         {mobileMenuOpen && (
           <div style={{ padding: "12px 0 16px", borderTop: `1px solid ${border}` }}>
-            {["home", "detroit", "chicago", "odds", "merch", "newsletter", "about"].map(id => (
+            {["home", "detroit", "chicago", "scores", "odds", "merch", "newsletter", "about"].map(id => (
               <button key={id} onClick={() => { setPage(id); setMobileMenuOpen(false); }} style={{ display: "block", width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "10px 4px", fontSize: 16, fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: dark ? "#f0f0f0" : "#111" }}>
                 {id.charAt(0).toUpperCase() + id.slice(1)}
               </button>
@@ -1259,6 +1259,191 @@ function OddsPage({ dark }) {
   );
 }
 
+// ─── SCORES PAGE ─────────────────────────────────────────────────────────────
+function ScoresPage({ dark }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const bg2 = dark ? "#0D0D0F" : "#f5f5f5";
+  const textMuted = dark ? "#888" : "#666";
+  const [scores, setScores] = useState(SCORES);
+  const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const [sportFilter, setSportFilter] = useState("ALL");
+  const [statusFilter, setStatusFilter] = useState("ALL");
+
+  const fetchScores = async () => {
+    try {
+      const res = await fetch("/api/scores");
+      const data = await res.json();
+      if (data.games && data.games.length > 0) {
+        setScores(data.games);
+        setLastUpdated(new Date());
+      }
+    } catch { /* keep existing */ }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchScores();
+    const interval = setInterval(fetchScores, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const sports = ["ALL", "NFL", "NBA", "MLB", "NHL"];
+  const statuses = ["ALL", "LIVE", "FINAL", "UPCOMING"];
+
+  const filtered = scores.filter(s => {
+    const sportMatch = sportFilter === "ALL" || s.sport === sportFilter;
+    const statusMatch = statusFilter === "ALL" || s.status === statusFilter;
+    return sportMatch && statusMatch;
+  });
+
+  const liveGames = filtered.filter(s => s.status === "LIVE");
+  const finalGames = filtered.filter(s => s.status === "FINAL");
+  const upcomingGames = filtered.filter(s => s.status === "UPCOMING");
+
+  const sportColor = (sport) => sport === "NFL" ? "#0076B6" : sport === "NBA" ? DET_COLOR : sport === "MLB" ? LIVE_GREEN : "#888";
+
+  const GameCard = ({ game }) => {
+    const isLive = game.status === "LIVE";
+    const isFinal = game.status === "FINAL";
+    const isUpcoming = game.status === "UPCOMING";
+    const detTeams = ["DET", "TIG", "PIS", "WIN", "LIO", "RED"];
+    const chiTeams = ["CHI", "BUL", "CUB", "SOX", "HAW", "BEA", "BLA"];
+    const awayIsLocal = detTeams.includes(game.away) || chiTeams.includes(game.away);
+    const homeIsLocal = detTeams.includes(game.home) || chiTeams.includes(game.home);
+
+    return (
+      <div style={{ background: surface, border: `1px solid ${isLive ? LIVE_GREEN + "44" : border}`, borderRadius: 12, overflow: "hidden", position: "relative", boxShadow: isLive ? `0 0 20px ${LIVE_GREEN}15` : "none" }}>
+        {/* Top bar */}
+        <div style={{ background: isLive ? LIVE_GREEN + "15" : bg2, padding: "10px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${isLive ? LIVE_GREEN + "33" : border}` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ background: sportColor(game.sport), color: "#fff", fontSize: 11, fontWeight: 800, padding: "2px 8px", borderRadius: 3 }}>{game.sport}</span>
+            {isLive && <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 700, color: LIVE_GREEN }}><span className="live-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: LIVE_GREEN, display: "inline-block" }} /> LIVE</span>}
+            {isFinal && <span style={{ fontSize: 12, color: textMuted, fontWeight: 600 }}>FINAL</span>}
+            {isUpcoming && <span style={{ fontSize: 12, color: "#7ab8f5", fontWeight: 600 }}>UPCOMING</span>}
+          </div>
+          <span style={{ fontSize: 12, color: textMuted }}>{game.info}</span>
+        </div>
+
+        {/* Score display */}
+        <div style={{ padding: "20px 20px" }}>
+          {/* Away team */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 40, height: 40, borderRadius: 8, background: isUpcoming ? bg2 : (game.as > game.hs && !isUpcoming ? (dark ? "#ffffff10" : "#f0f0f0") : bg2), display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span className="headline-font" style={{ fontSize: 14, color: textMuted }}>{game.away}</span>
+              </div>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 16 }}>{game.awayFull || game.away}</div>
+                <div style={{ fontSize: 12, color: textMuted }}>Away</div>
+              </div>
+            </div>
+            {!isUpcoming && (
+              <span className="headline-font" style={{ fontSize: 42, lineHeight: 1, color: game.as > game.hs ? (dark ? "#fff" : "#111") : textMuted }}>{game.as}</span>
+            )}
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+            <div style={{ flex: 1, height: 1, background: border }} />
+            <span style={{ fontSize: 12, color: textMuted, fontWeight: 600 }}>VS</span>
+            <div style={{ flex: 1, height: 1, background: border }} />
+          </div>
+
+          {/* Home team */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 40, height: 40, borderRadius: 8, background: bg2, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span className="headline-font" style={{ fontSize: 14, color: textMuted }}>{game.home}</span>
+              </div>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 16 }}>{game.homeFull || game.home}</div>
+                <div style={{ fontSize: 12, color: textMuted }}>Home</div>
+              </div>
+            </div>
+            {!isUpcoming && (
+              <span className="headline-font" style={{ fontSize: 42, lineHeight: 1, color: game.hs > game.as ? (dark ? "#fff" : "#111") : textMuted }}>{game.hs}</span>
+            )}
+          </div>
+        </div>
+
+        {/* Winner banner */}
+        {isFinal && (
+          <div style={{ background: bg2, padding: "8px 16px", borderTop: `1px solid ${border}`, fontSize: 12, color: textMuted, fontWeight: 600, textAlign: "center" }}>
+            {game.hs > game.as ? `${game.homeFull || game.home} WIN` : game.as > game.hs ? `${game.awayFull || game.away} WIN` : "TIE"}
+          </div>
+        )}
+        {isUpcoming && (
+          <div style={{ background: CHI_COLOR + "15", padding: "8px 16px", borderTop: `1px solid ${border}`, fontSize: 12, color: "#7ab8f5", fontWeight: 600, textAlign: "center" }}>
+            {game.info}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const Section = ({ title, games, color }) => games.length === 0 ? null : (
+    <div style={{ marginBottom: 40 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+        <div style={{ width: 4, height: 28, background: color, borderRadius: 2 }} />
+        <h2 className="headline-font" style={{ fontSize: 28 }}>{title}</h2>
+        <span style={{ background: color + "22", color: color, fontSize: 12, fontWeight: 700, padding: "3px 10px", borderRadius: 12 }}>{games.length}</span>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
+        {games.map((g, i) => <GameCard key={i} game={g} />)}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="fade-up" style={{ maxWidth: 1280, margin: "0 auto", padding: "30px 20px 60px" }}>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 28, flexWrap: "wrap", gap: 16 }}>
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
+            <Radio size={28} color={LIVE_GREEN} />
+            <h1 className="headline-font" style={{ fontSize: 48 }}>LIVE SCORES</h1>
+            {loading && <RefreshCw size={18} color={textMuted} style={{ animation: "spin 1s linear infinite" }} />}
+          </div>
+          <p style={{ color: textMuted, fontSize: 14 }}>
+            Detroit & Chicago games · {lastUpdated ? `Updated ${lastUpdated.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}` : "Loading..."}
+          </p>
+        </div>
+        <button onClick={fetchScores} style={{ background: dark ? "#1e1e28" : "#eee", border: `1px solid ${border}`, borderRadius: 8, padding: "9px 16px", cursor: "pointer", color: dark ? "#ccc" : "#333", display: "flex", alignItems: "center", gap: 7, fontSize: 13, fontWeight: 700 }}>
+          <RefreshCw size={14} /> Refresh
+        </button>
+      </div>
+
+      {/* Filters */}
+      <div style={{ display: "flex", gap: 16, marginBottom: 32, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {sports.map(s => <button key={s} onClick={() => setSportFilter(s)} className="team-pill" style={{ padding: "6px 14px", borderRadius: 20, border: `1px solid ${sportFilter === s ? LIVE_GREEN : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: sportFilter === s ? LIVE_GREEN + "22" : "transparent", color: sportFilter === s ? LIVE_GREEN : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>{s}</button>)}
+        </div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {statuses.map(s => <button key={s} onClick={() => setStatusFilter(s)} className="team-pill" style={{ padding: "6px 14px", borderRadius: 20, border: `1px solid ${statusFilter === s ? DET_COLOR : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: statusFilter === s ? DET_COLOR + "22" : "transparent", color: statusFilter === s ? DET_COLOR : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>{s}</button>)}
+        </div>
+      </div>
+
+      {loading ? (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
+          {[1,2,3,4,5,6].map(i => <div key={i} className={dark ? "skeleton" : "skeleton-light"} style={{ height: 220, borderRadius: 12 }} />)}
+        </div>
+      ) : filtered.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "60px 20px", color: textMuted }}>
+          <Radio size={48} strokeWidth={1} style={{ marginBottom: 16 }} />
+          <p style={{ fontSize: 16 }}>No games match your filters right now.</p>
+        </div>
+      ) : (
+        <>
+          <Section title="LIVE NOW" games={liveGames} color={LIVE_GREEN} />
+          <Section title="FINAL" games={finalGames} color={textMuted} />
+          <Section title="UPCOMING" games={upcomingGames} color={CHI_COLOR} />
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function App() {
   const [dark, setDark] = useState(true);
   const [page, setPage] = useState("home");
@@ -1275,7 +1460,7 @@ export default function App() {
     if (page === "article" && selectedArticle) return <ArticlePage article={selectedArticle} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onBack={() => setPage("home")} relatedArticles={relatedArticles} onRelatedClick={handleArticleClick} />;
     if (page === "detroit") return <CityPage city="detroit" dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} />;
     if (page === "chicago") return <CityPage city="chicago" dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} />;
-    if (page === "merch") return <MerchPage dark={dark} />;
+    if (page === "scores") return <ScoresPage dark={dark} />;
     if (page === "newsletter") return <NewsletterPage dark={dark} />;
     if (page === "odds") return <OddsPage dark={dark} />;
     if (page === "about") return <AboutPage dark={dark} />;

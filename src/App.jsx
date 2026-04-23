@@ -7,7 +7,8 @@ import {
   BarChart2, Lock, Percent, AlertTriangle, ChevronDown, ChevronUp,
   Play, Pause, Volume2, Heart, MessageCircle, Send, ThumbsUp,
   Repeat2, ExternalLink, Video, Mic, Image, Users, UserCheck,
-  Newspaper, ArrowRight, SkipForward, SkipBack
+  Newspaper, ArrowRight, SkipForward, SkipBack, Crown, CloudRain,
+  Wind, Thermometer, Activity, Twitter, Instagram, MapPin
 } from "lucide-react";
 
 const DET_COLOR = "#C8102E";
@@ -38,7 +39,7 @@ const ALL_ARTICLES = [
     excerpt: "Detroit's high-powered offense continues to silence doubters as Jared Goff puts up another 300-yard performance in a commanding divisional victory that has Lions fans dreaming of February.",
     author: "Marcus Johnson", time: "2h ago", readTime: "4 min",
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG",
-    tags: ["Lions","NFL","Playoffs"], trending: true, hot: true, views: 24300
+    tags: ["Lions","NFL","Playoffs"], trending: true, hot: true, views: 51800, staffPick: true
   },
   {
     id: "d2", city: "detroit", team: "tigers", sport: "MLB",
@@ -46,7 +47,7 @@ const ALL_ARTICLES = [
     excerpt: "Detroit's rebuilding effort is paying dividends as scouts rave about the organization's depth of pitching talent coming through the minors.",
     author: "Sarah Chen", time: "4h ago", readTime: "3 min",
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_gate_D_entrance.JPG",
-    tags: ["Tigers","MLB","Prospects"], trending: true, views: 18100
+    tags: ["Tigers","MLB","Prospects"], trending: true, views: 44200, staffPick: true
   },
   {
     id: "d3", city: "detroit", team: "redwings", sport: "NHL",
@@ -70,7 +71,7 @@ const ALL_ARTICLES = [
     excerpt: "Detroit's rebuilt offensive unit is providing a fortress for Goff as the Lions cement their championship-contending identity heading into the stretch run.",
     author: "Marcus Johnson", time: "1d ago", readTime: "3 min",
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_View_of_Downtown_Detroit_-_Ford_Field_and_Comerica_Park.jpg",
-    tags: ["Lions","NFL","Analytics"], views: 9800
+    tags: ["Lions","NFL","Analytics"], views: 38600, staffPick: true
   },
   {
     id: "d6", city: "detroit", team: "tigers", sport: "MLB",
@@ -78,7 +79,7 @@ const ALL_ARTICLES = [
     excerpt: "Detroit's front office accelerates its aggressive rebuild with signings from the Dominican Republic and Venezuela that scouts project as future rotation pieces.",
     author: "Sarah Chen", time: "1d ago", readTime: "2 min",
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_ferris_wheel.JPG",
-    tags: ["Tigers","MLB","International"], views: 7200
+    tags: ["Tigers","MLB","International"], views: 29400, staffPick: true
   },
   {
     id: "c1", city: "chicago", team: "bears", sport: "NFL",
@@ -317,11 +318,35 @@ function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMob
   const surface = dark ? "#0D0D0F" : "#fff";
   const border = dark ? "#1e1e28" : "#e5e5e5";
   const textMuted = dark ? "#888" : "#666";
+  const [logoClicks, setLogoClicks] = useState(0);
+  const [roar, setRoar] = useState(false);
+  const clickTimeout = useRef(null);
+
+  const handleLogoClick = () => {
+    const next = logoClicks + 1;
+    setLogoClicks(next);
+    if (next >= 5) {
+      setRoar(true);
+      setLogoClicks(0);
+      setTimeout(() => setRoar(false), 3000);
+    }
+    clearTimeout(clickTimeout.current);
+    clickTimeout.current = setTimeout(() => setLogoClicks(0), 2000);
+    setPage("home");
+  };
+
   return (
     <header style={{ background: surface, borderBottom: `1px solid ${border}`, position: "sticky", top: 0, zIndex: 100 }}>
+      {roar && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.85)", flexDirection: "column", gap: 20 }} onClick={() => setRoar(false)}>
+          <div style={{ fontSize: 120, animation: "pulse-dot 0.5s ease infinite" }}>🦁</div>
+          <div className="headline-font" style={{ fontSize: 52, color: "#0076B6", textAlign: "center", lineHeight: 1.1 }}>ROARRR!<br /><span style={{ fontSize: 28, color: "#FA4616" }}>GO LIONS & TIGERS! 🐯</span></div>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14 }}>You found the Easter egg! 🎉 (click to close)</p>
+        </div>
+      )}
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 20px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 24, height: 64 }}>
-          <div style={{ cursor: "pointer", flexShrink: 0 }} onClick={() => setPage("home")}>
+          <div style={{ cursor: "pointer", flexShrink: 0, userSelect: "none" }} onClick={handleLogoClick} title={logoClicks > 0 ? `${5 - logoClicks} more clicks...` : ""}>
             <span className="headline-font" style={{ fontSize: 13, color: DET_COLOR, lineHeight: 1, letterSpacing: "0.15em", display: "block" }}>THE</span>
             <span className="headline-font" style={{ fontSize: 28, lineHeight: 1 }}>US-<span style={{ color: DET_COLOR }}>1</span><span style={{ color: CHI_COLOR }}>2</span> ATHLETIC</span>
           </div>
@@ -367,6 +392,7 @@ function ArticleCard({ article, dark, bookmarks, toggleBookmark, onClick, size =
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)" }} />
         <div style={{ position: "absolute", top: 10, left: 10, display: "flex", gap: 6 }}>
           {article.hot && <span style={{ background: "#FF4500", color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 3, letterSpacing: "0.1em", display: "flex", alignItems: "center", gap: 4 }}><Flame size={10} /> HOT</span>}
+          {article.staffPick && <span style={{ background: "linear-gradient(135deg, #0076B6, #FA4616)", color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 3, display: "flex", alignItems: "center", gap: 4 }}>⭐ STAFF PICK</span>}
           <span style={{ background: article.city === "detroit" ? DET_COLOR : CHI_COLOR, color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 3 }}>{article.sport}</span>
         </div>
         <button onClick={(e) => { e.stopPropagation(); toggleBookmark(article.id); }} style={{ position: "absolute", top: 10, right: 10, background: "rgba(0,0,0,0.5)", border: "none", borderRadius: "50%", width: 32, height: 32, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
@@ -448,7 +474,8 @@ function SectionHeader({ title, color, onMore, filterTeams, activeFilter, setFil
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button className="team-pill" onClick={() => setFilter(null)} style={{ padding: "5px 14px", borderRadius: 20, border: `1px solid ${!activeFilter ? color : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: !activeFilter ? color + "22" : "transparent", color: !activeFilter ? color : (dark ? "#888" : "#666"), fontSize: 12, fontWeight: 700, cursor: "pointer" }}>All</button>
           {filterTeams.map(t => (
-            <button key={t.id} className="team-pill" onClick={() => setFilter(t.id)} style={{ padding: "5px 14px", borderRadius: 20, border: `1px solid ${activeFilter === t.id ? t.color : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: activeFilter === t.id ? t.color + "22" : "transparent", color: activeFilter === t.id ? t.color : (dark ? "#888" : "#666"), fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
+            <button key={t.id} className="team-pill" onClick={() => setFilter(t.id)} style={{ padding: "5px 14px", borderRadius: 20, border: `1px solid ${activeFilter === t.id ? t.color : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: activeFilter === t.id ? t.color + "22" : "transparent", color: activeFilter === t.id ? t.color : (dark ? "#888" : "#666"), fontSize: 12, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}>
+              {(t.id === "lions" || t.id === "tigers") && <span style={{ fontSize: 10 }}>👑</span>}
               {t.name} <span style={{ opacity: 0.6, fontWeight: 400 }}>{t.sport}</span>
             </button>
           ))}
@@ -465,9 +492,14 @@ function Sidebar({ dark, articles, onArticleClick }) {
   const border = dark ? "#1e1e28" : "#e8e8e8";
   const textMuted = dark ? "#888" : "#666";
   const bg2 = dark ? "#0D0D0F" : "#f5f5f5";
-  const top5 = [...articles].sort((a, b) => b.views - a.views).slice(0, 5);
+  const top5 = [...articles]
+    .map(a => ({ ...a, weightedViews: (a.team === "lions" || a.team === "tigers") ? a.views * 2 : a.views }))
+    .sort((a, b) => b.weightedViews - a.weightedViews)
+    .slice(0, 5);
   return (
     <aside style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      <WeatherWidget dark={dark} />
+      <InjuryReport dark={dark} />
       <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 20 }}>
         <h3 className="headline-font" style={{ fontSize: 22, marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}><Trophy size={18} color="#FFD700" /> MOST POPULAR</h3>
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -868,13 +900,22 @@ function CityPage({ city, dark, articles, bookmarks, toggleBookmark, onArticleCl
 function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, setPage }) {
   const [detFilter, setDetFilter] = useState(null);
   const [chiFilter, setChiFilter] = useState(null);
-  const featuredArticle = articles.find(a => a.hot) || articles[0];
-  const detArticles = articles.filter(a => a.city === "detroit" && a.id !== featuredArticle.id);
+
+  // Always show Lions & Tigers articles first
+  const sortByFavorites = (arr) => {
+    const favs = arr.filter(a => a.team === "lions" || a.team === "tigers");
+    const rest = arr.filter(a => a.team !== "lions" && a.team !== "tigers");
+    return [...favs, ...rest];
+  };
+
+  const featuredArticle = articles.find(a => a.team === "lions" && a.hot) || articles.find(a => a.hot) || articles[0];
+  const detArticles = sortByFavorites(articles.filter(a => a.city === "detroit" && a.id !== featuredArticle.id));
   const chiArticles = articles.filter(a => a.city === "chicago" && a.id !== featuredArticle.id);
   const filteredDet = detFilter ? detArticles.filter(a => a.team === detFilter) : detArticles;
   const filteredChi = chiFilter ? chiArticles.filter(a => a.team === chiFilter) : chiArticles;
   return (
     <div style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 20px 60px" }}>
+      <GameDayBanner dark={dark} />
       <div style={{ marginBottom: 24 }}><HeroCard article={featuredArticle} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(featuredArticle)} /></div>
       <div style={{ marginBottom: 24 }}><TrendingStrip dark={dark} /></div>
       <div style={{ marginBottom: 28 }}><AdBanner dark={dark} size="leaderboard" /></div>
@@ -894,6 +935,24 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
           </div>
           {/* Live News Section */}
           <LiveNewsSection dark={dark} city="all" />
+
+          {/* Player Stats */}
+          <div style={{ marginBottom: 44 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+              <div style={{ width: 4, height: 28, background: "#FA4616", borderRadius: 2 }} />
+              <h2 className="headline-font" style={{ fontSize: 28 }}>🦁🐯 LIONS & TIGERS STATS</h2>
+            </div>
+            <PlayerStatsWidget dark={dark} />
+          </div>
+
+          {/* Social Feed */}
+          <div style={{ marginBottom: 44 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+              <div style={{ width: 4, height: 28, background: "#1DA1F2", borderRadius: 2 }} />
+              <h2 className="headline-font" style={{ fontSize: 28 }}>TEAM SOCIAL</h2>
+            </div>
+            <SocialFeed dark={dark} />
+          </div>
 
           {/* Fan Polls Section */}
           <div style={{ marginBottom: 44 }}>
@@ -2264,6 +2323,258 @@ function MyTeamsPage({ dark, articles, onArticleClick, bookmarks, toggleBookmark
             {myArticles.map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+// ─── GAME DAY BANNER ─────────────────────────────────────────────────────────
+function GameDayBanner({ dark }) {
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+  // Lions play Sundays (0) and sometimes Thursday (4) and Monday (1)
+  // Tigers play pretty much daily in season (April-October, months 3-9)
+  const month = today.getMonth();
+  const isMLBSeason = month >= 3 && month <= 9;
+  const isNFLSeason = month >= 8 || month <= 1;
+  const isLionsGameDay = isNFLSeason && (dayOfWeek === 0 || dayOfWeek === 4 || dayOfWeek === 1);
+  const isTigersGameDay = isMLBSeason && dayOfWeek !== 1; // Tigers rarely have Mondays off
+
+  if (!isLionsGameDay && !isTigersGameDay) return null;
+
+  const team = isLionsGameDay ? "Lions" : "Tigers";
+  const color = isLionsGameDay ? "#0076B6" : "#FA4616";
+  const emoji = isLionsGameDay ? "🦁" : "🐯";
+  const venue = isLionsGameDay ? "Ford Field" : "Comerica Park";
+
+  return (
+    <div style={{ background: `linear-gradient(135deg, ${color}22, ${color}08)`, border: `1px solid ${color}44`, borderRadius: 10, padding: "14px 20px", marginBottom: 20, display: "flex", alignItems: "center", gap: 14, animation: "fadeInUp 0.5s ease" }}>
+      <span style={{ fontSize: 28 }}>{emoji}</span>
+      <div>
+        <p className="headline-font" style={{ fontSize: 20, color, lineHeight: 1 }}>GAME DAY — {team.toUpperCase()}!</p>
+        <p style={{ fontSize: 13, color: dark ? "#aaa" : "#555", marginTop: 4 }}>The {team} are playing today at {venue}. Let's go! {emoji}</p>
+      </div>
+      <div style={{ marginLeft: "auto", background: color, color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 800 }}>
+        {emoji} GAME DAY
+      </div>
+    </div>
+  );
+}
+
+// ─── WEATHER WIDGET ──────────────────────────────────────────────────────────
+function WeatherWidget({ dark }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const textMuted = dark ? "#888" : "#666";
+  const [weather, setWeather] = useState(null);
+  const [selected, setSelected] = useState("detroit");
+
+  const VENUES = {
+    detroit: { name: "Ford Field / Comerica Park", city: "Detroit", lat: 42.33, lon: -83.05 },
+    chicago: { name: "Soldier Field / Wrigley", city: "Chicago", lat: 41.85, lon: -87.65 },
+  };
+
+  useEffect(() => {
+    const v = VENUES[selected];
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${v.lat}&longitude=${v.lon}&current_weather=true&hourly=precipitation_probability&temperature_unit=fahrenheit`)
+      .then(r => r.json())
+      .then(d => setWeather(d.current_weather))
+      .catch(() => {});
+  }, [selected]);
+
+  const getIcon = (code) => {
+    if (code <= 1) return "☀️";
+    if (code <= 3) return "⛅";
+    if (code <= 67) return "🌧️";
+    if (code <= 77) return "❄️";
+    return "⛈️";
+  };
+
+  const getDesc = (code) => {
+    if (code <= 1) return "Clear";
+    if (code <= 3) return "Partly Cloudy";
+    if (code <= 67) return "Rainy";
+    if (code <= 77) return "Snow";
+    return "Stormy";
+  };
+
+  return (
+    <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 16 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+        <h3 className="headline-font" style={{ fontSize: 18, display: "flex", alignItems: "center", gap: 6 }}>
+          🌤️ GAME DAY WEATHER
+        </h3>
+        <div style={{ display: "flex", gap: 4 }}>
+          {["detroit","chicago"].map(c => (
+            <button key={c} onClick={() => setSelected(c)} style={{ padding: "3px 10px", borderRadius: 12, border: `1px solid ${selected === c ? (c === "detroit" ? DET_COLOR : CHI_COLOR) : (dark ? "#2a2a3a" : "#ddd")}`, background: selected === c ? (c === "detroit" ? DET_COLOR : CHI_COLOR) : "transparent", color: selected === c ? "#fff" : textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer" }}>
+              {c === "detroit" ? "DET 🦁" : "CHI"}
+            </button>
+          ))}
+        </div>
+      </div>
+      {weather ? (
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <span style={{ fontSize: 36 }}>{getIcon(weather.weathercode)}</span>
+          <div>
+            <p className="headline-font" style={{ fontSize: 32, lineHeight: 1 }}>{Math.round(weather.temperature)}°F</p>
+            <p style={{ fontSize: 13, color: textMuted }}>{getDesc(weather.weathercode)} · Wind {Math.round(weather.windspeed)} mph</p>
+            <p style={{ fontSize: 12, color: textMuted, marginTop: 2 }}>{VENUES[selected].name}</p>
+          </div>
+        </div>
+      ) : (
+        <div style={{ display: "flex", alignItems: "center", gap: 8, color: textMuted, fontSize: 13 }}>
+          <RefreshCw size={14} style={{ animation: "spin 1s linear infinite" }} /> Loading weather...
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── INJURY REPORT ───────────────────────────────────────────────────────────
+function InjuryReport({ dark }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const textMuted = dark ? "#888" : "#666";
+  const [team, setTeam] = useState("lions");
+
+  const INJURIES = {
+    lions: [
+      { player: "Amon-Ra St. Brown", pos: "WR", status: "Probable", detail: "Ankle — limited practice", color: "#FFD700" },
+      { player: "Jameson Williams", pos: "WR", status: "Questionable", detail: "Hamstring — day-to-day", color: "#FF8C00" },
+      { player: "Frank Ragnow", pos: "C", status: "Out", detail: "Foot — season timeline", color: DET_COLOR },
+    ],
+    tigers: [
+      { player: "Spencer Torkelson", pos: "1B", status: "Probable", detail: "Wrist — full practice", color: "#FFD700" },
+      { player: "Riley Greene", pos: "LF", status: "Day-To-Day", detail: "Oblique — being monitored", color: "#FF8C00" },
+      { player: "Casey Mize", pos: "SP", status: "60-Day IL", detail: "Tommy John recovery", color: DET_COLOR },
+    ],
+  };
+
+  const injuries = INJURIES[team] || [];
+
+  return (
+    <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 16 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+        <h3 className="headline-font" style={{ fontSize: 18, display: "flex", alignItems: "center", gap: 6 }}>
+          🏥 INJURY REPORT
+        </h3>
+        <div style={{ display: "flex", gap: 4 }}>
+          <button onClick={() => setTeam("lions")} style={{ padding: "3px 10px", borderRadius: 12, border: `1px solid ${team === "lions" ? "#0076B6" : (dark ? "#2a2a3a" : "#ddd")}`, background: team === "lions" ? "#0076B6" : "transparent", color: team === "lions" ? "#fff" : textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer" }}>🦁 Lions</button>
+          <button onClick={() => setTeam("tigers")} style={{ padding: "3px 10px", borderRadius: 12, border: `1px solid ${team === "tigers" ? "#FA4616" : (dark ? "#2a2a3a" : "#ddd")}`, background: team === "tigers" ? "#FA4616" : "transparent", color: team === "tigers" ? "#fff" : textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer" }}>🐯 Tigers</button>
+        </div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {injuries.map((p, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 10px", background: dark ? "#0D0D0F" : "#f8f8f8", borderRadius: 7 }}>
+            <div style={{ width: 8, height: 8, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: 700, fontSize: 13 }}>{p.player} <span style={{ color: textMuted, fontWeight: 400, fontSize: 12 }}>({p.pos})</span></div>
+              <div style={{ fontSize: 11, color: textMuted }}>{p.detail}</div>
+            </div>
+            <span style={{ fontSize: 11, fontWeight: 700, color: p.color, background: p.color + "20", padding: "2px 8px", borderRadius: 4, whiteSpace: "nowrap" }}>{p.status}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── SOCIAL FEED ─────────────────────────────────────────────────────────────
+function SocialFeed({ dark }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const textMuted = dark ? "#888" : "#666";
+
+  const TWEETS = [
+    { handle: "@Lions", name: "Detroit Lions 🦁", verified: true, text: "GAME WEEK. Ford Field is going to be rocking. 🔵 #OnePride #Lions", time: "2h", likes: 3241, team: "lions" },
+    { handle: "@Tigers", name: "Detroit Tigers 🐯", verified: true, text: "Comerica Park is calling. Let's get it, Tigers fans. 🧡 #DetroitTigers", time: "4h", likes: 1892, team: "tigers" },
+    { handle: "@Lions", name: "Detroit Lions 🦁", verified: true, text: "Jared Goff is locked in this week. The offensive line is ready. Let's GO. 🦁", time: "6h", likes: 2156, team: "lions" },
+    { handle: "@Tigers", name: "Detroit Tigers 🐯", verified: true, text: "Our pitching staff has been DOMINANT this homestand. Feeling good about this team. 🐯⚾", time: "8h", likes: 987, team: "tigers" },
+    { handle: "@ChicagoBears", name: "Chicago Bears", verified: true, text: "Caleb Williams week. Soldier Field. Let's ball. 🐻⬇️ #DaBears", time: "3h", likes: 4102, team: "bears" },
+  ];
+
+  return (
+    <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 16 }}>
+      <h3 className="headline-font" style={{ fontSize: 18, marginBottom: 14, display: "flex", alignItems: "center", gap: 6 }}>
+        🐦 TEAM SOCIAL
+      </h3>
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {TWEETS.map((t, i) => (
+          <div key={i} style={{ paddingBottom: i < TWEETS.length - 1 ? 12 : 0, borderBottom: i < TWEETS.length - 1 ? `1px solid ${border}` : "none" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", background: t.team === "lions" ? "#0076B620" : t.team === "tigers" ? "#FA461620" : "#0B162A20", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>
+                {t.team === "lions" ? "🦁" : t.team === "tigers" ? "🐯" : "🐻"}
+              </div>
+              <div>
+                <span style={{ fontWeight: 700, fontSize: 13 }}>{t.name}</span>
+                {t.verified && <span style={{ color: "#1DA1F2", fontSize: 12, marginLeft: 4 }}>✓</span>}
+                <span style={{ color: textMuted, fontSize: 12, marginLeft: 6 }}>{t.handle} · {t.time} ago</span>
+              </div>
+            </div>
+            <p style={{ fontSize: 13, lineHeight: 1.5, color: dark ? "#d0d0d0" : "#222", marginBottom: 5 }}>{t.text}</p>
+            <span style={{ fontSize: 12, color: textMuted, display: "flex", alignItems: "center", gap: 4 }}>
+              <Heart size={11} /> {t.likes.toLocaleString()}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── PLAYER STATS ─────────────────────────────────────────────────────────────
+function PlayerStatsWidget({ dark }) {
+  const surface = dark ? "#13131b" : "#fff";
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const bg2 = dark ? "#0D0D0F" : "#f5f5f5";
+  const textMuted = dark ? "#888" : "#666";
+  const [tab, setTab] = useState("lions");
+
+  const STATS = {
+    lions: [
+      { name: "Jared Goff", pos: "QB", stats: [{ label: "YDS", val: "4,575" }, { label: "TD", val: "37" }, { label: "INT", val: "6" }, { label: "RTG", val: "108.2" }] },
+      { name: "Amon-Ra St. Brown", pos: "WR", stats: [{ label: "REC", val: "119" }, { label: "YDS", val: "1,515" }, { label: "TD", val: "12" }, { label: "YPC", val: "12.7" }] },
+      { name: "David Montgomery", pos: "RB", stats: [{ label: "ATT", val: "242" }, { label: "YDS", val: "1,138" }, { label: "TD", val: "14" }, { label: "AVG", val: "4.7" }] },
+      { name: "Aidan Hutchinson", pos: "DE", stats: [{ label: "TKL", val: "58" }, { label: "SCK", val: "9.5" }, { label: "FF", val: "4" }, { label: "PD", val: "3" }] },
+    ],
+    tigers: [
+      { name: "Spencer Torkelson", pos: "1B", stats: [{ label: "AVG", val: ".278" }, { label: "HR", val: "26" }, { label: "RBI", val: "93" }, { label: "OPS", val: ".862" }] },
+      { name: "Riley Greene", pos: "LF", stats: [{ label: "AVG", val: ".291" }, { label: "HR", val: "21" }, { label: "RBI", val: "79" }, { label: "SB", val: "18" }] },
+      { name: "Tarik Skubal", pos: "SP", stats: [{ label: "ERA", val: "2.94" }, { label: "W", val: "14" }, { label: "K", val: "228" }, { label: "WHIP", val: "1.02" }] },
+      { name: "Kerry Carpenter", pos: "RF", stats: [{ label: "AVG", val: ".265" }, { label: "HR", val: "18" }, { label: "RBI", val: "67" }, { label: "OPS", val: ".812" }] },
+    ],
+  };
+
+  return (
+    <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 20 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+        <h3 className="headline-font" style={{ fontSize: 22, display: "flex", alignItems: "center", gap: 8 }}>
+          📊 PLAYER STATS
+        </h3>
+        <div style={{ display: "flex", gap: 4 }}>
+          <button onClick={() => setTab("lions")} style={{ padding: "5px 12px", borderRadius: 16, border: `1px solid ${tab === "lions" ? "#0076B6" : (dark ? "#2a2a3a" : "#ddd")}`, background: tab === "lions" ? "#0076B6" : "transparent", color: tab === "lions" ? "#fff" : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>🦁 Lions</button>
+          <button onClick={() => setTab("tigers")} style={{ padding: "5px 12px", borderRadius: 16, border: `1px solid ${tab === "tigers" ? "#FA4616" : (dark ? "#2a2a3a" : "#ddd")}`, background: tab === "tigers" ? "#FA4616" : "transparent", color: tab === "tigers" ? "#fff" : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>🐯 Tigers</button>
+        </div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {STATS[tab].map((player, i) => (
+          <div key={i} style={{ background: bg2, borderRadius: 8, padding: "12px 14px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+              <div>
+                <span style={{ fontWeight: 700, fontSize: 14 }}>{player.name}</span>
+                <span style={{ color: textMuted, fontSize: 12, marginLeft: 8, background: tab === "lions" ? "#0076B620" : "#FA461620", color: tab === "lions" ? "#0076B6" : "#FA4616", padding: "1px 6px", borderRadius: 4, fontWeight: 600 }}>{player.pos}</span>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 12 }}>
+              {player.stats.map(s => (
+                <div key={s.label} style={{ textAlign: "center" }}>
+                  <div className="headline-font" style={{ fontSize: 18, lineHeight: 1, color: dark ? "#f0f0f0" : "#111" }}>{s.val}</div>
+                  <div style={{ fontSize: 10, color: textMuted, fontWeight: 700, letterSpacing: "0.06em", marginTop: 2 }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

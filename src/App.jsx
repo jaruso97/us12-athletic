@@ -7,8 +7,7 @@ import {
   BarChart2, Lock, Percent, AlertTriangle, ChevronDown, ChevronUp,
   Play, Pause, Volume2, Heart, MessageCircle, Send, ThumbsUp,
   Repeat2, ExternalLink, Video, Mic, Image, Users, UserCheck,
-  Newspaper, ArrowRight, SkipForward, SkipBack, Crown, CloudRain,
-  Wind, Thermometer, Activity, Twitter, Instagram, MapPin
+  Newspaper, ArrowRight, SkipForward, SkipBack
 } from "lucide-react";
 
 const DET_COLOR = "#C8102E";

@@ -28,16 +28,8 @@ const CHICAGO_TEAMS = [
   { id: "blackhawks", name: "Blackhawks", sport: "NHL", color: "#CF0A2C", accent: "#FF671B" },
 ];
 
-const SCORES = [
-  { home: "DET", away: "CHI", hs: 14, as: 17, status: "LIVE",     info: "Q3 8:42",  sport: "NFL" },
-  { home: "TIG", away: "MIN", hs: 3,  as: 5,  status: "LIVE",     info: "Bot 7th",  sport: "MLB" },
-  { home: "PHX", away: "CHI", hs: 108,as:112, status: "LIVE",     info: "Q4 2:15",  sport: "NBA" },
-  { home: "DET", away: "TOR", hs: 2,  as: 1,  status: "FINAL",    info: "Final",    sport: "NHL" },
-  { home: "CHI", away: "STL", hs: 0,  as: 0,  status: "UPCOMING", info: "7:05 PM",  sport: "MLB" },
-  { home: "DET", away: "IND", hs: 88, as: 91, status: "FINAL",    info: "Final/OT", sport: "NBA" },
-  { home: "CHI", away: "LAK", hs: 1,  as: 2,  status: "FINAL",    info: "Final",    sport: "NHL" },
-  { home: "WSH", away: "DET", hs: 21, as: 28, status: "FINAL",    info: "Final",    sport: "NFL" },
-];
+const SCORES = [];
+
 
 const ALL_ARTICLES = [
   {
@@ -286,7 +278,7 @@ function ScoreTicker({ dark }) {
     return () => clearInterval(interval);
   }, []);
 
-  const doubled = [...liveScores, ...liveScores];
+  const doubled = liveScores.length > 0 ? [...liveScores, ...liveScores] : [];
   return (
     <div style={{ background: bg, borderBottom: `2px solid ${DET_COLOR}30` }}>
       <div style={{ display: "flex", alignItems: "stretch", maxWidth: "100%" }}>
@@ -295,20 +287,26 @@ function ScoreTicker({ dark }) {
           LIVE
         </div>
         <div className="ticker-wrap" style={{ flex: 1, overflow: "hidden" }}>
-          <div className="ticker-inner" style={{ padding: "8px 0" }}>
-            {doubled.map((s, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "0 28px", borderRight: "1px solid #ffffff18", fontSize: 13, whiteSpace: "nowrap", color: "#fff" }}>
-                {s.status === "LIVE" && <span className="live-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: LIVE_GREEN, flexShrink: 0 }} />}
-                <span style={{ color: "#aaa", fontSize: 11, fontWeight: 600 }}>{s.sport}</span>
-                <span style={{ fontWeight: 700 }}>{s.away}</span>
-                <span style={{ fontWeight: 800, fontSize: 15 }}>{s.as}</span>
-                <span style={{ color: "#666", fontSize: 12 }}>@</span>
-                <span style={{ fontWeight: 800, fontSize: 15 }}>{s.hs}</span>
-                <span style={{ fontWeight: 700 }}>{s.home}</span>
-                <span style={{ fontSize: 11, padding: "2px 6px", borderRadius: 3, fontWeight: 700, background: s.status === "LIVE" ? "#00D16622" : s.status === "FINAL" ? "#ffffff15" : "#0076B622", color: s.status === "LIVE" ? LIVE_GREEN : s.status === "FINAL" ? "#888" : "#7ab8f5" }}>{s.info}</span>
-              </div>
-            ))}
-          </div>
+          {doubled.length === 0 ? (
+            <div style={{ padding: "8px 20px", fontSize: 13, color: "#666", display: "flex", alignItems: "center", gap: 8 }}>
+              <span>No Detroit or Chicago games scheduled right now — check back soon!</span>
+            </div>
+          ) : (
+            <div className="ticker-inner" style={{ padding: "8px 0" }}>
+              {doubled.map((s, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "0 28px", borderRight: "1px solid #ffffff18", fontSize: 13, whiteSpace: "nowrap", color: "#fff" }}>
+                  {s.status === "LIVE" && <span className="live-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: LIVE_GREEN, flexShrink: 0 }} />}
+                  <span style={{ color: "#aaa", fontSize: 11, fontWeight: 600 }}>{s.sport}</span>
+                  <span style={{ fontWeight: 700 }}>{s.away}</span>
+                  <span style={{ fontWeight: 800, fontSize: 15 }}>{s.as}</span>
+                  <span style={{ color: "#666", fontSize: 12 }}>@</span>
+                  <span style={{ fontWeight: 800, fontSize: 15 }}>{s.hs}</span>
+                  <span style={{ fontWeight: 700 }}>{s.home}</span>
+                  <span style={{ fontSize: 11, padding: "2px 6px", borderRadius: 3, fontWeight: 700, background: s.status === "LIVE" ? "#00D16622" : s.status === "FINAL" ? "#ffffff15" : "#0076B622", color: s.status === "LIVE" ? LIVE_GREEN : s.status === "FINAL" ? "#888" : "#7ab8f5" }}>{s.info}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -500,8 +498,11 @@ function Sidebar({ dark, articles, onArticleClick }) {
       </div>
       <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 20 }}>
         <h3 className="headline-font" style={{ fontSize: 22, marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}><Radio size={16} color={LIVE_GREEN} /> SCORES</h3>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {SCORES.slice(0, 5).map((s, i) => (
+        {SCORES.length === 0 ? (
+          <p style={{ fontSize: 13, color: textMuted, lineHeight: 1.6 }}>No Detroit or Chicago games right now. Check back on game day!</p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {SCORES.slice(0, 5).map((s, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", borderRadius: 6, background: bg2 }}>
               <span style={{ fontSize: 11, color: textMuted, width: 28, flexShrink: 0 }}>{s.sport}</span>
               <span style={{ flex: 1, fontSize: 13, fontWeight: 600 }}>{s.away} {s.as} – {s.hs} {s.home}</span>
@@ -511,7 +512,8 @@ function Sidebar({ dark, articles, onArticleClick }) {
               </span>
             </div>
           ))}
-        </div>
+          </div>
+        )}
       </div>
     </aside>
   );

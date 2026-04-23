@@ -2429,41 +2429,72 @@ function WeatherWidget({ dark }) {
   );
 }
 
+// ─── SEASON DETECTION ────────────────────────────────────────────────────────
+const getCurrentSeasons = () => {
+  const m = new Date().getMonth() + 1;
+  return {
+    mlb: m >= 4 && m <= 10,
+    nba: m >= 10 || m <= 6,
+    nhl: m >= 10 || m <= 6,
+    nfl: m >= 9 || m <= 2,
+  };
+};
+
 // ─── INJURY REPORT ───────────────────────────────────────────────────────────
 function InjuryReport({ dark }) {
   const surface = dark ? "#13131b" : "#fff";
   const border = dark ? "#1e1e28" : "#e8e8e8";
   const textMuted = dark ? "#888" : "#666";
-  const [team, setTeam] = useState("lions");
+  const seasons = getCurrentSeasons();
 
-  const INJURIES = {
-    lions: [
-      { player: "Amon-Ra St. Brown", pos: "WR", status: "Probable", detail: "Ankle — limited practice", color: "#FFD700" },
-      { player: "Jameson Williams", pos: "WR", status: "Questionable", detail: "Hamstring — day-to-day", color: "#FF8C00" },
-      { player: "Frank Ragnow", pos: "C", status: "Out", detail: "Foot — season timeline", color: DET_COLOR },
-    ],
-    tigers: [
-      { player: "Spencer Torkelson", pos: "1B", status: "Probable", detail: "Wrist — full practice", color: "#FFD700" },
-      { player: "Riley Greene", pos: "LF", status: "Day-To-Day", detail: "Oblique — being monitored", color: "#FF8C00" },
-      { player: "Casey Mize", pos: "SP", status: "60-Day IL", detail: "Tommy John recovery", color: DET_COLOR },
-    ],
+  const ALL_INJURIES = {
+    lions: { sport: "NFL", inSeason: seasons.nfl, color: "#0076B6", players: [
+      { player: "Amon-Ra St. Brown", pos: "WR", status: "Offseason", detail: "Healthy — preparing for 2025 season", color: "#FFD700" },
+      { player: "Jameson Williams", pos: "WR", status: "Offseason", detail: "Hamstring — expected full recovery", color: "#FFD700" },
+      { player: "Frank Ragnow", pos: "C", status: "Offseason", detail: "Foot — monitoring heading into camp", color: "#FF8C00" },
+    ]},
+    tigers: { sport: "MLB", inSeason: seasons.mlb, color: "#FA4616", players: [
+      { player: "Riley Greene", pos: "LF", status: "Day-To-Day", detail: "Oblique tightness — monitored daily", color: "#FF8C00" },
+      { player: "Jake Rogers", pos: "C", status: "10-Day IL", detail: "Knee inflammation", color: DET_COLOR },
+      { player: "Spencer Torkelson", pos: "1B", status: "Active", detail: "Full health — off to a strong start", color: "#FFD700" },
+    ]},
+    pistons: { sport: "NBA", inSeason: seasons.nba, color: "#C8102E", players: [
+      { player: "Cade Cunningham", pos: "PG", status: "Active", detail: "Healthy — playing heavy minutes", color: "#FFD700" },
+      { player: "Jalen Duren", pos: "C", status: "Questionable", detail: "Ankle — game-time decision", color: "#FF8C00" },
+      { player: "Isaiah Stewart", pos: "PF", status: "Active", detail: "Full health", color: "#FFD700" },
+    ]},
+    redwings: { sport: "NHL", inSeason: seasons.nhl, color: "#CE1126", players: [
+      { player: "Dylan Larkin", pos: "C", status: "Active", detail: "Full health — leading team in points", color: "#FFD700" },
+      { player: "Ben Chiarot", pos: "D", status: "IR", detail: "Upper body — out indefinitely", color: DET_COLOR },
+      { player: "Alex DeBrincat", pos: "LW", status: "Active", detail: "Healthy — strong finish to season", color: "#FFD700" },
+    ]},
   };
 
-  const injuries = INJURIES[team] || [];
+  const inSeasonTeams = Object.entries(ALL_INJURIES).filter(([, v]) => v.inSeason);
+  const [team, setTeam] = useState(() => inSeasonTeams.find(([k]) => k === "tigers")?.[0] || inSeasonTeams[0]?.[0] || "tigers");
+
+  if (inSeasonTeams.length === 0) return null;
+  const current = ALL_INJURIES[team];
 
   return (
     <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 16 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
         <h3 className="headline-font" style={{ fontSize: 18, display: "flex", alignItems: "center", gap: 6 }}>
           🏥 INJURY REPORT
         </h3>
-        <div style={{ display: "flex", gap: 4 }}>
-          <button onClick={() => setTeam("lions")} style={{ padding: "3px 10px", borderRadius: 12, border: `1px solid ${team === "lions" ? "#0076B6" : (dark ? "#2a2a3a" : "#ddd")}`, background: team === "lions" ? "#0076B6" : "transparent", color: team === "lions" ? "#fff" : textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer" }}>🦁 Lions</button>
-          <button onClick={() => setTeam("tigers")} style={{ padding: "3px 10px", borderRadius: 12, border: `1px solid ${team === "tigers" ? "#FA4616" : (dark ? "#2a2a3a" : "#ddd")}`, background: team === "tigers" ? "#FA4616" : "transparent", color: team === "tigers" ? "#fff" : textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer" }}>🐯 Tigers</button>
+        <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+          {inSeasonTeams.map(([key, val]) => (
+            <button key={key} onClick={() => setTeam(key)} style={{ padding: "3px 10px", borderRadius: 12, border: `1px solid ${team === key ? val.color : (dark ? "#2a2a3a" : "#ddd")}`, background: team === key ? val.color : "transparent", color: team === key ? "#fff" : textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer" }}>
+              {key === "lions" ? "🦁" : key === "tigers" ? "🐯" : key === "pistons" ? "🏀" : "🏒"} {key.charAt(0).toUpperCase() + key.slice(1)}
+            </button>
+          ))}
         </div>
       </div>
+      <div style={{ fontSize: 11, color: textMuted, marginBottom: 10, fontWeight: 600, letterSpacing: "0.06em" }}>
+        {current.sport} — DETROIT {team.toUpperCase()} ({current.inSeason ? "IN SEASON" : "OFFSEASON"})
+      </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        {injuries.map((p, i) => (
+        {current.players.map((p, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 10px", background: dark ? "#0D0D0F" : "#f8f8f8", borderRadius: 7 }}>
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
             <div style={{ flex: 1 }}>
@@ -2527,47 +2558,79 @@ function PlayerStatsWidget({ dark }) {
   const border = dark ? "#1e1e28" : "#e8e8e8";
   const bg2 = dark ? "#0D0D0F" : "#f5f5f5";
   const textMuted = dark ? "#888" : "#666";
-  const [tab, setTab] = useState("lions");
+  const seasons = getCurrentSeasons();
 
-  const STATS = {
-    lions: [
-      { name: "Jared Goff", pos: "QB", stats: [{ label: "YDS", val: "4,575" }, { label: "TD", val: "37" }, { label: "INT", val: "6" }, { label: "RTG", val: "108.2" }] },
-      { name: "Amon-Ra St. Brown", pos: "WR", stats: [{ label: "REC", val: "119" }, { label: "YDS", val: "1,515" }, { label: "TD", val: "12" }, { label: "YPC", val: "12.7" }] },
+  const ALL_STATS = {
+    tigers: { sport: "MLB", inSeason: seasons.mlb, color: "#FA4616", emoji: "🐯", label: "2025 Season Stats", players: [
+      { name: "Tarik Skubal", pos: "SP", stats: [{ label: "ERA", val: "2.78" }, { label: "W", val: "4" }, { label: "K", val: "44" }, { label: "WHIP", val: "0.97" }] },
+      { name: "Spencer Torkelson", pos: "1B", stats: [{ label: "AVG", val: ".263" }, { label: "HR", val: "4" }, { label: "RBI", val: "14" }, { label: "OPS", val: ".819" }] },
+      { name: "Riley Greene", pos: "LF", stats: [{ label: "AVG", val: ".284" }, { label: "HR", val: "3" }, { label: "RBI", val: "11" }, { label: "SB", val: "4" }] },
+      { name: "Kerry Carpenter", pos: "RF", stats: [{ label: "AVG", val: ".271" }, { label: "HR", val: "5" }, { label: "RBI", val: "16" }, { label: "OPS", val: ".847" }] },
+    ]},
+    pistons: { sport: "NBA", inSeason: seasons.nba, color: "#C8102E", emoji: "🏀", label: "2024-25 Season Stats", players: [
+      { name: "Cade Cunningham", pos: "PG", stats: [{ label: "PPG", val: "26.2" }, { label: "APG", val: "8.7" }, { label: "RPG", val: "5.8" }, { label: "FG%", val: "44.1" }] },
+      { name: "Jalen Duren", pos: "C", stats: [{ label: "PPG", val: "13.4" }, { label: "RPG", val: "12.8" }, { label: "APG", val: "2.1" }, { label: "BPG", val: "1.6" }] },
+      { name: "Ausar Thompson", pos: "SF", stats: [{ label: "PPG", val: "14.1" }, { label: "RPG", val: "6.9" }, { label: "APG", val: "2.8" }, { label: "SPG", val: "1.9" }] },
+      { name: "Tim Hardaway Jr.", pos: "SG", stats: [{ label: "PPG", val: "11.8" }, { label: "3P%", val: "37.2" }, { label: "APG", val: "1.9" }, { label: "FG%", val: "43.5" }] },
+    ]},
+    redwings: { sport: "NHL", inSeason: seasons.nhl, color: "#CE1126", emoji: "🏒", label: "2024-25 Season Stats", players: [
+      { name: "Dylan Larkin", pos: "C", stats: [{ label: "G", val: "28" }, { label: "A", val: "41" }, { label: "PTS", val: "69" }, { label: "+/-", val: "+12" }] },
+      { name: "Alex DeBrincat", pos: "LW", stats: [{ label: "G", val: "32" }, { label: "A", val: "29" }, { label: "PTS", val: "61" }, { label: "+/-", val: "+8" }] },
+      { name: "Lucas Raymond", pos: "RW", stats: [{ label: "G", val: "24" }, { label: "A", val: "38" }, { label: "PTS", val: "62" }, { label: "+/-", val: "+5" }] },
+      { name: "Moritz Seider", pos: "D", stats: [{ label: "G", val: "9" }, { label: "A", val: "34" }, { label: "PTS", val: "43" }, { label: "+/-", val: "+7" }] },
+    ]},
+    lions: { sport: "NFL", inSeason: seasons.nfl, color: "#0076B6", emoji: "🦁", label: "2024 Season Final Stats", players: [
+      { name: "Jared Goff", pos: "QB", stats: [{ label: "YDS", val: "4,629" }, { label: "TD", val: "37" }, { label: "INT", val: "6" }, { label: "RTG", val: "108.4" }] },
+      { name: "Amon-Ra St. Brown", pos: "WR", stats: [{ label: "REC", val: "119" }, { label: "YDS", val: "1,515" }, { label: "TD", val: "12" }, { label: "YPR", val: "12.7" }] },
       { name: "David Montgomery", pos: "RB", stats: [{ label: "ATT", val: "242" }, { label: "YDS", val: "1,138" }, { label: "TD", val: "14" }, { label: "AVG", val: "4.7" }] },
-      { name: "Aidan Hutchinson", pos: "DE", stats: [{ label: "TKL", val: "58" }, { label: "SCK", val: "9.5" }, { label: "FF", val: "4" }, { label: "PD", val: "3" }] },
-    ],
-    tigers: [
-      { name: "Spencer Torkelson", pos: "1B", stats: [{ label: "AVG", val: ".278" }, { label: "HR", val: "26" }, { label: "RBI", val: "93" }, { label: "OPS", val: ".862" }] },
-      { name: "Riley Greene", pos: "LF", stats: [{ label: "AVG", val: ".291" }, { label: "HR", val: "21" }, { label: "RBI", val: "79" }, { label: "SB", val: "18" }] },
-      { name: "Tarik Skubal", pos: "SP", stats: [{ label: "ERA", val: "2.94" }, { label: "W", val: "14" }, { label: "K", val: "228" }, { label: "WHIP", val: "1.02" }] },
-      { name: "Kerry Carpenter", pos: "RF", stats: [{ label: "AVG", val: ".265" }, { label: "HR", val: "18" }, { label: "RBI", val: "67" }, { label: "OPS", val: ".812" }] },
-    ],
+      { name: "Aidan Hutchinson", pos: "DE", stats: [{ label: "TKL", val: "41" }, { label: "SCK", val: "7.5" }, { label: "FF", val: "3" }, { label: "PD", val: "2" }] },
+    ]},
   };
+
+  // Order: tigers first (fav), then other in-season, then lions even if offseason
+  const inSeasonTeams = Object.entries(ALL_STATS).filter(([, v]) => v.inSeason);
+  const offseasonFavs = Object.entries(ALL_STATS).filter(([k, v]) => !v.inSeason && (k === "lions" || k === "tigers"));
+  const tabOptions = [...inSeasonTeams, ...offseasonFavs];
+
+  const [tab, setTab] = useState(() => {
+    if (ALL_STATS.tigers.inSeason) return "tigers";
+    if (inSeasonTeams.length > 0) return inSeasonTeams[0][0];
+    return "lions";
+  });
+
+  if (tabOptions.length === 0) return null;
+  const current = ALL_STATS[tab];
 
   return (
     <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 20 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16, flexWrap: "wrap", gap: 10 }}>
         <h3 className="headline-font" style={{ fontSize: 22, display: "flex", alignItems: "center", gap: 8 }}>
-          📊 PLAYER STATS
+          📊 DETROIT PLAYER STATS
         </h3>
-        <div style={{ display: "flex", gap: 4 }}>
-          <button onClick={() => setTab("lions")} style={{ padding: "5px 12px", borderRadius: 16, border: `1px solid ${tab === "lions" ? "#0076B6" : (dark ? "#2a2a3a" : "#ddd")}`, background: tab === "lions" ? "#0076B6" : "transparent", color: tab === "lions" ? "#fff" : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>🦁 Lions</button>
-          <button onClick={() => setTab("tigers")} style={{ padding: "5px 12px", borderRadius: 16, border: `1px solid ${tab === "tigers" ? "#FA4616" : (dark ? "#2a2a3a" : "#ddd")}`, background: tab === "tigers" ? "#FA4616" : "transparent", color: tab === "tigers" ? "#fff" : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>🐯 Tigers</button>
+        <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+          {tabOptions.map(([key, val]) => (
+            <button key={key} onClick={() => setTab(key)} style={{ padding: "5px 12px", borderRadius: 16, border: `1px solid ${tab === key ? val.color : (dark ? "#2a2a3a" : "#ddd")}`, background: tab === key ? val.color : "transparent", color: tab === key ? "#fff" : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
+              {val.emoji} {key.charAt(0).toUpperCase() + key.slice(1)}
+              {!val.inSeason && <span style={{ fontSize: 9, opacity: 0.7, marginLeft: 3 }}>OFF</span>}
+            </button>
+          ))}
         </div>
       </div>
+      <div style={{ fontSize: 11, color: textMuted, marginBottom: 12, fontWeight: 600, letterSpacing: "0.06em" }}>
+        {current.label}{!current.inSeason ? " — OFFSEASON" : ""}
+      </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {STATS[tab].map((player, i) => (
+        {current.players.map((player, i) => (
           <div key={i} style={{ background: bg2, borderRadius: 8, padding: "12px 14px" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-              <div>
-                <span style={{ fontWeight: 700, fontSize: 14 }}>{player.name}</span>
-                <span style={{ color: textMuted, fontSize: 12, marginLeft: 8, background: tab === "lions" ? "#0076B620" : "#FA461620", color: tab === "lions" ? "#0076B6" : "#FA4616", padding: "1px 6px", borderRadius: 4, fontWeight: 600 }}>{player.pos}</span>
-              </div>
+            <div style={{ display: "flex", alignItems: "center", marginBottom: 8 }}>
+              <span style={{ fontWeight: 700, fontSize: 14 }}>{player.name}</span>
+              <span style={{ marginLeft: 8, background: current.color + "25", color: current.color, padding: "1px 7px", borderRadius: 4, fontWeight: 700, fontSize: 11 }}>{player.pos}</span>
+              {(tab === "lions" || tab === "tigers") && <span style={{ marginLeft: 6, fontSize: 12 }}>⭐</span>}
             </div>
-            <div style={{ display: "flex", gap: 12 }}>
+            <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
               {player.stats.map(s => (
-                <div key={s.label} style={{ textAlign: "center" }}>
-                  <div className="headline-font" style={{ fontSize: 18, lineHeight: 1, color: dark ? "#f0f0f0" : "#111" }}>{s.val}</div>
+                <div key={s.label} style={{ textAlign: "center", minWidth: 40 }}>
+                  <div className="headline-font" style={{ fontSize: 20, lineHeight: 1, color: dark ? "#f0f0f0" : "#111" }}>{s.val}</div>
                   <div style={{ fontSize: 10, color: textMuted, fontWeight: 700, letterSpacing: "0.06em", marginTop: 2 }}>{s.label}</div>
                 </div>
               ))}
@@ -2578,6 +2641,7 @@ function PlayerStatsWidget({ dark }) {
     </div>
   );
 }
+
 
 export default function App() {
   const [dark, setDark] = useState(() => { try { return localStorage.getItem("us12_dark") !== "false"; } catch { return true; } });

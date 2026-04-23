@@ -346,8 +346,7 @@ function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMob
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 20px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 24, height: 64 }}>
           <div style={{ cursor: "pointer", flexShrink: 0, userSelect: "none" }} onClick={handleLogoClick} title={logoClicks > 0 ? `${5 - logoClicks} more clicks...` : ""}>
-            <span className="headline-font" style={{ fontSize: 13, color: DET_COLOR, lineHeight: 1, letterSpacing: "0.15em", display: "block" }}>THE</span>
-            <span className="headline-font" style={{ fontSize: 28, lineHeight: 1 }}>US-<span style={{ color: DET_COLOR }}>1</span><span style={{ color: CHI_COLOR }}>2</span> ATHLETIC</span>
+            <span className="headline-font" style={{ fontSize: 28, lineHeight: 1 }}><span style={{ color: DET_COLOR }}>GREAT</span> <span style={{ color: CHI_COLOR }}>LAKES</span> SPORTS</span>
           </div>
           <nav className="hide-mobile" style={{ display: "flex", gap: 4, flex: 1 }}>
             {[{ id: "home", label: "Home" }, { id: "detroit", label: "Detroit" }, { id: "chicago", label: "Chicago" }, { id: "scores", label: "Scores" }, { id: "rumors", label: "Rumors" }, { id: "media", label: "Media" }, { id: "odds", label: "Odds" }, { id: "merch", label: "Merch" }, { id: "myteams", label: "My Teams" }, { id: "newsletter", label: "Newsletter" }, { id: "about", label: "About" }].map(({ id, label }) => (
@@ -710,10 +709,9 @@ function AboutPage({ dark }) {
   return (
     <div className="fade-up" style={{ maxWidth: 800, margin: "0 auto", padding: "40px 20px" }}>
       <div style={{ marginBottom: 32 }}>
-        <span className="headline-font" style={{ fontSize: 18, color: DET_COLOR, letterSpacing: "0.18em", display: "block", marginBottom: 2 }}>THE</span>
-        <span className="headline-font" style={{ fontSize: 52 }}>US-<span style={{ color: DET_COLOR }}>1</span><span style={{ color: CHI_COLOR }}>2</span> ATHLETIC</span>
+        <span className="headline-font" style={{ fontSize: 52 }}><span style={{ color: DET_COLOR }}>GREAT</span> <span style={{ color: CHI_COLOR }}>LAKES</span> SPORTS</span>
       </div>
-      <p className="body-font" style={{ fontSize: 18, lineHeight: 1.8, color: textMuted, marginBottom: 28 }}>The US-12 Athletic is the premier destination for fans of Detroit and Chicago sports teams. We cover the Lions, Tigers, Pistons, Red Wings, Bears, Bulls, Cubs, White Sox, and Blackhawks with the depth and passion these great franchises deserve.</p>
+      <p className="body-font" style={{ fontSize: 18, lineHeight: 1.8, color: textMuted, marginBottom: 28 }}>Great Lakes Sports is the premier destination for fans of Detroit and Chicago sports teams. We cover the Lions, Tigers, Pistons, Red Wings, Bears, Bulls, Cubs, White Sox, and Blackhawks with the depth and passion these great franchises deserve.</p>
       <p className="body-font" style={{ fontSize: 18, lineHeight: 1.8, color: textMuted, marginBottom: 40 }}>From breaking news and live scores to in-depth AI-generated analysis and feature stories, we bring you closer to the teams you love. Our platform surfaces the most relevant stories across both cities, keeping you informed 24/7.</p>
       <h3 className="headline-font" style={{ fontSize: 28, marginBottom: 16 }}>TEAMS WE COVER</h3>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12 }}>
@@ -790,14 +788,14 @@ function PodcastComingSoon({ dark }) {
                 <Mic size={24} color="#fff" />
               </div>
               <div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: DET_COLOR, letterSpacing: "0.15em", marginBottom: 2 }}>THE US-12 ATHLETIC</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: DET_COLOR, letterSpacing: "0.15em", marginBottom: 2 }}>GREAT LAKES SPORTS PODCAST</div>
                 <span style={{ background: "rgba(200,16,46,0.2)", border: `1px solid ${DET_COLOR}55`, color: DET_COLOR, fontSize: 11, fontWeight: 800, padding: "3px 10px", borderRadius: 20, letterSpacing: "0.1em" }}>
                   COMING SOON
                 </span>
               </div>
             </div>
             <h2 className="headline-font" style={{ fontSize: "clamp(32px, 5vw, 56px)", color: "#fff", lineHeight: 1.05, marginBottom: 12 }}>
-              THE US-12<br />PODCAST
+              THE GREAT LAKES SPORTS<br />PODCAST
             </h2>
             <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 15, maxWidth: 480, lineHeight: 1.7 }}>
               Deep dives, hot takes, and insider analysis on your Detroit and Chicago teams — every week from the writers you already trust.
@@ -1114,8 +1112,7 @@ function Footer({ dark }) {
         <div style={{ display: "flex", flexWrap: "wrap", gap: 24, justifyContent: "space-between", marginBottom: 32 }}>
           <div>
             <div style={{ marginBottom: 12 }}>
-              <span className="headline-font" style={{ fontSize: 11, color: DET_COLOR, letterSpacing: "0.18em", display: "block" }}>THE</span>
-              <span className="headline-font" style={{ fontSize: 26, color: "#fff" }}>US-<span style={{ color: DET_COLOR }}>1</span><span style={{ color: CHI_COLOR }}>2</span> ATHLETIC</span>
+              <span className="headline-font" style={{ fontSize: 26, color: "#fff" }}><span style={{ color: DET_COLOR }}>GREAT</span> <span style={{ color: CHI_COLOR }}>LAKES</span> SPORTS</span>
             </div>
             <p style={{ fontSize: 13, maxWidth: 280, lineHeight: 1.6 }}>Your home for Detroit and Chicago sports coverage, live scores, and breaking news.</p>
           </div>
@@ -1131,7 +1128,7 @@ function Footer({ dark }) {
           </div>
         </div>
         <div style={{ borderTop: "1px solid #1a1a1a", paddingTop: 20, display: "flex", justifyContent: "space-between", fontSize: 12, flexWrap: "wrap", gap: 8 }}>
-          <span>© 2025 The US-12 Athletic. All rights reserved.</span>
+          <span>© 2025 Great Lakes Sports. All rights reserved.</span>
           <span>Powered by AI sports journalism</span>
         </div>
       </div>
@@ -1180,7 +1177,7 @@ function MerchPage({ dark }) {
             <ShoppingBag size={28} color={DET_COLOR} />
             <h1 className="headline-font" style={{ fontSize: 48 }}>MERCH STORE</h1>
           </div>
-          <p style={{ color: textMuted, fontSize: 15 }}>Official US-12 Athletic gear. Rep your teams, rep the route.</p>
+          <p style={{ color: textMuted, fontSize: 15 }}>Official Great Lakes Sports gear. Rep your teams, rep the region.</p>
         </div>
         <button onClick={() => setCartOpen(true)} style={{ position: "relative", background: DET_COLOR, border: "none", borderRadius: 8, padding: "10px 20px", cursor: "pointer", color: "#fff", display: "flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 700 }}>
           <ShoppingBag size={16} /> Cart
@@ -1356,7 +1353,7 @@ function NewsletterPage({ dark }) {
       </div>
       <h2 className="headline-font" style={{ fontSize: 44, marginBottom: 12 }}>YOU'RE IN!</h2>
       <p style={{ color: textMuted, fontSize: 16, lineHeight: 1.7, marginBottom: 24 }}>
-        Welcome to The US-12 Athletic, {name || "sports fan"}. Your first digest will hit your inbox tomorrow morning. Check your email to confirm your subscription.
+        Welcome to Great Lakes Sports, {name || "sports fan"}. Your first digest will hit your inbox tomorrow morning. Check your email to confirm your subscription.
       </p>
       <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: 20, fontSize: 14, color: textMuted }}>
         Subscribed as <strong style={{ color: dark ? "#f0f0f0" : "#111" }}>{email}</strong> on the <strong style={{ color: NEWSLETTER_PLANS.find(p => p.id === selectedPlan)?.color }}>{NEWSLETTER_PLANS.find(p => p.id === selectedPlan)?.name}</strong> plan.
@@ -1376,7 +1373,7 @@ function NewsletterPage({ dark }) {
           DETROIT & CHICAGO.<br />EVERY MORNING.
         </h1>
         <p style={{ color: textMuted, fontSize: 17, maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>
-          Breaking news, score alerts, injury updates, and exclusive analysis from The US-12 Athletic delivered straight to your inbox.
+          Breaking news, score alerts, injury updates, and exclusive analysis from Great Lakes Sports delivered straight to your inbox.
         </p>
       </div>
 

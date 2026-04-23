@@ -3,8 +3,13 @@ export default async function handler(req, res) {
   res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate");
 
   const API_KEY = process.env.ODDS_API_KEY;
-  const DETROIT = ["Detroit Lions","Detroit Tigers","Detroit Pistons","Detroit Red Wings"];
-  const CHICAGO = ["Chicago Bears","Chicago Bulls","Chicago Cubs","Chicago White Sox","Chicago Blackhawks"];
+
+  // Match any team that contains these keywords (case-insensitive)
+  const DETROIT_KEYWORDS = ["detroit", "tigers", "pistons", "red wings", "lions"];
+  const CHICAGO_KEYWORDS = ["chicago", "cubs", "white sox", "bulls", "blackhawks", "bears"];
+
+  const isDetroit = (name) => DETROIT_KEYWORDS.some(k => name.toLowerCase().includes(k));
+  const isChicago = (name) => CHICAGO_KEYWORDS.some(k => name.toLowerCase().includes(k));
 
   const SPORTS = [
     { key: "americanfootball_nfl", label: "NFL" },
@@ -18,7 +23,10 @@ export default async function handler(req, res) {
       SPORTS.map(s =>
         fetch(`https://api.the-odds-api.com/v4/sports/${s.key}/scores/?apiKey=${API_KEY}&daysFrom=3`)
           .then(r => r.json())
-          .then(games => games.map(g => ({ ...g, sport: s.label })))
+          .then(data => {
+            if (!Array.isArray(data)) return [];
+            return data.map(g => ({ ...g, sport: s.label }));
+          })
       )
     );
 
@@ -27,8 +35,8 @@ export default async function handler(req, res) {
       .flatMap(r => r.value);
 
     const filtered = allGames.filter(g =>
-      DETROIT.includes(g.home_team) || DETROIT.includes(g.away_team) ||
-      CHICAGO.includes(g.home_team) || CHICAGO.includes(g.away_team)
+      isDetroit(g.home_team) || isDetroit(g.away_team) ||
+      isChicago(g.home_team) || isChicago(g.away_team)
     );
 
     const formatted = filtered.map(g => {
@@ -37,11 +45,15 @@ export default async function handler(req, res) {
       const now = new Date();
       const start = new Date(g.commence_time);
       let status = "UPCOMING";
-      let info = start.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+      let info = start.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZoneName: "short" });
       if (g.completed) { status = "FINAL"; info = "Final"; }
       else if (now > start && !g.completed) { status = "LIVE"; info = "Live"; }
 
-      const abbr = name => name.split(" ").pop().slice(0, 3).toUpperCase();
+      const abbr = name => {
+        const words = name.split(" ");
+        return words[words.length - 1].slice(0, 3).toUpperCase();
+      };
+
       return {
         home: abbr(g.home_team),
         away: abbr(g.away_team),
@@ -55,7 +67,7 @@ export default async function handler(req, res) {
       };
     });
 
-    res.status(200).json({ games: formatted, count: formatted.length });
+    res.status(200).json({ games: formatted, count: formatted.length, total_fetched: allGames.length });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

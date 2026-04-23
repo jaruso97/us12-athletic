@@ -700,6 +700,141 @@ function AboutPage({ dark }) {
   );
 }
 
+// ─── PODCAST COMING SOON ─────────────────────────────────────────────────────
+function PodcastComingSoon({ dark }) {
+  const [email, setEmail] = useState("");
+  const [notified, setNotified] = useState(false);
+  const border = dark ? "#1e1e28" : "#e8e8e8";
+  const textMuted = dark ? "#888" : "#666";
+
+  const EPISODES_PREVIEW = [
+    { ep: "EP 01", title: "The Lions Are For Real — Breaking Down Detroit's Super Bowl Window", guest: "Marcus Johnson", duration: "~55 min" },
+    { ep: "EP 02", title: "Caleb Williams & The New Era of Chicago Bears Football", guest: "Derek Williams", duration: "~50 min" },
+    { ep: "EP 03", title: "Cade, Bedard & The Young Stars Redefining Detroit & Chicago", guest: "Lisa Park", duration: "~60 min" },
+  ];
+
+  return (
+    <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", marginBottom: 20 }}>
+      {/* Background gradient */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: dark
+          ? `linear-gradient(135deg, #0a0a12 0%, #12101e 40%, #0f0a14 100%)`
+          : `linear-gradient(135deg, #0d0d1a 0%, #1a1030 40%, #100a18 100%)`,
+      }} />
+
+      {/* Animated sound wave decoration */}
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", opacity: 0.07 }}>
+        <style>{`
+          @keyframes wave1 { 0%,100%{height:20px} 50%{height:60px} }
+          @keyframes wave2 { 0%,100%{height:40px} 50%{height:20px} }
+          @keyframes wave3 { 0%,100%{height:30px} 33%{height:55px} 66%{height:15px} }
+          @keyframes wave4 { 0%,100%{height:50px} 50%{height:25px} }
+          @keyframes wave5 { 0%,100%{height:15px} 50%{height:45px} }
+          .bar1{animation:wave1 1.2s ease-in-out infinite}
+          .bar2{animation:wave2 1.0s ease-in-out infinite 0.1s}
+          .bar3{animation:wave3 1.4s ease-in-out infinite 0.2s}
+          .bar4{animation:wave4 1.1s ease-in-out infinite 0.3s}
+          .bar5{animation:wave5 1.3s ease-in-out infinite 0.15s}
+          .bar6{animation:wave1 0.9s ease-in-out infinite 0.25s}
+          .bar7{animation:wave3 1.5s ease-in-out infinite 0.05s}
+          .bar8{animation:wave2 1.2s ease-in-out infinite 0.35s}
+        `}</style>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, height: "100%", padding: "0 40px", justifyContent: "center" }}>
+          {["bar1","bar2","bar3","bar4","bar5","bar6","bar7","bar8","bar1","bar2","bar3","bar4","bar5","bar6","bar7","bar8","bar1","bar2","bar3","bar4"].map((cls, i) => (
+            <div key={i} className={cls} style={{ width: 6, borderRadius: 3, background: `hsl(${i * 18}, 70%, 60%)`, minHeight: 15, alignSelf: "center" }} />
+          ))}
+        </div>
+      </div>
+
+      {/* Red accent bar top */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${DET_COLOR}, ${CHI_COLOR}, ${DET_COLOR})` }} />
+
+      <div style={{ position: "relative", padding: "44px 40px 40px" }}>
+        {/* Header */}
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 20, marginBottom: 36 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+              <div style={{ width: 48, height: 48, borderRadius: 12, background: `linear-gradient(135deg, ${DET_COLOR}, ${CHI_COLOR})`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Mic size={24} color="#fff" />
+              </div>
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: DET_COLOR, letterSpacing: "0.15em", marginBottom: 2 }}>THE US-12 ATHLETIC</div>
+                <span style={{ background: "rgba(200,16,46,0.2)", border: `1px solid ${DET_COLOR}55`, color: DET_COLOR, fontSize: 11, fontWeight: 800, padding: "3px 10px", borderRadius: 20, letterSpacing: "0.1em" }}>
+                  COMING SOON
+                </span>
+              </div>
+            </div>
+            <h2 className="headline-font" style={{ fontSize: "clamp(32px, 5vw, 56px)", color: "#fff", lineHeight: 1.05, marginBottom: 12 }}>
+              THE US-12<br />PODCAST
+            </h2>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 15, maxWidth: 480, lineHeight: 1.7 }}>
+              Deep dives, hot takes, and insider analysis on your Detroit and Chicago teams — every week from the writers you already trust.
+            </p>
+          </div>
+
+          {/* Notify CTA */}
+          <div style={{ background: "rgba(255,255,255,0.05)", border: `1px solid rgba(255,255,255,0.1)`, borderRadius: 14, padding: "24px 28px", minWidth: 280, backdropFilter: "blur(10px)" }}>
+            <p className="headline-font" style={{ fontSize: 22, color: "#fff", marginBottom: 6 }}>BE FIRST TO LISTEN</p>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 16, lineHeight: 1.5 }}>Drop your email and we'll notify you the moment Episode 1 drops.</p>
+            {notified ? (
+              <div style={{ display: "flex", alignItems: "center", gap: 8, background: "rgba(0,209,102,0.15)", border: `1px solid ${LIVE_GREEN}44`, borderRadius: 8, padding: "12px 16px" }}>
+                <CheckCircle size={18} color={LIVE_GREEN} />
+                <span style={{ color: LIVE_GREEN, fontWeight: 700, fontSize: 14 }}>You're on the list!</span>
+              </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" type="email"
+                  style={{ background: "rgba(255,255,255,0.08)", border: `1px solid rgba(255,255,255,0.15)`, borderRadius: 8, padding: "11px 14px", fontSize: 14, color: "#fff", outline: "none", width: "100%" }} />
+                <button onClick={() => email.includes("@") && setNotified(true)}
+                  style={{ background: `linear-gradient(135deg, ${DET_COLOR}, #a50d23)`, color: "#fff", border: "none", borderRadius: 8, padding: "12px", fontSize: 14, fontWeight: 800, cursor: "pointer", letterSpacing: "0.06em", transition: "opacity 0.15s" }}
+                  className="btn-primary">
+                  NOTIFY ME
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Episode previews */}
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.1)" }} />
+            <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em" }}>FIRST EPISODES PLANNED</span>
+            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.1)" }} />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {EPISODES_PREVIEW.map((ep, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 16, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, padding: "14px 18px" }}>
+                <div style={{ width: 44, height: 44, borderRadius: 10, background: i === 0 ? `linear-gradient(135deg, ${DET_COLOR}, #a50d23)` : i === 1 ? `linear-gradient(135deg, ${CHI_COLOR}, #082d6e)` : "rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <span className="headline-font" style={{ fontSize: 13, color: "#fff" }}>{ep.ep}</span>
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: 14, fontWeight: 700, color: "#fff", lineHeight: 1.3, marginBottom: 3 }}>{ep.title}</p>
+                  <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>with {ep.guest} · {ep.duration}</p>
+                </div>
+                <div style={{ flexShrink: 0, width: 36, height: 36, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Play size={14} color="rgba(255,255,255,0.4)" style={{ marginLeft: 2 }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom tagline */}
+        <div style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
+          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.3)" }}>New episodes dropping weekly · Available on all major platforms</p>
+          <div style={{ display: "flex", gap: 10 }}>
+            {["Spotify", "Apple", "YouTube"].map(p => (
+              <span key={p} style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.25)", border: "1px solid rgba(255,255,255,0.1)", padding: "4px 10px", borderRadius: 6 }}>{p}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function CityPage({ city, dark, articles, bookmarks, toggleBookmark, onArticleClick }) {
   const isDetroit = city === "detroit";
   const color = isDetroit ? DET_COLOR : CHI_COLOR;
@@ -761,7 +896,7 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
           <LiveNewsSection dark={dark} city="all" />
 
           {/* Fan Polls Section */}
-          <div>
+          <div style={{ marginBottom: 44 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
               <div style={{ width: 4, height: 28, background: "#FF4500", borderRadius: 2 }} />
               <h2 className="headline-font" style={{ fontSize: 28 }}>FAN POLLS</h2>
@@ -770,6 +905,9 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
               {POLLS.map(poll => <PollWidget key={poll.id} poll={poll} dark={dark} />)}
             </div>
           </div>
+
+          {/* Podcast Coming Soon */}
+          <PodcastComingSoon dark={dark} />
         </div>
         <div className="hide-mobile"><Sidebar dark={dark} articles={articles} onArticleClick={onArticleClick} /></div>
       </div>

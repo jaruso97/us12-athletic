@@ -545,10 +545,10 @@ function ArticlePage({ article, dark, bookmarks, toggleBookmark, onBack, related
         if (data.content) {
           setContent(data.content);
         } else {
-          setContent("Article content could not be loaded. Please try again shortly.");
+          setContent(article.excerpt || "Full article content is unavailable at this time.");
         }
       } catch {
-        setContent("Article content could not be loaded. Please check your connection and try again.");
+        setContent(article.excerpt || "Full article content is unavailable at this time.");
       }
       setLoading(false);
     };

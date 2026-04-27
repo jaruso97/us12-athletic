@@ -10,15 +10,24 @@ import {
   Newspaper, ArrowRight, SkipForward, SkipBack
 } from "lucide-react";
 
-const DET_COLOR = "#C8102E";
-const CHI_COLOR = "#0B3D8A";
+const LAKE_BLUE = "#006994";
+const HARVEST_GOLD = "#F4A921";
+const FOREST_GREEN = "#1B5E3B";
 const LIVE_GREEN = "#00D166";
+const HOT_RED = "#E63946";
+// Detroit subtle hints (used sparingly)
+const DET_BLUE = "#0076B6";
+const DET_ORANGE = "#FA4616";
+// Legacy aliases so existing code doesn't break
+const DET_COLOR = LAKE_BLUE;
+const CHI_COLOR = FOREST_GREEN;
 
+// ─── MIDWEST TEAMS ──────────────────────────────────────────────────────────
 const DETROIT_TEAMS = [
-  { id: "lions",    name: "Lions",     sport: "NFL", color: "#0076B6", accent: "#B0B7BC" },
-  { id: "tigers",   name: "Tigers",    sport: "MLB", color: "#0C2340", accent: "#FA4616" },
-  { id: "pistons",  name: "Pistons",   sport: "NBA", color: "#C8102E", accent: "#006BB6" },
-  { id: "redwings", name: "Red Wings", sport: "NHL", color: "#CE1126", accent: "#FFFFFF" },
+  { id: "lions",    name: "Lions",     sport: "NFL", color: DET_BLUE,    accent: "#B0B7BC" },
+  { id: "tigers",   name: "Tigers",    sport: "MLB", color: DET_ORANGE,  accent: "#0C2340" },
+  { id: "pistons",  name: "Pistons",   sport: "NBA", color: "#C8102E",   accent: "#006BB6" },
+  { id: "redwings", name: "Red Wings", sport: "NHL", color: "#CE1126",   accent: "#FFFFFF" },
 ];
 const CHICAGO_TEAMS = [
   { id: "bears",      name: "Bears",      sport: "NFL", color: "#0B162A", accent: "#C83803" },
@@ -27,112 +36,227 @@ const CHICAGO_TEAMS = [
   { id: "whitesox",   name: "White Sox",  sport: "MLB", color: "#27251F", accent: "#C4CED4" },
   { id: "blackhawks", name: "Blackhawks", sport: "NHL", color: "#CF0A2C", accent: "#FF671B" },
 ];
+const MIDWEST_NFL = [
+  { id: "lions",     name: "Lions",     city: "Detroit",      color: DET_BLUE,    fav: true  },
+  { id: "bears",     name: "Bears",     city: "Chicago",      color: "#0B162A"               },
+  { id: "packers",   name: "Packers",   city: "Green Bay",    color: "#203731"               },
+  { id: "vikings",   name: "Vikings",   city: "Minnesota",    color: "#4F2683"               },
+  { id: "chiefs",    name: "Chiefs",    city: "Kansas City",  color: "#E31837"               },
+  { id: "colts",     name: "Colts",     city: "Indianapolis", color: "#002C5F"               },
+  { id: "browns",    name: "Browns",    city: "Cleveland",    color: "#311D00"               },
+  { id: "bengals",   name: "Bengals",   city: "Cincinnati",   color: "#FB4F14"               },
+  { id: "steelers",  name: "Steelers",  city: "Pittsburgh",   color: "#FFB612"               },
+];
+const MIDWEST_NBA = [
+  { id: "pistons",   name: "Pistons",   city: "Detroit",      color: "#C8102E",   fav: true  },
+  { id: "bulls",     name: "Bulls",     city: "Chicago",      color: "#CE1141"               },
+  { id: "bucks",     name: "Bucks",     city: "Milwaukee",    color: "#00471B"               },
+  { id: "pacers",    name: "Pacers",    city: "Indiana",      color: "#002D62"               },
+  { id: "cavaliers", name: "Cavaliers", city: "Cleveland",    color: "#860038"               },
+  { id: "wolves",    name: "Timberwolves", city: "Minnesota", color: "#0C2340"               },
+];
+const MIDWEST_MLB = [
+  { id: "tigers",    name: "Tigers",    city: "Detroit",      color: DET_ORANGE,  fav: true  },
+  { id: "cubs",      name: "Cubs",      city: "Chicago",      color: "#0E3386"               },
+  { id: "whitesox",  name: "White Sox", city: "Chicago",      color: "#27251F"               },
+  { id: "cardinals", name: "Cardinals", city: "St. Louis",    color: "#C41E3A"               },
+  { id: "brewers",   name: "Brewers",   city: "Milwaukee",    color: "#12284B"               },
+  { id: "guardians", name: "Guardians", city: "Cleveland",    color: "#00385D"               },
+  { id: "royals",    name: "Royals",    city: "Kansas City",  color: "#004687"               },
+  { id: "twins",     name: "Twins",     city: "Minnesota",    color: "#002B5C"               },
+];
+const MIDWEST_NHL = [
+  { id: "redwings",    name: "Red Wings",   city: "Detroit",    color: "#CE1126",   fav: true  },
+  { id: "blackhawks",  name: "Blackhawks",  city: "Chicago",    color: "#CF0A2C"               },
+  { id: "blues",       name: "Blues",       city: "St. Louis",  color: "#002F87"               },
+  { id: "wild",        name: "Wild",        city: "Minnesota",  color: "#154734"               },
+  { id: "avalanche",   name: "Avalanche",   city: "Colorado",   color: "#6F263D"               },
+  { id: "jets",        name: "Jets",        city: "Winnipeg",   color: "#041E42"               },
+  { id: "predators",   name: "Predators",   city: "Nashville",  color: "#FFB81C"               },
+];
+const COLLEGE_TEAMS = [
+  { id: "michigan",    name: "Michigan",        sport: "CFB/CBB", color: "#00274C", accent: "#FFCB05", conf: "Big Ten" },
+  { id: "msu",         name: "Michigan State",  sport: "CFB/CBB", color: "#18453B", accent: "#FFFFFF", conf: "Big Ten" },
+  { id: "osu",         name: "Ohio State",      sport: "CFB/CBB", color: "#BA0C2F", accent: "#666666", conf: "Big Ten" },
+  { id: "notredame",   name: "Notre Dame",      sport: "CFB/CBB", color: "#0C2340", accent: "#C99700", conf: "Ind/ACC" },
+  { id: "wisconsin",   name: "Wisconsin",       sport: "CFB/CBB", color: "#C5050C", accent: "#FFFFFF", conf: "Big Ten" },
+  { id: "iowa",        name: "Iowa",            sport: "CFB/CBB", color: "#FFCD00", accent: "#000000", conf: "Big Ten" },
+  { id: "indiana",     name: "Indiana",         sport: "CBB",     color: "#990000", accent: "#FFFFFF", conf: "Big Ten" },
+  { id: "purdue",      name: "Purdue",          sport: "CFB/CBB", color: "#CEB888", accent: "#000000", conf: "Big Ten" },
+  { id: "kansas",      name: "Kansas",          sport: "CBB",     color: "#0051A5", accent: "#E8000D", conf: "Big 12" },
+  { id: "kentucky",    name: "Kentucky",        sport: "CBB",     color: "#0033A0", accent: "#FFFFFF", conf: "SEC"    },
+  { id: "minnesota",   name: "Minnesota",       sport: "CFB/CBB", color: "#7A0019", accent: "#FFB71B", conf: "Big Ten" },
+  { id: "nebraska",    name: "Nebraska",        sport: "CFB",     color: "#E41C38", accent: "#FFFFFF", conf: "Big Ten" },
+];
 
 const SCORES = [];
 
 
 const ALL_ARTICLES = [
+  // ── DETROIT (always first — subtle fav) ─────────────────────────────────
   {
-    id: "d1", city: "detroit", team: "lions", sport: "NFL",
-    title: "Lions Dominate NFC North with Explosive Offense, Eye Super Bowl Run",
-    excerpt: "Detroit's high-powered offense continues to silence doubters as Jared Goff puts up another 300-yard performance in a commanding divisional victory that has Lions fans dreaming of February.",
-    author: "Marcus Johnson", time: "2h ago", readTime: "4 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG",
-    tags: ["Lions","NFL","Playoffs"], trending: true, hot: true, views: 51800, staffPick: true
+    id:"d1", city:"detroit", team:"lions", sport:"NFL", region:"Midwest",
+    title:"Lions Eye Back-to-Back NFC North Titles Behind Goff's Historic Season",
+    excerpt:"Jared Goff is putting together one of the finest QB seasons in franchise history as Detroit cements itself as a legitimate Super Bowl contender for the second straight year.",
+    author:"Marcus Johnson", time:"1h ago", readTime:"4 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG",
+    tags:["Lions","NFL","Detroit"], trending:true, hot:true, views:58200, staffPick:true
   },
   {
-    id: "d2", city: "detroit", team: "tigers", sport: "MLB",
-    title: "Tigers Prospect Pipeline Ranked Among MLB's Best Heading Into Trade Deadline",
-    excerpt: "Detroit's rebuilding effort is paying dividends as scouts rave about the organization's depth of pitching talent coming through the minors.",
-    author: "Sarah Chen", time: "4h ago", readTime: "3 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_gate_D_entrance.JPG",
-    tags: ["Tigers","MLB","Prospects"], trending: true, views: 44200, staffPick: true
+    id:"d2", city:"detroit", team:"tigers", sport:"MLB", region:"Midwest",
+    title:"Tarik Skubal Is the Best Pitcher in Baseball and Detroit Fans Know It",
+    excerpt:"With a sub-3.00 ERA and strikeout numbers that would make legends blush, Skubal has become the undisputed ace of a Tigers rotation that has the Midwest buzzing.",
+    author:"Sarah Chen", time:"2h ago", readTime:"3 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_gate_D_entrance.JPG",
+    tags:["Tigers","MLB","Skubal"], trending:true, views:44800, staffPick:true
+  },
+  // ── NFL ──────────────────────────────────────────────────────────────────
+  {
+    id:"n1", city:"green bay", team:"packers", sport:"NFL", region:"Midwest",
+    title:"Jordan Love Looks Like a Franchise QB as Packers Reload Around Young Core",
+    excerpt:"Green Bay's front office patience is paying off as their young nucleus — led by Love — is maturing into one of the most dangerous offenses in the NFC.",
+    author:"Derek Williams", time:"3h ago", readTime:"4 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_View_of_Downtown_Detroit_-_Ford_Field_and_Comerica_Park.jpg",
+    tags:["Packers","NFL","Green Bay"], trending:true, hot:true, views:38100
   },
   {
-    id: "d3", city: "detroit", team: "redwings", sport: "NHL",
-    title: "Red Wings Turn Back the Clock with Dominant Performance at Little Caesars Arena",
-    excerpt: "Detroit's historic franchise showed flashes of the dynasty era with a convincing 4-1 victory over division rivals that has the building buzzing with old-time energy.",
-    author: "Tom Bradley", time: "6h ago", readTime: "5 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_10_(Little_Caesars_Arena).jpg",
-    tags: ["Red Wings","NHL"], views: 12400
+    id:"n2", city:"kansas city", team:"chiefs", sport:"NFL", region:"Midwest",
+    title:"Chiefs Dynasty Discussion Heats Up as Mahomes Chases Historic Third Title",
+    excerpt:"Kansas City's sustained excellence under Andy Reid and Patrick Mahomes has sparked legitimate dynasty conversations that stretch from Arrowhead to the history books.",
+    author:"Angela Martinez", time:"5h ago", readTime:"5 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/2014_NHL_Stadium_Series,_Soldier_Field_Pano.JPG",
+    tags:["Chiefs","NFL","Mahomes"], trending:true, views:52300
   },
   {
-    id: "d4", city: "detroit", team: "pistons", sport: "NBA",
-    title: "Cade Cunningham Named Eastern Conference Player of the Week After Back-to-Back 30-Point Games",
-    excerpt: "The young star continues his ascent with jaw-dropping performances that have Detroit fans dreaming of playoff basketball for the first time in years.",
-    author: "Lisa Park", time: "8h ago", readTime: "4 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_09_(Little_Caesars_Arena).jpg",
-    tags: ["Pistons","NBA","Cade"], trending: true, views: 21700
+    id:"n3", city:"chicago", team:"bears", sport:"NFL", region:"Midwest",
+    title:"Caleb Williams Delivering on Massive Expectations in Sophomore Season",
+    excerpt:"The former No. 1 overall pick is showing why Chicago went all-in, posting back-to-back 300-yard performances that have NFL scouts revising their franchise QB rankings.",
+    author:"Derek Williams", time:"6h ago", readTime:"4 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Luxury_suites_Soldier_Field.JPG",
+    tags:["Bears","NFL","Chicago"], views:31400
   },
   {
-    id: "d5", city: "detroit", team: "lions", sport: "NFL",
-    title: "Lions Offensive Line Rated Among Top 5 in NFL by PFF Analytics Report",
-    excerpt: "Detroit's rebuilt offensive unit is providing a fortress for Goff as the Lions cement their championship-contending identity heading into the stretch run.",
-    author: "Marcus Johnson", time: "1d ago", readTime: "3 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_View_of_Downtown_Detroit_-_Ford_Field_and_Comerica_Park.jpg",
-    tags: ["Lions","NFL","Analytics"], views: 38600, staffPick: true
+    id:"n4", city:"minnesota", team:"vikings", sport:"NFL", region:"Midwest",
+    title:"Vikings' Sam Darnold Redemption Arc Becomes One of NFL's Best Stories",
+    excerpt:"Written off by multiple franchises, Darnold is thriving in Minnesota's system and leading the Vikings on an unexpected playoff run that has the league talking.",
+    author:"Kyle Foster", time:"8h ago", readTime:"3 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG",
+    tags:["Vikings","NFL","Minnesota"], views:21900
+  },
+  // ── NBA ──────────────────────────────────────────────────────────────────
+  {
+    id:"b1", city:"detroit", team:"pistons", sport:"NBA", region:"Midwest",
+    title:"Cade Cunningham Puts Up Historic Night as Pistons Playoff Push Gets Real",
+    excerpt:"Detroit's franchise cornerstone dropped 38 points and 11 assists in a statement win that suddenly has the Pistons in serious playoff conversation.",
+    author:"Lisa Park", time:"4h ago", readTime:"4 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_09_(Little_Caesars_Arena).jpg",
+    tags:["Pistons","NBA","Cade"], trending:true, views:29700, staffPick:true
   },
   {
-    id: "d6", city: "detroit", team: "tigers", sport: "MLB",
-    title: "Tigers Sign Two Highly-Touted International Prospects to Minor League Deals",
-    excerpt: "Detroit's front office accelerates its aggressive rebuild with signings from the Dominican Republic and Venezuela that scouts project as future rotation pieces.",
-    author: "Sarah Chen", time: "1d ago", readTime: "2 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_ferris_wheel.JPG",
-    tags: ["Tigers","MLB","International"], views: 29400, staffPick: true
+    id:"b2", city:"milwaukee", team:"bucks", sport:"NBA", region:"Midwest",
+    title:"Giannis Still Dominant as Bucks Remain Legitimate Eastern Conference Threat",
+    excerpt:"The Greek Freak continues to defy expectations in Milwaukee as the Bucks build around their franchise cornerstone with a roster designed for a deep playoff run.",
+    author:"Lisa Park", time:"6h ago", readTime:"4 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/United_Center,_Chicago.JPG",
+    tags:["Bucks","NBA","Giannis"], trending:true, views:34500
   },
   {
-    id: "c1", city: "chicago", team: "bears", sport: "NFL",
-    title: "Caleb Williams Shows Star Potential in Commanding Soldier Field Victory",
-    excerpt: "The No. 1 overall pick silences every critic with a masterclass performance at home, throwing for 347 yards and 3 touchdowns as the Bears look like a team transformed.",
-    author: "Derek Williams", time: "1h ago", readTime: "5 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/2014_NHL_Stadium_Series,_Soldier_Field_Pano.JPG",
-    tags: ["Bears","NFL","Caleb"], trending: true, hot: true, views: 31200
+    id:"b3", city:"indiana", team:"pacers", sport:"NBA", region:"Midwest",
+    title:"Tyrese Haliburton Emerging as Top-5 Point Guard in the NBA",
+    excerpt:"Indiana's rising star is reshaping the Pacers into a must-watch team with a style of play that blends old-school Midwest toughness with modern offensive innovation.",
+    author:"Angela Martinez", time:"8h ago", readTime:"3 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_10_(Little_Caesars_Arena).jpg",
+    tags:["Pacers","NBA","Haliburton"], views:18800
+  },
+  // ── MLB ──────────────────────────────────────────────────────────────────
+  {
+    id:"m1", city:"st. louis", team:"cardinals", sport:"MLB", region:"Midwest",
+    title:"Cardinals' Young Core Signals New Era of Dominance in the NL Central",
+    excerpt:"St. Louis is banking on a youth movement headlined by elite prospects to restore the franchise to its former glory after a transitional few seasons.",
+    author:"James O'Brien", time:"5h ago", readTime:"4 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Comerica_park_ferris_wheel.JPG",
+    tags:["Cardinals","MLB","St. Louis"], trending:true, views:22600
   },
   {
-    id: "c2", city: "chicago", team: "bulls", sport: "NBA",
-    title: "Bulls Front Office Explores Blockbuster Trade as Deadline Looms Large",
-    excerpt: "Chicago's brass is reportedly willing to move significant assets to add a third star alongside their young core in a win-now push that has the city buzzing.",
-    author: "Angela Martinez", time: "3h ago", readTime: "4 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/United_Center,_Chicago.JPG",
-    tags: ["Bulls","NBA","Trade"], trending: true, views: 27800
+    id:"m2", city:"chicago", team:"cubs", sport:"MLB", region:"Midwest",
+    title:"Wrigley Field Buzz Returns as Cubs Rotation Posts Best Spring Numbers in a Decade",
+    excerpt:"Chicago's north side faithful are finding reasons to believe again as an overhauled pitching staff posts eye-popping numbers heading into the stretch run.",
+    author:"James O'Brien", time:"7h ago", readTime:"3 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Wrigley_Field_Marquee_as_of_mid-2015.JPG",
+    tags:["Cubs","MLB","Chicago"], views:16900
   },
   {
-    id: "c3", city: "chicago", team: "cubs", sport: "MLB",
-    title: "Cubs Starting Rotation Looking Lights-Out in Spring, Raising World Series Hopes",
-    excerpt: "Wrigley faithful have every reason to believe this year as Chicago's pitching staff posts eye-popping numbers in camp under a new pitching coordinator.",
-    author: "James O'Brien", time: "5h ago", readTime: "4 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Wrigley_Field_Marquee_as_of_mid-2015.JPG",
-    tags: ["Cubs","MLB","Spring"], views: 15600
+    id:"m3", city:"cleveland", team:"guardians", sport:"MLB", region:"Midwest",
+    title:"Cleveland Guardians' Pitching Factory Continues to Churn Out Aces",
+    excerpt:"The Guardians' player development system remains the envy of MLB as yet another homegrown starter earns national recognition and All-Star consideration.",
+    author:"Sarah Chen", time:"9h ago", readTime:"3 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/US_Cellular_Field.jpg",
+    tags:["Guardians","MLB","Cleveland"], views:13200
+  },
+  // ── NHL ──────────────────────────────────────────────────────────────────
+  {
+    id:"h1", city:"detroit", team:"redwings", sport:"NHL", region:"Midwest",
+    title:"Red Wings Momentum Building as Larkin and DeBrincat Lead Dynamic Duo",
+    excerpt:"Little Caesars Arena is buzzing again as Detroit's dynamic top line is producing at an elite level and the Wings push for their first playoff spot in years.",
+    author:"Tom Bradley", time:"4h ago", readTime:"4 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_10_(Little_Caesars_Arena).jpg",
+    tags:["Red Wings","NHL","Detroit"], trending:true, views:17400, staffPick:true
   },
   {
-    id: "c4", city: "chicago", team: "blackhawks", sport: "NHL",
-    title: "Bedard on Pace for Calder Trophy After Monster March Performance",
-    excerpt: "Chicago's franchise cornerstone continues to electrify the United Center with an unprecedented rookie run that has hockey pundits comparing him to the all-time greats.",
-    author: "Kyle Foster", time: "7h ago", readTime: "4 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_11_(Little_Caesars_Arena).jpg",
-    tags: ["Blackhawks","NHL","Bedard"], trending: true, views: 19300
+    id:"h2", city:"st. louis", team:"blues", sport:"NHL", region:"Midwest",
+    title:"Blues Finding Their Identity Again After Retool Around Young Core",
+    excerpt:"St. Louis is reminding the hockey world why this franchise has consistently been among the most resilient in the sport, posting strong numbers behind a deep defensive corps.",
+    author:"Tom Bradley", time:"7h ago", readTime:"3 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_11_(Little_Caesars_Arena).jpg",
+    tags:["Blues","NHL","St. Louis"], views:11700
+  },
+  // ── COLLEGE ──────────────────────────────────────────────────────────────
+  {
+    id:"c1", city:"ann arbor", team:"michigan", sport:"CFB", region:"College",
+    title:"Michigan Football Remains Big Ten's Standard-Bearer Heading Into Camp",
+    excerpt:"The Wolverines, coming off back-to-back Big Ten championships, enter the season as the conference's most complete program despite significant roster turnover.",
+    author:"Marcus Johnson", time:"3h ago", readTime:"5 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Field_2007.JPG",
+    tags:["Michigan","CFB","Big Ten"], trending:true, hot:true, views:41200
   },
   {
-    id: "c5", city: "chicago", team: "whitesox", sport: "MLB",
-    title: "White Sox Rebuild Accelerates as Top Draft Class Dominates Minor Leagues",
-    excerpt: "Chicago's south side team shows encouraging signs of life as their top picks tear through affiliate levels, raising hopes for a faster timeline to competitiveness.",
-    author: "Angela Martinez", time: "9h ago", readTime: "3 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/US_Cellular_Field.jpg",
-    tags: ["White Sox","MLB","Rebuild"], views: 8900
+    id:"c2", city:"columbus", team:"osu", sport:"CFB", region:"College",
+    title:"Ohio State's Offense Could Be Most Explosive in College Football History",
+    excerpt:"The Buckeyes return a loaded offensive unit that advanced metrics project as potentially record-breaking, putting the entire country on notice heading into the season.",
+    author:"Derek Williams", time:"5h ago", readTime:"4 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/2014_NHL_Stadium_Series,_Soldier_Field_Pano.JPG",
+    tags:["Ohio State","CFB","Big Ten"], trending:true, views:38700
   },
   {
-    id: "c6", city: "chicago", team: "bears", sport: "NFL",
-    title: "Bears Defense Leads NFL in Sacks Following Transformative Offseason Overhaul",
-    excerpt: "Chicago's defensive coordinator has quietly assembled one of the most feared pass-rushing units in the league, providing Caleb Williams with a complete team around him.",
-    author: "Derek Williams", time: "1d ago", readTime: "3 min",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Luxury_suites_Soldier_Field.JPG",
-    tags: ["Bears","NFL","Defense"], views: 13100
+    id:"c3", city:"south bend", team:"notredame", sport:"CFB", region:"College",
+    title:"Notre Dame Football Has Its Most Complete Roster in 15 Years",
+    excerpt:"The Fighting Irish enter the season ranked in the top 5 nationally with depth at every position and a quarterback situation that has rival coaches losing sleep.",
+    author:"Kyle Foster", time:"6h ago", readTime:"4 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Luxury_suites_Soldier_Field.JPG",
+    tags:["Notre Dame","CFB"], views:29300
+  },
+  {
+    id:"c4", city:"lawrence", team:"kansas", sport:"CBB", region:"College",
+    title:"Kansas Basketball's Recruiting Class Ranked #1 Nationally for Third Straight Year",
+    excerpt:"Bill Self's program continues to set the standard for college basketball recruiting, landing the nation's top point guard prospect in a class that has the Jayhawks primed for another deep run.",
+    author:"Angela Martinez", time:"8h ago", readTime:"3 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/United_Center,_Chicago.JPG",
+    tags:["Kansas","CBB","Big 12"], trending:true, views:24100
+  },
+  {
+    id:"c5", city:"east lansing", team:"msu", sport:"CBB", region:"College",
+    title:"Michigan State Basketball: Tom Izzo's Program Shows No Signs of Slowing Down",
+    excerpt:"The Spartans' legendary coach has assembled another elite roster as Michigan State remains one of college basketball's most reliable programs year after year.",
+    author:"Marcus Johnson", time:"1d ago", readTime:"3 min",
+    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Detroit_December_2018_09_(Little_Caesars_Arena).jpg",
+    tags:["Michigan State","CBB","Big Ten"], views:18500
   },
 ];
 
+const TRENDING_TOPICS
 const TRENDING_TOPICS = [
-  "Lions Super Bowl Odds", "Caleb Williams Breakout", "Cade Cunningham MVP",
-  "Cubs World Series", "Bedard Calder", "Bears Trade Rumors"
+  "Lions Super Bowl 🦁", "Mahomes Dynasty", "Michigan vs Ohio State",
+  "Skubal Cy Young 🐯", "Giannis MVP", "Big Ten Football", "Haliburton Rising", "Notre Dame CFP"
 ];
 
 const MERCH = [
@@ -216,8 +340,8 @@ const GlobalStyles = () => (
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&display=swap');
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     .app { font-family: 'Barlow Condensed', sans-serif; transition: background 0.3s, color 0.3s; min-height: 100vh; }
-    .app.dark { background: #0D0D0F; color: #F0F0F0; }
-    .app.light { background: #F2F2F2; color: #111111; }
+    .app.dark { background: #080E14; color: #F0F0F0; }
+    .app.light { background: #EEF2F7; color: #111111; }
     .headline-font { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.03em; }
     .body-font { font-family: 'Source Serif 4', serif; }
     @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -229,12 +353,12 @@ const GlobalStyles = () => (
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     .fade-up { animation: fadeInUp 0.5s ease forwards; }
     @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-    .skeleton { background: linear-gradient(90deg, #1e1e2a 25%, #2a2a3a 50%, #1e1e2a 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
-    .skeleton-light { background: linear-gradient(90deg, #e0e0e0 25%, #ececec 50%, #e0e0e0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
+    .skeleton { background: linear-gradient(90deg, #0f1a24 25%, #162230 50%, #0f1a24 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
+    .skeleton-light { background: linear-gradient(90deg, #dde4ed 25%, #e8edf5 50%, #dde4ed 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
     .article-card { transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
     .article-card:hover { transform: translateY(-4px); }
-    .dark .article-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
-    .light .article-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+    .dark .article-card:hover { box-shadow: 0 16px 48px rgba(0,105,148,0.2); }
+    .light .article-card:hover { box-shadow: 0 16px 48px rgba(0,105,148,0.12); }
     .hero-card { position: relative; overflow: hidden; cursor: pointer; }
     .hero-card img { transition: transform 0.4s ease; }
     .hero-card:hover img { transform: scale(1.03); }
@@ -242,8 +366,8 @@ const GlobalStyles = () => (
     .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: currentColor; transform: scaleX(0); transition: transform 0.2s; }
     .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
     .search-overlay { position: fixed; inset: 0; z-index: 200; backdrop-filter: blur(8px); }
-    .dark .search-overlay { background: rgba(0,0,0,0.9); }
-    .light .search-overlay { background: rgba(255,255,255,0.92); }
+    .dark .search-overlay { background: rgba(4,8,14,0.92); }
+    .light .search-overlay { background: rgba(238,242,247,0.94); }
     .team-pill { transition: all 0.15s; cursor: pointer; }
     .team-pill:hover { transform: scale(1.05); }
     .btn-primary { transition: filter 0.15s, transform 0.1s; }
@@ -253,8 +377,8 @@ const GlobalStyles = () => (
     .prose h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; margin: 2rem 0 0.75rem; letter-spacing: 0.05em; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    .dark ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-    .light ::-webkit-scrollbar-thumb { background: #bbb; border-radius: 3px; }
+    .dark ::-webkit-scrollbar-thumb { background: #1a2a38; border-radius: 3px; }
+    .light ::-webkit-scrollbar-thumb { background: #b8c4d0; border-radius: 3px; }
     @media (max-width: 768px) { .hide-mobile { display: none !important; } .mobile-menu { display: flex !important; } .main-grid { grid-template-columns: 1fr !important; } }
     @media (min-width: 769px) { .mobile-menu { display: none !important; } }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -280,9 +404,9 @@ function ScoreTicker({ dark }) {
 
   const doubled = liveScores.length > 0 ? [...liveScores, ...liveScores] : [];
   return (
-    <div style={{ background: bg, borderBottom: `2px solid ${DET_COLOR}30` }}>
+    <div style={{ background: bg, borderBottom: `2px solid ${LAKE_BLUE}50` }}>
       <div style={{ display: "flex", alignItems: "stretch", maxWidth: "100%" }}>
-        <div style={{ background: DET_COLOR, color: "#fff", padding: "0 16px", display: "flex", alignItems: "center", gap: 6, flexShrink: 0, fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+        <div style={{ background: LAKE_BLUE, color: "#fff", padding: "0 16px", display: "flex", alignItems: "center", gap: 6, flexShrink: 0, fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>
           <span className="live-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: LIVE_GREEN, display: "inline-block" }} />
           LIVE
         </div>
@@ -314,9 +438,9 @@ function ScoreTicker({ dark }) {
 }
 
 function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMobileMenuOpen }) {
-  const surface = dark ? "#0D0D0F" : "#fff";
-  const border = dark ? "#1e1e28" : "#e5e5e5";
-  const textMuted = dark ? "#888" : "#666";
+  const surface = dark ? "#080E14" : "#fff";
+  const border = dark ? "#112030" : "#dde4ed";
+  const textMuted = dark ? "#7a9ab5" : "#607080";
   const [logoClicks, setLogoClicks] = useState(0);
   const [roar, setRoar] = useState(false);
   const clickTimeout = useRef(null);
@@ -349,8 +473,8 @@ function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMob
             <span className="headline-font" style={{ fontSize: 28, lineHeight: 1 }}><span style={{ color: DET_COLOR }}>GREAT</span> <span style={{ color: CHI_COLOR }}>LAKES</span> SPORTS</span>
           </div>
           <nav className="hide-mobile" style={{ display: "flex", gap: 4, flex: 1 }}>
-            {[{ id: "home", label: "Home" }, { id: "detroit", label: "Detroit" }, { id: "chicago", label: "Chicago" }, { id: "scores", label: "Scores" }, { id: "rumors", label: "Rumors" }, { id: "media", label: "Media" }, { id: "odds", label: "Odds" }, { id: "merch", label: "Merch" }, { id: "myteams", label: "My Teams" }, { id: "newsletter", label: "Newsletter" }, { id: "about", label: "About" }].map(({ id, label }) => (
-              <button key={id} className={`nav-link${page === id ? " active" : ""}`} onClick={() => setPage(id)} style={{ background: "none", border: "none", cursor: "pointer", padding: "8px 9px", fontSize: 12, fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase", color: page === id ? (id === "detroit" ? DET_COLOR : id === "chicago" ? CHI_COLOR : id === "odds" ? LIVE_GREEN : id === "scores" ? LIVE_GREEN : id === "merch" ? "#FFD700" : id === "rumors" ? "#FF4500" : id === "myteams" ? DET_COLOR : (dark ? "#f0f0f0" : "#111")) : textMuted }}>
+            {[{ id: "home", label: "Home" }, { id: "nfl", label: "🏈 NFL" }, { id: "nba", label: "🏀 NBA" }, { id: "mlb", label: "⚾ MLB" }, { id: "nhl", label: "🏒 NHL" }, { id: "college", label: "🎓 College" }, { id: "scores", label: "Scores" }, { id: "rumors", label: "Rumors" }, { id: "media", label: "Media" }, { id: "odds", label: "Odds" }, { id: "merch", label: "Merch" }, { id: "myteams", label: "My Teams" }, { id: "newsletter", label: "Newsletter" }, { id: "about", label: "About" }].map(({ id, label }) => (
+              <button key={id} className={`nav-link${page === id ? " active" : ""}`} onClick={() => setPage(id)} style={{ background: "none", border: "none", cursor: "pointer", padding: "8px 9px", fontSize: 12, fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase", color: page === id ? (id === "nfl" ? "#4fc3f7" : id === "nba" ? "#ef9a9a" : id === "mlb" ? "#a5d6a7" : id === "nhl" ? "#9fa8da" : id === "college" ? "#ffe082" : id === "odds" ? LIVE_GREEN : id === "scores" ? LIVE_GREEN : id === "merch" ? HARVEST_GOLD : id === "rumors" ? HOT_RED : (dark ? "#f0f0f0" : "#111")) : textMuted }}>
                 {label}
               </button>
             ))}
@@ -365,7 +489,7 @@ function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMob
         </div>
         {mobileMenuOpen && (
           <div style={{ padding: "12px 0 16px", borderTop: `1px solid ${border}` }}>
-            {["home", "detroit", "chicago", "scores", "rumors", "media", "odds", "merch", "myteams", "newsletter", "about"].map(id => (
+            {["home", "nfl", "nba", "mlb", "nhl", "college", "scores", "rumors", "media", "odds", "merch", "myteams", "newsletter", "about"].map(id => (
               <button key={id} onClick={() => { setPage(id); setMobileMenuOpen(false); }} style={{ display: "block", width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "10px 4px", fontSize: 16, fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: dark ? "#f0f0f0" : "#111" }}>
                 {id.charAt(0).toUpperCase() + id.slice(1)}
               </button>
@@ -378,9 +502,9 @@ function Header({ dark, setDark, page, setPage, onSearch, mobileMenuOpen, setMob
 }
 
 function ArticleCard({ article, dark, bookmarks, toggleBookmark, onClick, size = "normal" }) {
-  const surface = dark ? "#13131b" : "#fff";
-  const border = dark ? "#1e1e28" : "#e8e8e8";
-  const textMuted = dark ? "#888" : "#666";
+  const surface = dark ? "#0d1822" : "#fff";
+  const border = dark ? "#112030" : "#dde4ed";
+  const textMuted = dark ? "#7a9ab5" : "#607080";
   const isBookmarked = bookmarks.includes(article.id);
   const isBig = size === "big";
   return (
@@ -389,8 +513,8 @@ function ArticleCard({ article, dark, bookmarks, toggleBookmark, onClick, size =
         <img src={article.image} alt={article.title} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)" }} />
         <div style={{ position: "absolute", top: 10, left: 10, display: "flex", gap: 6 }}>
-          {article.hot && <span style={{ background: "#FF4500", color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 3, letterSpacing: "0.1em", display: "flex", alignItems: "center", gap: 4 }}><Flame size={10} /> HOT</span>}
-          {article.staffPick && <span style={{ background: "linear-gradient(135deg, #0076B6, #FA4616)", color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 3, display: "flex", alignItems: "center", gap: 4 }}>⭐ STAFF PICK</span>}
+          {article.hot && <span style={{ background: HOT_RED, color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 3, letterSpacing: "0.1em", display: "flex", alignItems: "center", gap: 4 }}><Flame size={10} /> HOT</span>}
+          {article.staffPick && <span style={{ background: `linear-gradient(135deg, ${LAKE_BLUE}, ${HARVEST_GOLD})`, color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 3, display: "flex", alignItems: "center", gap: 4 }}>⭐ STAFF PICK</span>}
           <span style={{ background: article.city === "detroit" ? DET_COLOR : CHI_COLOR, color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 3 }}>{article.sport}</span>
         </div>
         <button onClick={(e) => { e.stopPropagation(); toggleBookmark(article.id); }} style={{ position: "absolute", top: 10, right: 10, background: "rgba(0,0,0,0.5)", border: "none", borderRadius: "50%", width: 32, height: 32, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
@@ -552,9 +676,9 @@ function Sidebar({ dark, articles, onArticleClick }) {
 function ArticlePage({ article, dark, bookmarks, toggleBookmark, onBack, relatedArticles, onRelatedClick }) {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
-  const surface = dark ? "#13131b" : "#fff";
-  const border = dark ? "#1e1e28" : "#e8e8e8";
-  const textMuted = dark ? "#888" : "#666";
+  const surface = dark ? "#0d1822" : "#fff";
+  const border = dark ? "#112030" : "#dde4ed";
+  const textMuted = dark ? "#7a9ab5" : "#607080";
   const isBookmarked = bookmarks.includes(article.id);
   const [copied, setCopied] = useState(false);
 
@@ -711,11 +835,11 @@ function AboutPage({ dark }) {
       <div style={{ marginBottom: 32 }}>
         <span className="headline-font" style={{ fontSize: 52 }}><span style={{ color: DET_COLOR }}>GREAT</span> <span style={{ color: CHI_COLOR }}>LAKES</span> SPORTS</span>
       </div>
-      <p className="body-font" style={{ fontSize: 18, lineHeight: 1.8, color: textMuted, marginBottom: 28 }}>Great Lakes Sports is the premier destination for fans of Detroit and Chicago sports teams. We cover the Lions, Tigers, Pistons, Red Wings, Bears, Bulls, Cubs, White Sox, and Blackhawks with the depth and passion these great franchises deserve.</p>
-      <p className="body-font" style={{ fontSize: 18, lineHeight: 1.8, color: textMuted, marginBottom: 40 }}>From breaking news and live scores to in-depth AI-generated analysis and feature stories, we bring you closer to the teams you love. Our platform surfaces the most relevant stories across both cities, keeping you informed 24/7.</p>
-      <h3 className="headline-font" style={{ fontSize: 28, marginBottom: 16 }}>TEAMS WE COVER</h3>
+      <p className="body-font" style={{ fontSize: 18, lineHeight: 1.8, color: textMuted, marginBottom: 28 }}>Great Lakes Sports is the Midwest's premier destination for professional and college sports. We cover NFL, NBA, MLB, and NHL teams across the Midwest — from Detroit to Kansas City, Minneapolis to Pittsburgh — with the depth and passion real fans demand.</p>
+      <p className="body-font" style={{ fontSize: 18, lineHeight: 1.8, color: textMuted, marginBottom: 40 }}>From breaking news and live scores to in-depth AI-generated analysis, we bring you closer to every Midwest team. Men's professional and college football, basketball, baseball, and hockey — covered daily, 24/7.</p>
+      <h3 className="headline-font" style={{ fontSize: 28, marginBottom: 16 }}>🏈🏀⚾🏒 TEAMS WE COVER</h3>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12 }}>
-        {[...DETROIT_TEAMS.map(t => ({ ...t, city: "Detroit" })), ...CHICAGO_TEAMS.map(t => ({ ...t, city: "Chicago" }))].map(t => (
+        {[...MIDWEST_NFL.map(t=>({...t,sport:"NFL"})), ...MIDWEST_NBA.map(t=>({...t,sport:"NBA"})), ...MIDWEST_MLB.map(t=>({...t,sport:"MLB"})), ...MIDWEST_NHL.map(t=>({...t,sport:"NHL"}))].map(t => (
           <div key={t.id} style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: "14px 18px", display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ width: 12, height: 12, borderRadius: "50%", background: t.color, flexShrink: 0, border: `2px solid ${t.accent}` }} />
             <div>
@@ -864,52 +988,119 @@ function PodcastComingSoon({ dark }) {
   );
 }
 
-function CityPage({ city, dark, articles, bookmarks, toggleBookmark, onArticleClick }) {
-  const isDetroit = city === "detroit";
-  const color = isDetroit ? DET_COLOR : CHI_COLOR;
-  const teams = isDetroit ? DETROIT_TEAMS : CHICAGO_TEAMS;
+// ─── SPORT PAGE ───────────────────────────────────────────────────────────────
+function SportPage({ sport, dark, articles, bookmarks, toggleBookmark, onArticleClick }) {
+  const sportConfig = {
+    nfl:     { label: "NFL Football",     emoji: "🏈", color: "#4fc3f7", teams: MIDWEST_NFL,     newsQ: "NFL Midwest" },
+    nba:     { label: "NBA Basketball",   emoji: "🏀", color: "#ef9a9a", teams: MIDWEST_NBA,     newsQ: "NBA Midwest" },
+    mlb:     { label: "MLB Baseball",     emoji: "⚾", color: "#a5d6a7", teams: MIDWEST_MLB,     newsQ: "MLB Midwest" },
+    nhl:     { label: "NHL Hockey",       emoji: "🏒", color: "#9fa8da", teams: MIDWEST_NHL,     newsQ: "NHL Midwest" },
+    college: { label: "College Sports",   emoji: "🎓", color: "#ffe082", teams: COLLEGE_TEAMS,   newsQ: "Big Ten college sports" },
+  };
+  const cfg = sportConfig[sport] || sportConfig.nfl;
   const [filter, setFilter] = useState(null);
-  const cityArticles = articles.filter(a => a.city === city);
-  const filtered = filter ? cityArticles.filter(a => a.team === filter) : cityArticles;
-  const textMuted = dark ? "#888" : "#666";
+  const textMuted = dark ? "#7a9ab5" : "#607080";
+  const border = dark ? "#112030" : "#dde4ed";
+
+  const sportArticles = articles.filter(a => {
+    if (sport === "college") return a.region === "College";
+    return a.sport === sport.toUpperCase() || (sport === "nfl" && a.sport === "NFL") ||
+           (sport === "nba" && a.sport === "NBA") || (sport === "mlb" && a.sport === "MLB") ||
+           (sport === "nhl" && a.sport === "NHL");
+  });
+
+  // Favorites first
+  const sorted = [...sportArticles].sort((a, b) => (b.staffPick ? 1 : 0) - (a.staffPick ? 1 : 0));
+  const filtered = filter ? sorted.filter(a => a.team === filter) : sorted;
+
   return (
     <div className="fade-up" style={{ maxWidth: 1280, margin: "0 auto", padding: "30px 20px 50px" }}>
-      <div style={{ marginBottom: 24 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
-          <div style={{ width: 5, height: 44, background: color, borderRadius: 3 }} />
-          <h1 className="headline-font" style={{ fontSize: 52 }}>{isDetroit ? "Detroit" : "Chicago"} Sports</h1>
+      {/* Header */}
+      <div style={{ marginBottom: 28 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 8 }}>
+          <div style={{ width: 56, height: 56, borderRadius: 14, background: cfg.color + "22", border: `2px solid ${cfg.color}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28 }}>{cfg.emoji}</div>
+          <div>
+            <h1 className="headline-font" style={{ fontSize: 48, lineHeight: 1 }}>{cfg.label}</h1>
+            <p style={{ color: textMuted, fontSize: 14 }}>Midwest coverage — {cfg.teams.length} teams tracked</p>
+          </div>
         </div>
-        <p style={{ color: textMuted, fontSize: 15, paddingLeft: 17 }}>Covering the {teams.map(t => t.name).join(", ")}</p>
       </div>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 28 }}>
-        <button className="team-pill" onClick={() => setFilter(null)} style={{ padding: "7px 18px", borderRadius: 22, border: `1px solid ${!filter ? color : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: !filter ? color : "transparent", color: !filter ? "#fff" : (dark ? "#888" : "#666"), fontSize: 13, fontWeight: 700, cursor: "pointer" }}>All Teams</button>
-        {teams.map(t => <button key={t.id} className="team-pill" onClick={() => setFilter(t.id)} style={{ padding: "7px 18px", borderRadius: 22, border: `1px solid ${filter === t.id ? t.color : (dark ? "#2a2a3a" : "#d5d5d5")}`, background: filter === t.id ? t.color : "transparent", color: filter === t.id ? "#fff" : (dark ? "#888" : "#666"), fontSize: 13, fontWeight: 700, cursor: "pointer" }}>{t.name}</button>)}
+
+      {/* Team filters */}
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 28, padding: "14px 16px", background: dark ? "#0d1822" : "#fff", borderRadius: 10, border: `1px solid ${border}` }}>
+        <button className="team-pill" onClick={() => setFilter(null)} style={{ padding: "6px 16px", borderRadius: 20, border: `1px solid ${!filter ? cfg.color : border}`, background: !filter ? cfg.color + "22" : "transparent", color: !filter ? cfg.color : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>All Teams</button>
+        {cfg.teams.map(t => (
+          <button key={t.id} className="team-pill" onClick={() => setFilter(t.id)} style={{ padding: "6px 16px", borderRadius: 20, border: `1px solid ${filter === t.id ? t.color : border}`, background: filter === t.id ? t.color + "22" : "transparent", color: filter === t.id ? t.color : textMuted, fontSize: 12, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}>
+            {t.fav && <span style={{ fontSize: 10 }}>👑</span>}
+            {sport === "college" ? t.name : `${t.city} ${t.name}`}
+          </button>
+        ))}
       </div>
-      {filtered.length > 0 && <div style={{ marginBottom: 28 }}><HeroCard article={filtered[0]} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(filtered[0])} /></div>}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, marginBottom: 40 }}>
-        {filtered.slice(1).map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
-      </div>
-      <LiveNewsSection dark={dark} city={city} />
+
+      {/* Hero */}
+      {filtered.length > 0 && (
+        <div style={{ marginBottom: 28 }}>
+          <HeroCard article={filtered[0]} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(filtered[0])} />
+        </div>
+      )}
+
+      {/* Grid */}
+      {filtered.length > 1 && (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, marginBottom: 40 }}>
+          {filtered.slice(1).map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
+        </div>
+      )}
+
+      {filtered.length === 0 && (
+        <div style={{ textAlign: "center", padding: "48px 20px", color: textMuted }}>
+          <div style={{ fontSize: 48, marginBottom: 12 }}>{cfg.emoji}</div>
+          <p style={{ fontSize: 16 }}>No stories found for this filter. Try "All Teams"!</p>
+        </div>
+      )}
+
+      {/* Live news */}
+      <LiveNewsSection dark={dark} city={sport} />
     </div>
   );
 }
 
-function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, setPage }) {
-  const [detFilter, setDetFilter] = useState(null);
-  const [chiFilter, setChiFilter] = useState(null);
 
-  // Always show Lions & Tigers articles first
+function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, setPage }) {
+  const textMuted = dark ? "#7a9ab5" : "#607080";
+  const border = dark ? "#112030" : "#dde4ed";
+
   const sortByFavorites = (arr) => {
-    const favs = arr.filter(a => a.team === "lions" || a.team === "tigers");
-    const rest = arr.filter(a => a.team !== "lions" && a.team !== "tigers");
+    const favs = arr.filter(a => a.team === "lions" || a.team === "tigers" || a.team === "pistons" || a.team === "redwings");
+    const rest = arr.filter(a => !favs.find(f => f.id === a.id));
     return [...favs, ...rest];
   };
 
   const featuredArticle = articles.find(a => a.team === "lions" && a.hot) || articles.find(a => a.hot) || articles[0];
-  const detArticles = sortByFavorites(articles.filter(a => a.city === "detroit" && a.id !== featuredArticle.id));
-  const chiArticles = articles.filter(a => a.city === "chicago" && a.id !== featuredArticle.id);
-  const filteredDet = detFilter ? detArticles.filter(a => a.team === detFilter) : detArticles;
-  const filteredChi = chiFilter ? chiArticles.filter(a => a.team === chiFilter) : chiArticles;
+  const nflArticles = sortByFavorites(articles.filter(a => a.sport === "NFL" && a.id !== featuredArticle.id));
+  const nbaArticles = sortByFavorites(articles.filter(a => a.sport === "NBA"));
+  const mlbArticles = sortByFavorites(articles.filter(a => a.sport === "MLB"));
+  const nhlArticles = sortByFavorites(articles.filter(a => a.sport === "NHL"));
+  const collegeArticles = articles.filter(a => a.region === "College");
+
+  const SportSection = ({ title, emoji, color, sportArticles, sportId, badge }) => (
+    <div style={{ marginBottom: 48 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 44, height: 44, borderRadius: 12, background: color + "20", border: `1.5px solid ${color}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>{emoji}</div>
+          <div>
+            <h2 className="headline-font" style={{ fontSize: 30, lineHeight: 1 }}>{title}</h2>
+            {badge && <span style={{ fontSize: 11, fontWeight: 700, color: "#FFD700", letterSpacing: "0.06em" }}>👑 Detroit covered first</span>}
+          </div>
+        </div>
+        <button onClick={() => setPage(sportId)} style={{ background: color + "18", border: `1px solid ${color}44`, borderRadius: 8, cursor: "pointer", padding: "7px 16px", fontSize: 12, fontWeight: 700, color, display: "flex", alignItems: "center", gap: 5 }}>
+          All {title} <ChevronRight size={13} />
+        </button>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
+        {sportArticles.slice(0, 4).map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
+      </div>
+    </div>
+  );
   return (
     <div style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 20px 60px" }}>
       <GameDayBanner dark={dark} />
@@ -918,26 +1109,21 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
       <div style={{ marginBottom: 28 }}><AdBanner dark={dark} size="leaderboard" /></div>
       <div className="main-grid" style={{ display: "grid", gridTemplateColumns: "1fr min(320px, 30%)", gap: 32 }}>
         <div>
-          <div style={{ marginBottom: 44 }}>
-            <SectionHeader title="DETROIT SPORTS" color={DET_COLOR} onMore={() => setPage("detroit")} filterTeams={DETROIT_TEAMS} activeFilter={detFilter} setFilter={setDetFilter} dark={dark} />
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
-              {filteredDet.slice(0, 4).map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
-            </div>
-          </div>
-          <div style={{ marginBottom: 44 }}>
-            <SectionHeader title="CHICAGO SPORTS" color={CHI_COLOR} onMore={() => setPage("chicago")} filterTeams={CHICAGO_TEAMS} activeFilter={chiFilter} setFilter={setChiFilter} dark={dark} />
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
-              {filteredChi.slice(0, 4).map(a => <ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={() => onArticleClick(a)} />)}
-            </div>
-          </div>
-          {/* Live News Section */}
+          <SportSection title="NFL FOOTBALL" emoji="🏈" color="#4fc3f7" sportArticles={nflArticles} sportId="nfl" badge={true} />
+          <SportSection title="NBA BASKETBALL" emoji="🏀" color="#ef9a9a" sportArticles={nbaArticles} sportId="nba" badge={true} />
+          <SportSection title="MLB BASEBALL" emoji="⚾" color="#a5d6a7" sportArticles={mlbArticles} sportId="mlb" badge={true} />
+          <SportSection title="NHL HOCKEY" emoji="🏒" color="#9fa8da" sportArticles={nhlArticles} sportId="nhl" badge={true} />
+          <SportSection title="COLLEGE SPORTS" emoji="🎓" color="#ffe082" sportArticles={collegeArticles} sportId="college" />
+
+          {/* Live News */}
           <LiveNewsSection dark={dark} city="all" />
 
           {/* Player Stats */}
           <div style={{ marginBottom: 44 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-              <div style={{ width: 4, height: 28, background: "#FA4616", borderRadius: 2 }} />
-              <h2 className="headline-font" style={{ fontSize: 28 }}>🦁🐯 LIONS & TIGERS STATS</h2>
+              <div style={{ fontSize: 22 }}>🦁🐯</div>
+              <h2 className="headline-font" style={{ fontSize: 28 }}>DETROIT PLAYER STATS</h2>
+              <span style={{ fontSize: 11, color: HARVEST_GOLD, fontWeight: 700 }}>Staff Fav</span>
             </div>
             <PlayerStatsWidget dark={dark} />
           </div>
@@ -945,16 +1131,16 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
           {/* Social Feed */}
           <div style={{ marginBottom: 44 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-              <div style={{ width: 4, height: 28, background: "#1DA1F2", borderRadius: 2 }} />
+              <div style={{ width: 4, height: 28, background: LAKE_BLUE, borderRadius: 2 }} />
               <h2 className="headline-font" style={{ fontSize: 28 }}>TEAM SOCIAL</h2>
             </div>
             <SocialFeed dark={dark} />
           </div>
 
-          {/* Fan Polls Section */}
+          {/* Fan Polls */}
           <div style={{ marginBottom: 44 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-              <div style={{ width: 4, height: 28, background: "#FF4500", borderRadius: 2 }} />
+              <div style={{ width: 4, height: 28, background: HOT_RED, borderRadius: 2 }} />
               <h2 className="headline-font" style={{ fontSize: 28 }}>FAN POLLS</h2>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
@@ -962,7 +1148,6 @@ function HomePage({ dark, articles, bookmarks, toggleBookmark, onArticleClick, s
             </div>
           </div>
 
-          {/* Podcast Coming Soon */}
           <PodcastComingSoon dark={dark} />
         </div>
         <div className="hide-mobile"><Sidebar dark={dark} articles={articles} onArticleClick={onArticleClick} /></div>
@@ -1177,7 +1362,7 @@ function MerchPage({ dark }) {
             <ShoppingBag size={28} color={DET_COLOR} />
             <h1 className="headline-font" style={{ fontSize: 48 }}>MERCH STORE</h1>
           </div>
-          <p style={{ color: textMuted, fontSize: 15 }}>Official Great Lakes Sports gear. Rep your teams, rep the region.</p>
+          <p style={{ color: textMuted, fontSize: 15 }}>Official Great Lakes Sports gear. Midwest pride, game day ready.</p>
         </div>
         <button onClick={() => setCartOpen(true)} style={{ position: "relative", background: DET_COLOR, border: "none", borderRadius: 8, padding: "10px 20px", cursor: "pointer", color: "#fff", display: "flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 700 }}>
           <ShoppingBag size={16} /> Cart
@@ -1373,7 +1558,7 @@ function NewsletterPage({ dark }) {
           DETROIT & CHICAGO.<br />EVERY MORNING.
         </h1>
         <p style={{ color: textMuted, fontSize: 17, maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>
-          Breaking news, score alerts, injury updates, and exclusive analysis from Great Lakes Sports delivered straight to your inbox.
+          NFL, NBA, MLB, NHL and College breaking news, score alerts, and exclusive Midwest sports analysis — delivered every morning.
         </p>
       </div>
 
@@ -2266,7 +2451,7 @@ function MyTeamsPage({ dark, articles, onArticleClick, bookmarks, toggleBookmark
           <UserCheck size={28} color={DET_COLOR} />
           <h1 className="headline-font" style={{ fontSize: 48 }}>MY TEAMS</h1>
         </div>
-        <p style={{ color: textMuted, fontSize: 15 }}>Follow your teams to get a personalized news feed.</p>
+        <p style={{ color: textMuted, fontSize: 15 }}>Follow your Midwest teams to get a personalized news feed. 🦁 Detroit teams always shown first — just for you!</p>
       </div>
 
       {/* Team grid */}
@@ -2656,8 +2841,11 @@ export default function App() {
 
   const renderPage = () => {
     if (page === "article" && selectedArticle) return <ArticlePage article={selectedArticle} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onBack={() => setPage("home")} relatedArticles={relatedArticles} onRelatedClick={handleArticleClick} />;
-    if (page === "detroit") return <CityPage city="detroit" dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} />;
-    if (page === "chicago") return <CityPage city="chicago" dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} />;
+    if (page === "nfl") return <SportPage sport="nfl" dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} />;
+    if (page === "nba") return <SportPage sport="nba" dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} />;
+    if (page === "mlb") return <SportPage sport="mlb" dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} />;
+    if (page === "nhl") return <SportPage sport="nhl" dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} />;
+    if (page === "college") return <SportPage sport="college" dark={dark} articles={ALL_ARTICLES} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onArticleClick={handleArticleClick} />;
     if (page === "scores") return <ScoresPage dark={dark} />;
     if (page === "newsletter") return <NewsletterPage dark={dark} />;
     if (page === "odds") return <OddsPage dark={dark} />;

@@ -142,7 +142,7 @@ const getCurrentOdds = () => {
     return true;
   });
 };
-const ODDS_DATA = getCurrentOdds()];
+const ODDS_DATA = getCurrentOdds();
 
 const TEAM_SOCIALS = [
   {name:"Detroit Lions 🦁",handle:"@Lions",url:"https://twitter.com/Lions",color:DET_BLUE,posts:[{text:"GAME WEEK. Ford Field is going to be ROCKING. Let's get it. 🔵 #OnePride",time:"2h",likes:8241},{text:"Your 2025 Detroit Lions schedule is HERE. Circle your dates. 🗓️🦁",time:"5h",likes:5102}]},

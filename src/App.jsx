@@ -253,7 +253,6 @@ const ALL_ARTICLES = [
   },
 ];
 
-const TRENDING_TOPICS
 const TRENDING_TOPICS = [
   "Lions Super Bowl 🦁", "Mahomes Dynasty", "Michigan vs Ohio State",
   "Skubal Cy Young 🐯", "Giannis MVP", "Big Ten Football", "Haliburton Rising", "Notre Dame CFP"

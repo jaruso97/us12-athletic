@@ -42,6 +42,18 @@ const SPORT_CFG = {
   college:{label:"College Sports",emoji:"🎓",color:MAIZE,    desc:"Michigan & More"},
 };
 
+const TEAM_LOGOS = {
+  lions:    {logo:"https://a.espncdn.com/i/teamlogos/nfl/500/det.png",  bg:DET_BLUE},
+  tigers:   {logo:"https://a.espncdn.com/i/teamlogos/mlb/500/det.png",  bg:DET_ORG},
+  pistons:  {logo:"https://a.espncdn.com/i/teamlogos/nba/500/det.png",  bg:"#C8102E"},
+  redwings: {logo:"https://a.espncdn.com/i/teamlogos/nhl/500/det.png",  bg:"#CE1126"},
+  michigan: {logo:"https://a.espncdn.com/i/teamlogos/ncaa/500/130.png", bg:NAVY},
+  msu:      {logo:"https://a.espncdn.com/i/teamlogos/ncaa/500/127.png", bg:"#18453B"},
+  cmu:      {logo:"https://a.espncdn.com/i/teamlogos/ncaa/500/2117.png",bg:"#6A0032"},
+  wmu:      {logo:"https://a.espncdn.com/i/teamlogos/ncaa/500/2711.png",bg:"#6C4023"},
+};
+const getTeamLogo = (team) => TEAM_LOGOS[team] || {logo:null, bg:NAVY};
+
 const ALL_ARTICLES = [
   {id:"l1",team:"lions",  sport:"NFL",title:"Lions Open as Super Bowl Favorites After Monster Offseason",excerpt:"Detroit's front office went all-in this summer, bringing in elite talent on both sides of the ball to complement Jared Goff's historic 2024 campaign.",author:"Marcus Johnson",time:"1h ago",readTime:"4 min",image:"https://images.unsplash.com/photo-1570476922354-7f46d0c5cd0e?w=1200&h=675&fit=crop&q=80",tags:["Lions","NFL"],hot:true,trending:true,staffPick:true,views:62400},
   {id:"l2",team:"lions",  sport:"NFL",title:"Jared Goff Signs Historic Extension, Commits to Detroit Long-Term",excerpt:"After an MVP-caliber season, Goff and the Lions agree to a franchise-defining deal that cements Detroit as a sustained contender.",author:"Marcus Johnson",time:"3h ago",readTime:"3 min",image:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=675&fit=crop&q=80",tags:["Lions","Goff"],staffPick:true,views:44100},
@@ -111,13 +123,26 @@ const PLAYER_STATS = {
   ]},
 };
 
-const ODDS_DATA = [
-  {id:"o1",sport:"NFL",time:"Sun 1:00 PM ET",away:"Green Bay Packers",home:"Detroit Lions",awayML:"+145",homeML:"-172",spread:"-3.5",awaySpread:"+3.5",total:"47.5",status:"UPCOMING"},
-  {id:"o2",sport:"MLB",time:"Fri 7:10 PM ET",away:"Cleveland Guardians",home:"Detroit Tigers",awayML:"+130",homeML:"-155",spread:"+1.5",awaySpread:"-1.5",total:"8.5",status:"UPCOMING"},
-  {id:"o3",sport:"NBA",time:"Sat 7:30 PM ET",away:"Detroit Pistons",home:"Boston Celtics",awayML:"+310",homeML:"-390",spread:"+9.5",awaySpread:"-9.5",total:"218.0",status:"UPCOMING"},
-  {id:"o4",sport:"NHL",time:"Mon 7:00 PM ET",away:"Toronto Maple Leafs",home:"Detroit Red Wings",awayML:"-118",homeML:"+100",spread:"+1.5",awaySpread:"-1.5",total:"6.0",status:"UPCOMING"},
-  {id:"o5",sport:"CFB",time:"Sat 12:00 PM ET",away:"Ohio State",home:"Michigan",awayML:"-165",homeML:"+142",spread:"+4.5",awaySpread:"-4.5",total:"48.5",status:"UPCOMING"},
-];
+const getCurrentOdds = () => {
+  const m = new Date().getMonth() + 1;
+  const seasons = { mlb: m>=4&&m<=10, nba: m>=10||m<=6, nhl: m>=10||m<=6, nfl: m>=9||m<=2 };
+  const all = [
+    {id:"o1",sport:"NFL",time:"Sun 1:00 PM ET",away:"Green Bay Packers",home:"Detroit Lions",awayML:"+145",homeML:"-172",spread:"-3.5",awaySpread:"+3.5",total:"47.5"},
+    {id:"o2",sport:"MLB",time:"Fri 7:10 PM ET",away:"Cleveland Guardians",home:"Detroit Tigers",awayML:"+130",homeML:"-155",spread:"+1.5",awaySpread:"-1.5",total:"8.5"},
+    {id:"o3",sport:"NBA",time:"Sat 7:30 PM ET",away:"Detroit Pistons",home:"Boston Celtics",awayML:"+310",homeML:"-390",spread:"+9.5",awaySpread:"-9.5",total:"218.0"},
+    {id:"o4",sport:"NHL",time:"Mon 7:00 PM ET",away:"Toronto Maple Leafs",home:"Detroit Red Wings",awayML:"-118",homeML:"+100",spread:"+1.5",awaySpread:"-1.5",total:"6.0"},
+    {id:"o5",sport:"CFB",time:"Sat 12:00 PM ET",away:"Ohio State",home:"Michigan",awayML:"-165",homeML:"+142",spread:"+4.5",awaySpread:"-4.5",total:"48.5"},
+  ];
+  return all.filter(g => {
+    if(g.sport==="NFL") return seasons.nfl;
+    if(g.sport==="MLB") return seasons.mlb;
+    if(g.sport==="NBA") return seasons.nba;
+    if(g.sport==="NHL") return seasons.nhl;
+    if(g.sport==="CFB") return seasons.nfl; // college football same season as NFL
+    return true;
+  });
+};
+const ODDS_DATA = getCurrentOdds()];
 
 const TEAM_SOCIALS = [
   {name:"Detroit Lions 🦁",handle:"@Lions",url:"https://twitter.com/Lions",color:DET_BLUE,posts:[{text:"GAME WEEK. Ford Field is going to be ROCKING. Let's get it. 🔵 #OnePride",time:"2h",likes:8241},{text:"Your 2025 Detroit Lions schedule is HERE. Circle your dates. 🗓️🦁",time:"5h",likes:5102}]},
@@ -336,7 +361,17 @@ function ArticleCard({article,dark,bookmarks,toggleBookmark,onClick}) {
   return(
     <div className="card fu" onClick={onClick} style={{background:bg,border:`1px solid ${border}`,borderRadius:12,overflow:"hidden",height:"100%",display:"flex",flexDirection:"column"}}>
       <div style={{position:"relative",aspectRatio:"16/10",overflow:"hidden",background:dark?"#0c1622":"#e4ecf5",flexShrink:0}}>
-        <img src={article.image} alt={article.title} loading="lazy" style={{width:"100%",height:"100%",objectFit:"cover"}} onError={e=>{e.target.style.display="none";}}/>
+        {article.image ? (
+          <img src={article.image} alt={article.title} loading="lazy" style={{width:"100%",height:"100%",objectFit:"cover"}}
+            onError={e=>{
+              e.target.style.display="none";
+              const fb = e.target.parentNode.querySelector(".logo-fb");
+              if(fb) fb.style.display="flex";
+            }}/>
+        ) : null}
+        <div className="logo-fb" style={{display:article.image?"none":"flex",position:"absolute",inset:0,alignItems:"center",justifyContent:"center",background:getTeamLogo(article.team).bg,flexDirection:"column",gap:8}}>
+          {getTeamLogo(article.team).logo && <img src={getTeamLogo(article.team).logo} alt="" style={{width:72,height:72,objectFit:"contain",filter:"drop-shadow(0 2px 8px rgba(0,0,0,0.4))"}}/>}
+        </div>
         <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(0,0,0,0.68) 0%,transparent 60%)"}}/>
         <div style={{position:"absolute",top:9,left:9,display:"flex",gap:5}}>
           {article.hot&&<span style={{background:HOT_RED,color:"#fff",fontSize:10,fontWeight:700,padding:"3px 7px",borderRadius:4,display:"flex",alignItems:"center",gap:3}}><Flame size={9}/>HOT</span>}
@@ -365,7 +400,8 @@ function HeroCard({article,dark,bookmarks,toggleBookmark,onClick}) {
   const sc=`b-${(article.sport||"nfl").toLowerCase()}`;
   return(
     <div className="hcard fu" onClick={onClick} style={{borderRadius:16,overflow:"hidden",position:"relative",aspectRatio:"21/9",minHeight:280}}>
-      <img src={article.image} alt={article.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+      <img src={article.image} alt={article.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}
+      onError={e=>{e.target.src=getTeamLogo(article.team).logo||"";e.target.style.objectFit="contain";e.target.style.padding="40px";e.target.parentNode.style.background=getTeamLogo(article.team).bg;}}/>
       <div style={{position:"absolute",inset:0,background:"linear-gradient(135deg,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.45) 55%,transparent 100%)"}}/>
       <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:`linear-gradient(90deg,${MAIZE},transparent)`}}/>
       <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",justifyContent:"flex-end",padding:"26px 30px"}}>
@@ -689,7 +725,7 @@ function LiveNews({dark}) {
 function ScoresPage({dark}) {
   const bg=dark?"#0D1520":"#fff";const border=dark?"#0f1e2e":"#dce4ef";const bg2=dark?"#060B12":"#f0f4f8";const tm=dark?"#6b8fa8":"#607080";
   const [scores,setScores]=useState([]);const [loading,setLoading]=useState(true);const [last,setLast]=useState(null);
-  const [sport,setSport]=useState("ALL");const [status,setStatus]=useState("ALL");
+  const [sport,setSport]=useState("All Sports");const [status,setStatus]=useState("All Status");
   const load=async()=>{setLoading(true);try{const r=await fetch("/api/scores");const d=await r.json();setScores(d.games||[]);setLast(new Date());}catch{}setLoading(false);};
   useEffect(()=>{load();const iv=setInterval(load,60000);return()=>clearInterval(iv);},[]);
   const sports=["All Sports","NFL","MLB","NBA","NHL"];const statuses=["All Status","LIVE","FINAL","UPCOMING"];

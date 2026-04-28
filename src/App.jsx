@@ -55,18 +55,18 @@ const TEAM_LOGOS = {
 const getTeamLogo = (team) => TEAM_LOGOS[team] || {logo:null, bg:NAVY};
 
 const ALL_ARTICLES = [
-  {id:"l1",team:"lions",  sport:"NFL",title:"Lions Open as Super Bowl Favorites After Monster Offseason",excerpt:"Detroit's front office went all-in this summer, bringing in elite talent on both sides of the ball to complement Jared Goff's historic 2024 campaign.",author:"Marcus Johnson",time:"1h ago",readTime:"4 min",image:"https://images.unsplash.com/photo-1570476922354-7f46d0c5cd0e?w=1200&h=675&fit=crop&q=80",tags:["Lions","NFL"],hot:true,trending:true,staffPick:true,views:62400},
-  {id:"l2",team:"lions",  sport:"NFL",title:"Jared Goff Signs Historic Extension, Commits to Detroit Long-Term",excerpt:"After an MVP-caliber season, Goff and the Lions agree to a franchise-defining deal that cements Detroit as a sustained contender.",author:"Marcus Johnson",time:"3h ago",readTime:"3 min",image:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=675&fit=crop&q=80",tags:["Lions","Goff"],staffPick:true,views:44100},
-  {id:"t1",team:"tigers",  sport:"MLB",title:"Tarik Skubal Is the Best Pitcher in Baseball and It Isn't Close",excerpt:"With a sub-2.80 ERA and 200+ strikeouts already, Skubal has entered the conversation as the most dominant pitcher in all of baseball.",author:"Sarah Chen",time:"2h ago",readTime:"4 min",image:"https://images.unsplash.com/photo-1566577134631-13da7b4cb302?w=1200&h=675&fit=crop&q=80",tags:["Tigers","Skubal"],hot:true,trending:true,staffPick:true,views:58200},
-  {id:"t2",team:"tigers",  sport:"MLB",title:"Tigers Young Core Has Every MLB Scout Raving About Detroit's Future",excerpt:"With Torkelson, Greene, and Skubal headlining, Detroit's rebuild has become the model every franchise wishes they'd executed.",author:"Sarah Chen",time:"5h ago",readTime:"3 min",image:"https://images.unsplash.com/photo-1529592418137-6a1f23e7d98c?w=1200&h=675&fit=crop&q=80",tags:["Tigers","Rebuild"],staffPick:true,views:32700},
-  {id:"p1",team:"pistons", sport:"NBA",title:"Cade Cunningham's MVP Campaign Is No Longer a Surprise",excerpt:"Detroit's franchise cornerstone is averaging 28-9-9 over his last 20 games. National media has finally caught up to what Michigan fans knew.",author:"Lisa Park",time:"2h ago",readTime:"4 min",image:"https://images.unsplash.com/photo-1546519638405-a4e46afa5916?w=1200&h=675&fit=crop&q=80",tags:["Pistons","Cade"],trending:true,staffPick:true,views:41800},
-  {id:"p2",team:"pistons", sport:"NBA",title:"Pistons Land All-Star Big in Blockbuster Trade to Pair with Cunningham",excerpt:"Detroit's front office pulled off a shocker that immediately vaults the Pistons into Eastern Conference title contention.",author:"Lisa Park",time:"6h ago",readTime:"5 min",image:"https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=1200&h=675&fit=crop&q=80",tags:["Pistons","Trade"],hot:true,views:37200},
-  {id:"rw1",team:"redwings",sport:"NHL",title:"Red Wings Playoff Push Is Real — Detroit Hockey Is Officially Back",excerpt:"Larkin and DeBrincat are putting together the best one-two punch in the Central. Little Caesars Arena hasn't been this loud in years.",author:"Tom Bradley",time:"3h ago",readTime:"4 min",image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&h=675&fit=crop&q=80",tags:["Red Wings","Playoffs"],trending:true,staffPick:true,views:28900},
-  {id:"rw2",team:"redwings",sport:"NHL",title:"Moritz Seider Named to NHL All-Star Game — Detroit's Rising Star Shines",excerpt:"Detroit's cornerstone defenseman earns his first All-Star nod after a dominant first half that draws comparisons to franchise legends.",author:"Tom Bradley",time:"8h ago",readTime:"3 min",image:"https://images.unsplash.com/photo-1546519638405-a4e46afa5916?w=1200&h=675&fit=crop&q=80",tags:["Red Wings","Seider"],views:19400},
-  {id:"um1",team:"michigan",sport:"CFB",title:"Michigan Football Enters Season Unanimous #1 in Both Major Polls",excerpt:"The Wolverines return 17 starters from last year's Big Ten championship. National media is already penciling them into the CFP final.",author:"Derek Williams",time:"4h ago",readTime:"5 min",image:"https://images.unsplash.com/photo-1570476922354-7f46d0c5cd0e?w=1200&h=675&fit=crop&q=80",tags:["Michigan","CFB"],hot:true,trending:true,views:54300},
-  {id:"um2",team:"michigan",sport:"CBB",title:"Wolverines Basketball Lands Top-Ranked Recruiting Class in Program History",excerpt:"Michigan secured three five-star commitments, vaulting Ann Arbor to the top of every national recruiting ranking heading into fall.",author:"Derek Williams",time:"1d ago",readTime:"4 min",image:"https://images.unsplash.com/photo-1502014822147-1aedfb0676e0?w=1200&h=675&fit=crop&q=80",tags:["Michigan","Recruiting"],views:31100},
-  {id:"ms1",team:"msu",    sport:"CFB",title:"Spartans Defense Ranked #1 Nationally After Dominant Spring Camp",excerpt:"Michigan State's rebuilt unit posted eye-popping numbers in spring practice, raising legitimate Big Ten title hopes.",author:"Kyle Foster",time:"6h ago",readTime:"3 min",image:"https://images.unsplash.com/photo-1568819317551-92c0fe2f0765?w=1200&h=675&fit=crop&q=80",tags:["Michigan State","Defense"],views:22600},
-  {id:"ms2",team:"msu",    sport:"CBB",title:"Tom Izzo Masterclass: Spartans Return to Elite 8 in Another March Run",excerpt:"Michigan State's legendary coach continues to defy expectations with another deep run that proves East Lansing remains elite.",author:"Kyle Foster",time:"1d ago",readTime:"4 min",image:"https://images.unsplash.com/photo-1546519638405-a4e46afa5916?w=1200&h=675&fit=crop&q=80",tags:["Michigan State","Izzo"],trending:true,views:29800},
+  {id:"l1",team:"lions",  sport:"NFL",title:"Lions Open as Super Bowl Favorites After Monster Offseason",excerpt:"Detroit's front office went all-in this summer, bringing in elite talent on both sides of the ball to complement Jared Goff's historic 2024 campaign.",author:"Marcus Johnson",time:"1h ago",readTime:"4 min",image:null,tags:["Lions","NFL"],hot:true,trending:true,staffPick:true,views:62400},
+  {id:"l2",team:"lions",  sport:"NFL",title:"Jared Goff Signs Historic Extension, Commits to Detroit Long-Term",excerpt:"After an MVP-caliber season, Goff and the Lions agree to a franchise-defining deal that cements Detroit as a sustained contender.",author:"Marcus Johnson",time:"3h ago",readTime:"3 min",image:null,tags:["Lions","Goff"],staffPick:true,views:44100},
+  {id:"t1",team:"tigers",  sport:"MLB",title:"Tarik Skubal Is the Best Pitcher in Baseball and It Isn't Close",excerpt:"With a sub-2.80 ERA and 200+ strikeouts already, Skubal has entered the conversation as the most dominant pitcher in all of baseball.",author:"Sarah Chen",time:"2h ago",readTime:"4 min",image:null,tags:["Tigers","Skubal"],hot:true,trending:true,staffPick:true,views:58200},
+  {id:"t2",team:"tigers",  sport:"MLB",title:"Tigers Young Core Has Every MLB Scout Raving About Detroit's Future",excerpt:"With Torkelson, Greene, and Skubal headlining, Detroit's rebuild has become the model every franchise wishes they'd executed.",author:"Sarah Chen",time:"5h ago",readTime:"3 min",image:null,tags:["Tigers","Rebuild"],staffPick:true,views:32700},
+  {id:"p1",team:"pistons", sport:"NBA",title:"Cade Cunningham's MVP Campaign Is No Longer a Surprise",excerpt:"Detroit's franchise cornerstone is averaging 28-9-9 over his last 20 games. National media has finally caught up to what Michigan fans knew.",author:"Lisa Park",time:"2h ago",readTime:"4 min",image:null,tags:["Pistons","Cade"],trending:true,staffPick:true,views:41800},
+  {id:"p2",team:"pistons", sport:"NBA",title:"Pistons Land All-Star Big in Blockbuster Trade to Pair with Cunningham",excerpt:"Detroit's front office pulled off a shocker that immediately vaults the Pistons into Eastern Conference title contention.",author:"Lisa Park",time:"6h ago",readTime:"5 min",image:null,tags:["Pistons","Trade"],hot:true,views:37200},
+  {id:"rw1",team:"redwings",sport:"NHL",title:"Red Wings Playoff Push Is Real — Detroit Hockey Is Officially Back",excerpt:"Larkin and DeBrincat are putting together the best one-two punch in the Central. Little Caesars Arena hasn't been this loud in years.",author:"Tom Bradley",time:"3h ago",readTime:"4 min",image:null,tags:["Red Wings","Playoffs"],trending:true,staffPick:true,views:28900},
+  {id:"rw2",team:"redwings",sport:"NHL",title:"Moritz Seider Named to NHL All-Star Game — Detroit's Rising Star Shines",excerpt:"Detroit's cornerstone defenseman earns his first All-Star nod after a dominant first half that draws comparisons to franchise legends.",author:"Tom Bradley",time:"8h ago",readTime:"3 min",image:null,tags:["Red Wings","Seider"],views:19400},
+  {id:"um1",team:"michigan",sport:"CFB",title:"Michigan Football Enters Season Unanimous #1 in Both Major Polls",excerpt:"The Wolverines return 17 starters from last year's Big Ten championship. National media is already penciling them into the CFP final.",author:"Derek Williams",time:"4h ago",readTime:"5 min",image:null,tags:["Michigan","CFB"],hot:true,trending:true,views:54300},
+  {id:"um2",team:"michigan",sport:"CBB",title:"Wolverines Basketball Lands Top-Ranked Recruiting Class in Program History",excerpt:"Michigan secured three five-star commitments, vaulting Ann Arbor to the top of every national recruiting ranking heading into fall.",author:"Derek Williams",time:"1d ago",readTime:"4 min",image:null,tags:["Michigan","Recruiting"],views:31100},
+  {id:"ms1",team:"msu",    sport:"CFB",title:"Spartans Defense Ranked #1 Nationally After Dominant Spring Camp",excerpt:"Michigan State's rebuilt unit posted eye-popping numbers in spring practice, raising legitimate Big Ten title hopes.",author:"Kyle Foster",time:"6h ago",readTime:"3 min",image:null,tags:["Michigan State","Defense"],views:22600},
+  {id:"ms2",team:"msu",    sport:"CBB",title:"Tom Izzo Masterclass: Spartans Return to Elite 8 in Another March Run",excerpt:"Michigan State's legendary coach continues to defy expectations with another deep run that proves East Lansing remains elite.",author:"Kyle Foster",time:"1d ago",readTime:"4 min",image:null,tags:["Michigan State","Izzo"],trending:true,views:29800},
 ];
 
 const TRENDING = [
@@ -153,14 +153,14 @@ const TEAM_SOCIALS = [
 ];
 
 const MERCH = [
-  {id:"m1",name:"GLS Michigan Snapback",price:34.99,badge:"BESTSELLER",image:"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&h=600&fit=crop&q=80",colors:[NAVY,MAIZE,"#000"],category:"Headwear",rating:4.9,reviews:312},
-  {id:"m2",name:"Lions × GLS Hoodie",price:69.99,badge:"NEW",image:"https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=600&h=600&fit=crop&q=80",colors:[DET_BLUE,"#000"],sizes:["S","M","L","XL","2XL"],category:"Apparel",rating:4.8,reviews:124},
-  {id:"m3",name:"Tigers × GLS Hoodie",price:69.99,badge:"HOT",image:"https://images.unsplash.com/photo-1611185374952-f7e21fc7ec62?w=600&h=600&fit=crop&q=80",colors:[DET_ORG,"#0C2340"],sizes:["S","M","L","XL","2XL"],category:"Apparel",rating:4.9,reviews:98},
-  {id:"m4",name:"Pistons × GLS Tee",price:32.99,badge:null,image:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=600&fit=crop&q=80",colors:["#C8102E","#006BB6"],sizes:["S","M","L","XL"],category:"Apparel",rating:4.7,reviews:67},
-  {id:"m5",name:"Red Wings × GLS Crewneck",price:59.99,badge:"LIMITED",image:"https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&h=600&fit=crop&q=80",colors:["#CE1126","#000"],sizes:["S","M","L","XL"],category:"Apparel",rating:4.8,reviews:89},
-  {id:"m6",name:"Michigan × GLS Premium Tee",price:34.99,badge:"NEW",image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&q=80",colors:[NAVY,MAIZE],sizes:["S","M","L","XL","2XL"],category:"Apparel",rating:4.6,reviews:45},
-  {id:"m7",name:"GLS Logo Drinkware Set",price:49.99,badge:"BUNDLE",image:"https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop&q=80",colors:[NAVY,MAIZE],category:"Accessories",rating:4.9,reviews:201},
-  {id:"m8",name:"Michigan State × GLS Hoodie",price:69.99,badge:null,image:"https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=600&fit=crop&q=80",colors:["#18453B","#FFF"],sizes:["S","M","L","XL"],category:"Apparel",rating:4.7,reviews:56},
+  {id:"m1",name:"GLS Michigan Snapback",price:34.99,badge:"BESTSELLER",image:null,colors:[NAVY,MAIZE,"#000"],category:"Headwear",rating:4.9,reviews:312},
+  {id:"m2",name:"Lions × GLS Hoodie",price:69.99,badge:"NEW",image:null,colors:[DET_BLUE,"#000"],sizes:["S","M","L","XL","2XL"],category:"Apparel",rating:4.8,reviews:124},
+  {id:"m3",name:"Tigers × GLS Hoodie",price:69.99,badge:"HOT",image:null,colors:[DET_ORG,"#0C2340"],sizes:["S","M","L","XL","2XL"],category:"Apparel",rating:4.9,reviews:98},
+  {id:"m4",name:"Pistons × GLS Tee",price:32.99,badge:null,image:null,colors:["#C8102E","#006BB6"],sizes:["S","M","L","XL"],category:"Apparel",rating:4.7,reviews:67},
+  {id:"m5",name:"Red Wings × GLS Crewneck",price:59.99,badge:"LIMITED",image:null,colors:["#CE1126","#000"],sizes:["S","M","L","XL"],category:"Apparel",rating:4.8,reviews:89},
+  {id:"m6",name:"Michigan × GLS Premium Tee",price:34.99,badge:"NEW",image:null,colors:[NAVY,MAIZE],sizes:["S","M","L","XL","2XL"],category:"Apparel",rating:4.6,reviews:45},
+  {id:"m7",name:"GLS Logo Drinkware Set",price:49.99,badge:"BUNDLE",image:null,colors:[NAVY,MAIZE],category:"Accessories",rating:4.9,reviews:201},
+  {id:"m8",name:"Michigan State × GLS Hoodie",price:69.99,badge:null,image:null,colors:["#18453B","#FFF"],sizes:["S","M","L","XL"],category:"Apparel",rating:4.7,reviews:56},
 ];
 
 const fmt = n => n>=1000?(n/1000).toFixed(1)+"k":String(n);
@@ -361,16 +361,8 @@ function ArticleCard({article,dark,bookmarks,toggleBookmark,onClick}) {
   return(
     <div className="card fu" onClick={onClick} style={{background:bg,border:`1px solid ${border}`,borderRadius:12,overflow:"hidden",height:"100%",display:"flex",flexDirection:"column"}}>
       <div style={{position:"relative",aspectRatio:"16/10",overflow:"hidden",background:dark?"#0c1622":"#e4ecf5",flexShrink:0}}>
-        {article.image ? (
-          <img src={article.image} alt={article.title} loading="lazy" style={{width:"100%",height:"100%",objectFit:"cover"}}
-            onError={e=>{
-              e.target.style.display="none";
-              const fb = e.target.parentNode.querySelector(".logo-fb");
-              if(fb) fb.style.display="flex";
-            }}/>
-        ) : null}
-        <div className="logo-fb" style={{display:article.image?"none":"flex",position:"absolute",inset:0,alignItems:"center",justifyContent:"center",background:getTeamLogo(article.team).bg,flexDirection:"column",gap:8}}>
-          {getTeamLogo(article.team).logo && <img src={getTeamLogo(article.team).logo} alt="" style={{width:72,height:72,objectFit:"contain",filter:"drop-shadow(0 2px 8px rgba(0,0,0,0.4))"}}/>}
+        <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",background:getTeamLogo(article.team).bg}}>
+          <img src={getTeamLogo(article.team).logo||""} alt="" style={{width:80,height:80,objectFit:"contain",filter:"drop-shadow(0 4px 12px rgba(0,0,0,0.5))",opacity:0.9}}/>
         </div>
         <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(0,0,0,0.68) 0%,transparent 60%)"}}/>
         <div style={{position:"absolute",top:9,left:9,display:"flex",gap:5}}>
@@ -398,11 +390,14 @@ function ArticleCard({article,dark,bookmarks,toggleBookmark,onClick}) {
 function HeroCard({article,dark,bookmarks,toggleBookmark,onClick}) {
   const isB=bookmarks.includes(article.id);
   const sc=`b-${(article.sport||"nfl").toLowerCase()}`;
+  const tl=getTeamLogo(article.team);
   return(
-    <div className="hcard fu" onClick={onClick} style={{borderRadius:16,overflow:"hidden",position:"relative",aspectRatio:"21/9",minHeight:280}}>
-      <img src={article.image} alt={article.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}
-      onError={e=>{e.target.src=getTeamLogo(article.team).logo||"";e.target.style.objectFit="contain";e.target.style.padding="40px";e.target.parentNode.style.background=getTeamLogo(article.team).bg;}}/>
-      <div style={{position:"absolute",inset:0,background:"linear-gradient(135deg,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.45) 55%,transparent 100%)"}}/>
+    <div className="hcard fu" onClick={onClick} style={{borderRadius:16,overflow:"hidden",position:"relative",minHeight:320}}>
+      <div style={{position:"absolute",inset:0,background:article.image?undefined:`linear-gradient(135deg,${tl.bg} 0%,${tl.bg}cc 100%)`}}>
+        {article.image && <img src={article.image} alt={article.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}} onError={e=>{e.target.style.display="none";}}/>}
+        {!article.image && tl.logo && <img src={tl.logo} alt="" style={{position:"absolute",right:"5%",top:"50%",transform:"translateY(-50%)",height:"80%",maxHeight:220,objectFit:"contain",opacity:0.18,filter:"blur(1px)"}}/>}
+      </div>
+      <div style={{position:"absolute",inset:0,background:"linear-gradient(135deg,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,0.2) 100%)"}}/>
       <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:`linear-gradient(90deg,${MAIZE},transparent)`}}/>
       <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",justifyContent:"flex-end",padding:"26px 30px"}}>
         <div style={{display:"flex",gap:7,marginBottom:10}}>
@@ -1241,7 +1236,7 @@ function HomePage({dark,articles,bookmarks,toggleBookmark,onArticleClick,setPage
         <button onClick={()=>setPage(id)} style={{background:color+"18",border:`1px solid ${color}44`,borderRadius:7,cursor:"pointer",padding:"5px 13px",fontSize:12,fontWeight:700,color,display:"flex",alignItems:"center",gap:3}}>All <ChevronRight size={11}/></button>
       </div>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))",gap:13}}>
-        {arts.slice(0,4).map(a=><ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={()=>onArticleClick(a)}/>)}
+        {arts.slice(0,6).map(a=><ArticleCard key={a.id} article={a} dark={dark} bookmarks={bookmarks} toggleBookmark={toggleBookmark} onClick={()=>onArticleClick(a)}/>)}
       </div>
     </div>
   );

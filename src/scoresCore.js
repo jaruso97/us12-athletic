@@ -51,7 +51,42 @@ export function parseEvent(e, sport, match) {
     });
   } else info = st.shortDetail || (status === "FINAL" ? "Final" : "Live");
 
-  return { id: `${sport}-${e.id}`, sport, status, info, start: start.getTime(), home: side(home), away: side(away) };
+  // 0 = Detroit pro teams, 1 = Michigan and Michigan State, 2 = other Michigan colleges
+  const names = `${fullName(home)} ${fullName(away)}`;
+  const priority = ["NFL", "MLB", "NBA", "NHL"].includes(sport)
+    ? 0
+    : /michigan wolverines|michigan state/i.test(names)
+      ? 1
+      : 2;
+
+  return { id: `${sport}-${e.id}`, sport, status, priority, info, start: start.getTime(), home: side(home), away: side(away) };
+}
+
+// ── Which games to show where ────────────────────────────────────────────────
+// The Scores page lists everything. The ticker and sidebar are short, so they
+// favor Detroit pro teams, Michigan and Michigan State over smaller schools.
+const isFeatured = (g) => (g.priority ?? 0) <= 1;
+
+// Ticker: every featured game, plus anything live.
+export function tickerGames(games, limit = 24) {
+  return games.filter((g) => isFeatured(g) || g.status === "LIVE").slice(0, limit);
+}
+
+// Sidebar: anything live, then the next game and the latest result for each league.
+// `games` must already be ordered LIVE, then UPCOMING (soonest first), then FINAL (newest first).
+export function featuredGames(games, limit = 6) {
+  const seen = new Set();
+  const out = [];
+  for (const g of games) {
+    if (!isFeatured(g) && g.status !== "LIVE") continue;
+    const key = `${g.sport}-${g.status === "FINAL" ? "final" : "next"}`;
+    if (g.status === "LIVE" || !seen.has(key)) {
+      out.push(g);
+      seen.add(key);
+    }
+    if (out.length >= limit) break;
+  }
+  return out;
 }
 
 // Try the full request first. If ESPN rejects it, retry with fewer options, then

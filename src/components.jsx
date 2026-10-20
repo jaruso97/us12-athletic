@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { SITE, TEAMS, ARTICLES, PICKS, CATEGORIES } from "./data.js";
 import { useApp, formatDate } from "./hooks.js";
+import { tickerGames, featuredGames } from "./scoresCore.js";
 
 // ── Links ────────────────────────────────────────────────────────────────────
 export function Link({ to = "", children, ...rest }) {
@@ -245,7 +246,7 @@ function TickerItem({ g }) {
 export function ScoreTicker() {
   const { scores } = useApp();
   const { games, loading, error } = scores;
-  const items = games.slice(0, 14);
+  const items = tickerGames(games);
   const scroll = items.length >= 5;
   const list = scroll ? [...items, ...items] : items;
 
@@ -454,7 +455,7 @@ export function TeamPills({ active }) {
 function ScoresMini() {
   const { scores } = useApp();
   const { games, loading, error } = scores;
-  const shown = games.slice(0, 5);
+  const shown = featuredGames(games);
 
   return (
     <div className="panel">

@@ -163,6 +163,35 @@ function Comments({ articleId }) {
   );
 }
 
+// Article bodies are an array of strings. A string starting with "## " becomes a
+// heading, consecutive strings starting with "- " become a bullet list, and
+// anything else is a normal paragraph.
+function ArticleBody({ body }) {
+  const blocks = [];
+  let list = null;
+  body.forEach((line, i) => {
+    if (line.startsWith("- ")) {
+      if (!list) {
+        list = [];
+        blocks.push({ type: "ul", items: list, key: i });
+      }
+      list.push(line.slice(2));
+      return;
+    }
+    list = null;
+    blocks.push(
+      line.startsWith("## ")
+        ? { type: "h2", text: line.slice(3), key: i }
+        : { type: "p", text: line, key: i }
+    );
+  });
+  return blocks.map((b) => {
+    if (b.type === "ul") return <ul key={b.key}>{b.items.map((t, j) => <li key={j}>{t}</li>)}</ul>;
+    if (b.type === "h2") return <h2 key={b.key}>{b.text}</h2>;
+    return <p key={b.key}>{b.text}</p>;
+  });
+}
+
 export function ArticlePage({ article }) {
   const [shareLabel, setShareLabel] = useState("Share");
   const { saved, toggleSaved } = useApp();
@@ -202,7 +231,7 @@ export function ArticlePage({ article }) {
           </div>
         </div>
         <div className="prose">
-          {article.body.map((p, i) => <p key={i}>{p}</p>)}
+          <ArticleBody body={article.body} />
         </div>
         <div className="tag-row">
           {(article.tags ?? []).map((t) => <span key={t} className="tag">#{t}</span>)}

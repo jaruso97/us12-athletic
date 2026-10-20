@@ -381,7 +381,7 @@ export function ScoresPage() {
   return (
     <div className="container page">
       <PageHead
-        title="Michigan scores"
+        title="Live scores"
         sub={updated ? `Updated ${updated.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}. Refreshes every minute.` : "Loading..."}
       >
         <button type="button" className="btn btn-ghost" onClick={refresh}><RefreshCw size={13} /> Refresh</button>

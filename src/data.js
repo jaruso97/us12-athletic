@@ -231,7 +231,7 @@ const RAW_ARTICLES = [
 ];
 
 // Newest first, always.
-export const ARTICLES = [...RAW_ARTICLES].sort((a, b) => new Date(b.date) - new Date(a.date));
+     const ADDED = Object.values(import.meta.glob("./articles/*.js", { eager: true, import: "default" })); export const ARTICLES = [...RAW_ARTICLES, ...ADDED].sort((a, b) => new Date(b.date) - new Date(a.date));
 
 // ── Podcast clips ────────────────────────────────────────────────────────────
 // Add the YouTube video ID (the part after v= in the URL) and the card becomes playable.

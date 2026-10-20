@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { fetchMichiganGames } from "./scoresCore.js";
 
 // ── App-wide context (theme, saved articles, live scores) ────────────────────
 export const AppCtx = createContext(null);
@@ -104,88 +105,25 @@ export async function copyText(text) {
   }
 }
 
-// ── Live scores (ESPN's public scoreboard feed) ──────────────────────────────
-// One fetch shared by the ticker, sidebar and Scores page. This is ESPN's
-// unofficial API: it needs no key but can change without notice.
-const COLLEGE = /michigan|detroit mercy|oakland golden/i;
-const FEEDS = [
-  { sport: "NFL", path: "football/nfl", match: /detroit/i },
-  { sport: "MLB", path: "baseball/mlb", match: /detroit/i },
-  { sport: "NBA", path: "basketball/nba", match: /detroit/i },
-  { sport: "NHL", path: "hockey/nhl", match: /detroit/i },
-  { sport: "CFB", path: "football/college-football", match: COLLEGE, extra: "&groups=80" },
-  { sport: "CBB", path: "basketball/mens-college-basketball", match: COLLEGE, extra: "&groups=50" },
-];
-
-const ymd = (d) =>
-  `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
-
-function parseEvent(e, sport, match) {
-  const comp = e.competitions?.[0];
-  const teams = comp?.competitors ?? [];
-  const home = teams.find((c) => c.homeAway === "home");
-  const away = teams.find((c) => c.homeAway === "away");
-  if (!home || !away) return null;
-
-  const fullName = (c) => c.team?.displayName ?? "";
-  if (!match.test(fullName(home)) && !match.test(fullName(away))) return null;
-
-  const st = comp?.status?.type ?? e.status?.type ?? {};
-  const off = /POSTPONED|CANCEL|SUSPENDED/i.test(st.name ?? "");
-  const status = off ? "UPCOMING" : st.state === "in" ? "LIVE" : st.state === "post" ? "FINAL" : "UPCOMING";
-
-  const side = (c) => ({
-    name: fullName(c),
-    // ESPN supplies the real abbreviation (DET, CLE, MICH...). Never derive it from the name.
-    abbr: c.team?.abbreviation || fullName(c).slice(0, 3).toUpperCase(),
-    logo: c.team?.logo || "",
-    score: Number(c.score) || 0,
-  });
-
-  const start = new Date(e.date);
-  let info;
-  if (off) info = st.description || "Postponed";
-  else if (status === "UPCOMING") {
-    info = start.toLocaleString("en-US", {
-      weekday: "short",
-      hour: "numeric",
-      minute: "2-digit",
-      timeZone: "America/Detroit",
-      timeZoneName: "short",
-    });
-  } else info = st.shortDetail || (status === "FINAL" ? "Final" : "Live");
-
-  return { id: `${sport}-${e.id}`, sport, status, info, start: start.getTime(), home: side(home), away: side(away) };
-}
-
-async function fetchMichiganGames() {
-  const from = new Date();
-  from.setDate(from.getDate() - 1);
-  const to = new Date();
-  to.setDate(to.getDate() + 6);
-  const range = `${ymd(from)}-${ymd(to)}`;
-
-  const results = await Promise.allSettled(
-    FEEDS.map(async (f) => {
-      const url = `https://site.api.espn.com/apis/site/v2/sports/${f.path}/scoreboard?dates=${range}&limit=500${f.extra ?? ""}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`ESPN ${res.status}`);
+// ── Live scores ──────────────────────────────────────────────────────────────
+// One fetch shared by the ticker, sidebar and Scores page. We ask our own cached
+// endpoint (api/scores.js on Vercel) first. If that isn't available, for example
+// when running locally with `npm run dev`, we ask ESPN directly from the browser.
+async function loadScores() {
+  try {
+    const res = await fetch("/api/scores");
+    const isJson = (res.headers.get("content-type") ?? "").includes("application/json");
+    if (res.ok && isJson) {
       const data = await res.json();
-      return (data.events ?? []).map((e) => parseEvent(e, f.sport, f.match)).filter(Boolean);
-    })
-  );
-
-  const ok = results.filter((r) => r.status === "fulfilled");
-  const order = { LIVE: 0, UPCOMING: 1, FINAL: 2 };
-  const games = ok
-    .flatMap((r) => r.value)
-    .sort(
-      (a, b) =>
-        order[a.status] - order[b.status] ||
-        (a.status === "FINAL" ? b.start - a.start : a.start - b.start)
-    );
-
-  return { games, error: ok.length === 0 };
+      if (Array.isArray(data.games) && !data.error) return data;
+    }
+  } catch {
+    /* fall through to the direct request */
+  }
+  const data = await fetchMichiganGames();
+  // Open the browser console (F12) to see which score feeds worked.
+  console.info("[scores] direct from ESPN:", data.feeds);
+  return data;
 }
 
 export function useScoresData() {
@@ -194,7 +132,7 @@ export function useScoresData() {
 
   useEffect(() => {
     let cancelled = false;
-    fetchMichiganGames()
+    loadScores()
       .then(({ games, error }) => {
         if (!cancelled) setState({ games, loading: false, error, updated: new Date() });
       })

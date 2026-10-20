@@ -303,7 +303,7 @@ export function Header({ section, onSearch }) {
       <div className="container">
         <div className="header-row">
           <Link to="" className="brand" aria-label={`${SITE.name} home`}>
-            <span className="brand-mark">G</span>
+            <img className="brand-mark" src="/logo.jpg" alt="" width="46" height="46" />
             <span className="brand-text">
               <span className="brand-name hl">Great Lakes <b>Sports</b></span>
               <span className="brand-sub">Podcast</span>
@@ -565,7 +565,7 @@ export function Footer() {
         <div className="footer-grid">
           <div>
             <div className="brand footer-brand">
-              <span className="brand-mark">G</span>
+              <img className="brand-mark" src="/logo.jpg" alt="" width="46" height="46" />
               <span className="brand-name hl">Great Lakes <b>Sports</b> Podcast</span>
             </div>
             <p className="footer-blurb">

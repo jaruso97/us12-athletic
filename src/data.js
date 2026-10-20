@@ -7,7 +7,7 @@
 export const SITE = {
   name: "The Great Lakes Sports Podcast",
   tagline:
-    "Two brothers breaking down the Lions, Tigers, Pistons, Red Wings and Michigan's biggest college teams.",
+    "      Analysis, picks and arguments about every Detroit team and the state's biggest college programs.",
   hosts: ["Host 1", "Host 2"], // SAMPLE: put your names here
   // Fill these in as things go live. Anything left "" is hidden or shown as "coming soon".
   links: {

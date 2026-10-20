@@ -569,7 +569,7 @@ export function Footer() {
               <span className="brand-name hl">Great Lakes <b>Sports</b> Podcast</span>
             </div>
             <p className="footer-blurb">
-              Detroit and Michigan sports from two brothers. New articles every week.
+              Detroit and Michigan sports analysis, picks and arguments. New articles every week.
             </p>
           </div>
           <div>

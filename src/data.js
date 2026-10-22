@@ -14,7 +14,7 @@ export const SITE = {
     youtube: "",
     spotify: "",
     apple: "",
-    discord: "", // permanent Discord invite link
+       discord: "https://discord.gg/bPSm4WfdCU", // permanent Discord invite link
     membership: "", // Patreon, Stripe payment link, Buy Me a Coffee, etc.
     shop: "", // storefront URL (Shopify, Printful, etc.)
     instagram: "",

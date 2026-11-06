@@ -16,7 +16,7 @@ export const SITE = {
     apple: "",
        discord: "https://discord.gg/bPSm4WfdCU", // permanent Discord invite link
     membership: "", // Patreon, Stripe payment link, Buy Me a Coffee, etc.
-    shop: "", // storefront URL (Shopify, Printful, etc.)
+    shop: "https://greatlakessportspod.myshopify.com/", // storefront URL (Shopify, Printful, etc.)
     instagram: "",
     x: "",
   },
@@ -198,15 +198,49 @@ export const PLANS = [
 ];
 
 // ── Merch ────────────────────────────────────────────────────────────────────
-// SAMPLE products and prices. `team` only picks the colors behind the product.
+// Shopify product listings. `team` only picks the colors behind the product.
 // Add `image: "https://..."` for a real photo and `url` for a direct product link.
 export const MERCH = [
-  { id: "tee", name: "Logo Tee", price: 29.99, category: "Apparel", team: "tigers", badge: "New", image: null, url: "" },
-  { id: "hoodie", name: "Logo Hoodie", price: 59.99, category: "Apparel", team: "lions", badge: "", image: null, url: "" },
-  { id: "snapback", name: "Snapback Hat", price: 32.99, category: "Headwear", team: "tigers", badge: "", image: null, url: "" },
-  { id: "beanie", name: "Winter Beanie", price: 24.99, category: "Headwear", team: "lions", badge: "", image: null, url: "" },
-  { id: "mug", name: "Podcast Mug", price: 18.99, category: "Accessories", team: "default", badge: "", image: null, url: "" },
-  { id: "stickers", name: "Sticker Pack", price: 8.99, category: "Accessories", team: "redwings", badge: "", image: null, url: "" },
+  {
+    "id": "can-cooler",
+    "name": "Can Cooler",
+    "category": "Accessories",
+    "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/can-cooler-white-regular-12-oz-front-6aee350dca00c.jpg?v=1793996071",
+    "url": "https://greatlakessportspod.myshopify.com/products/can-cooler"
+  },
+  {
+    "id": "cuffed-beanie",
+    "name": "Cuffed Beanie",
+    "category": "Headwear",
+    "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/cuffed-beanie-navy-front-6aee33ff42a81.jpg?v=1793995790",
+    "url": "https://greatlakessportspod.myshopify.com/products/cuffed-beanie"
+  },
+  {
+    "id": "foam-trucker-hat",
+    "name": "Foam Trucker Hat",
+    "category": "Headwear",
+    "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/foam-trucker-hat-black-one-size-front-6aee320da6941.jpg?v=1793995297",
+    "url": "https://greatlakessportspod.myshopify.com/products/foam-trucker-hat"
+  },
+  {
+    "id": "unisex-hoodie",
+    "name": "Unisex Hoodie",
+    "category": "Apparel",
+    "team": "default",
+    "image": "https://greatlakessportspod.myshopify.com/cdn/shop/files/unisex-heavy-blend-hoodie-black-front-6aee3366637f6.jpg?v=1793995665&width=1024",
+    "url": "https://greatlakessportspod.myshopify.com/products/unisex-hoodie"
+  },
+  {
+    "id": "unisex-t-shirt",
+    "name": "Unisex T-Shirt",
+    "category": "Apparel",
+    "team": "default",
+    "image": "https://greatlakessportspod.myshopify.com/cdn/shop/files/unisex-staple-t-shirt-black-heather-front-and-back-6aee3159ce3f6.jpg?v=1793995114&width=1024",
+    "url": "https://greatlakessportspod.myshopify.com/products/unisex-t-shirt"
+  }
 ];
 
 // ── Discord ──────────────────────────────────────────────────────────────────

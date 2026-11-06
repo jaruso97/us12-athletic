@@ -206,6 +206,7 @@ export const MERCH = [
     "name": "Can Cooler",
     "category": "Accessories",
     "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/can-cooler-white-regular-12-oz-front-6aee350dca00c.jpg?v=1793996071",
     "url": "https://greatlakessportspod.myshopify.com/products/can-cooler"
   },
   {
@@ -213,6 +214,7 @@ export const MERCH = [
     "name": "Cuffed Beanie",
     "category": "Headwear",
     "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/cuffed-beanie-navy-front-6aee33ff42a81.jpg?v=1793995790",
     "url": "https://greatlakessportspod.myshopify.com/products/cuffed-beanie"
   },
   {
@@ -220,6 +222,7 @@ export const MERCH = [
     "name": "Foam Trucker Hat",
     "category": "Headwear",
     "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/foam-trucker-hat-black-one-size-front-6aee320da6941.jpg?v=1793995297",
     "url": "https://greatlakessportspod.myshopify.com/products/foam-trucker-hat"
   },
   {
@@ -227,6 +230,7 @@ export const MERCH = [
     "name": "Unisex Hoodie",
     "category": "Apparel",
     "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/unisex-heavy-blend-hoodie-black-front-6aee33665f644.jpg?v=1793995665",
     "url": "https://greatlakessportspod.myshopify.com/products/unisex-hoodie"
   },
   {
@@ -234,6 +238,7 @@ export const MERCH = [
     "name": "Unisex T-Shirt",
     "category": "Apparel",
     "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/unisex-staple-t-shirt-black-heather-left-front-6aee3159cbd0d.jpg?v=1793995114",
     "url": "https://greatlakessportspod.myshopify.com/products/unisex-t-shirt"
   }
 ];

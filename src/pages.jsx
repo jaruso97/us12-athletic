@@ -326,7 +326,7 @@ function PickCard({ p }) {
           <p className="pick-line hl">{p.pick} <span>{p.odds}</span></p>
           {p.note && <p className="muted">{p.note}</p>}
           {p.legs?.length > 0 && (
-            <ol>
+            <ol style={{ paddingInlineStart: "1.5em" }}>
               {p.legs.map((leg) => (
                 <li key={leg.pick}>
                   <strong>{leg.pick}</strong>

@@ -298,6 +298,7 @@ export function ClipsPage() {
 const STATUS_LABEL = { pending: "Pending", win: "Win", loss: "Loss", push: "Push" };
 
 function profit(p) {
+  if (p.units == null) return 0;
   if (p.status === "loss") return -p.units;
   if (p.status !== "win") return 0;
   const o = parseInt(p.odds, 10);
@@ -324,12 +325,24 @@ function PickCard({ p }) {
         <>
           <p className="pick-line hl">{p.pick} <span>{p.odds}</span></p>
           {p.note && <p className="muted">{p.note}</p>}
+          {p.legs?.length > 0 && (
+            <ol>
+              {p.legs.map((leg) => (
+                <li key={leg.pick}>
+                  <strong>{leg.pick}</strong>
+                  {leg.note && <p className="muted">{leg.note}</p>}
+                </li>
+              ))}
+            </ol>
+          )}
         </>
       )}
-      <div className="pick-foot">
-        <span>{p.units} {p.units === 1 ? "unit" : "units"}</span>
-        <span>{p.confidence}</span>
-      </div>
+      {(p.units != null || p.confidence) && (
+        <div className="pick-foot">
+          {p.units != null && <span>{p.units} {p.units === 1 ? "unit" : "units"}</span>}
+          {p.confidence && <span>{p.confidence}</span>}
+        </div>
+      )}
     </div>
   );
 }

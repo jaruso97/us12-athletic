@@ -351,7 +351,7 @@ export function PicksPage() {
         <div><span className="hl record-num">{PICKS.filter((p) => p.status === "pending").length}</span><span className="muted tiny">Pending</span></div>
       </div>
       <p className="notice">Entertainment only. Must be 21+. If gambling is a problem, call 1-800-GAMBLER.</p>
-      <div className="cards cards-wide">
+      <div className="cards" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))" }}>
         {[
           { id: "joey", title: "Joey's bets of the week" },
           { id: "gino", title: "Gino's bets of the week" },
@@ -363,7 +363,9 @@ export function PicksPage() {
               {picks.length === 0 ? (
                 <Empty title="No bets posted yet." />
               ) : (
-                <div className="cards cards-wide">{picks.map((p) => <PickCard key={p.id} p={p} />)}</div>
+                <div className="cards" style={{ gridTemplateColumns: "minmax(0, 1fr)" }}>
+                  {picks.map((p) => <PickCard key={p.id} p={p} />)}
+                </div>
               )}
             </section>
           );

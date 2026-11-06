@@ -335,6 +335,7 @@ function PickCard({ p }) {
 }
 
 export function PicksPage() {
+  const unassignedPicks = PICKS.filter((p) => p.host !== "joey" && p.host !== "gino");
   const graded = PICKS.filter((p) => ["win", "loss", "push"].includes(p.status));
   const wins = graded.filter((p) => p.status === "win").length;
   const losses = graded.filter((p) => p.status === "loss").length;
@@ -350,10 +351,29 @@ export function PicksPage() {
         <div><span className="hl record-num">{PICKS.filter((p) => p.status === "pending").length}</span><span className="muted tiny">Pending</span></div>
       </div>
       <p className="notice">Entertainment only. Must be 21+. If gambling is a problem, call 1-800-GAMBLER.</p>
-      {PICKS.length === 0 ? (
-        <Empty title="No picks posted yet." />
-      ) : (
-        <div className="cards cards-wide">{PICKS.map((p) => <PickCard key={p.id} p={p} />)}</div>
+      <div className="cards cards-wide">
+        {[
+          { id: "joey", title: "Joey's bets of the week" },
+          { id: "gino", title: "Gino's bets of the week" },
+        ].map(({ id, title }) => {
+          const picks = PICKS.filter((p) => p.host === id);
+          return (
+            <section key={id} aria-labelledby={`picks-${id}`}>
+              <h2 id={`picks-${id}`} className="hl">{title}</h2>
+              {picks.length === 0 ? (
+                <Empty title="No bets posted yet." />
+              ) : (
+                <div className="cards cards-wide">{picks.map((p) => <PickCard key={p.id} p={p} />)}</div>
+              )}
+            </section>
+          );
+        })}
+      </div>
+      {unassignedPicks.length > 0 && (
+        <section aria-label="Other picks">
+          <SectionHead title="Other picks" />
+          <div className="cards cards-wide">{unassignedPicks.map((p) => <PickCard key={p.id} p={p} />)}</div>
+        </section>
       )}
     </div>
   );

@@ -198,15 +198,44 @@ export const PLANS = [
 ];
 
 // ── Merch ────────────────────────────────────────────────────────────────────
-// SAMPLE products and prices. `team` only picks the colors behind the product.
+// Shopify product listings. `team` only picks the colors behind the product.
 // Add `image: "https://..."` for a real photo and `url` for a direct product link.
 export const MERCH = [
-  { id: "tee", name: "Logo Tee", price: 29.99, category: "Apparel", team: "tigers", badge: "New", image: null, url: "" },
-  { id: "hoodie", name: "Logo Hoodie", price: 59.99, category: "Apparel", team: "lions", badge: "", image: null, url: "" },
-  { id: "snapback", name: "Snapback Hat", price: 32.99, category: "Headwear", team: "tigers", badge: "", image: null, url: "" },
-  { id: "beanie", name: "Winter Beanie", price: 24.99, category: "Headwear", team: "lions", badge: "", image: null, url: "" },
-  { id: "mug", name: "Podcast Mug", price: 18.99, category: "Accessories", team: "default", badge: "", image: null, url: "" },
-  { id: "stickers", name: "Sticker Pack", price: 8.99, category: "Accessories", team: "redwings", badge: "", image: null, url: "" },
+  {
+    "id": "can-cooler",
+    "name": "Can Cooler",
+    "category": "Accessories",
+    "team": "default",
+    "url": "https://greatlakessportspod.myshopify.com/products/can-cooler"
+  },
+  {
+    "id": "cuffed-beanie",
+    "name": "Cuffed Beanie",
+    "category": "Headwear",
+    "team": "default",
+    "url": "https://greatlakessportspod.myshopify.com/products/cuffed-beanie"
+  },
+  {
+    "id": "foam-trucker-hat",
+    "name": "Foam Trucker Hat",
+    "category": "Headwear",
+    "team": "default",
+    "url": "https://greatlakessportspod.myshopify.com/products/foam-trucker-hat"
+  },
+  {
+    "id": "unisex-hoodie",
+    "name": "Unisex Hoodie",
+    "category": "Apparel",
+    "team": "default",
+    "url": "https://greatlakessportspod.myshopify.com/products/unisex-hoodie"
+  },
+  {
+    "id": "unisex-t-shirt",
+    "name": "Unisex T-Shirt",
+    "category": "Apparel",
+    "team": "default",
+    "url": "https://greatlakessportspod.myshopify.com/products/unisex-t-shirt"
+  }
 ];
 
 // ── Discord ──────────────────────────────────────────────────────────────────

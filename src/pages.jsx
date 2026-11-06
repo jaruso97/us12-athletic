@@ -453,7 +453,18 @@ const MERCH_CATS = ["All", "Apparel", "Headwear", "Accessories"];
 
 export function MerchPage() {
   const [cat, setCat] = useState("All");
-  const list = cat === "All" ? MERCH : MERCH.filter((m) => m.category === cat);
+  const shop = SITE.links.shop;
+  const products = shop ? MERCH.filter((item) => item.url) : MERCH;
+  const list = cat === "All" ? products : products.filter((item) => item.category === cat);
+
+  if (shop && products.length === 0) {
+    return (
+      <div className="container page">
+        <PageHead title="Merch" sub="Browse Great Lakes Sports Podcast gear in our Shopify store." />
+        <ExtLink href={shop} className="btn btn-primary">Shop merch <ExternalLink size={14} /></ExtLink>
+      </div>
+    );
+  }
 
   return (
     <div className="container page">

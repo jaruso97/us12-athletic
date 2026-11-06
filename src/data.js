@@ -91,26 +91,12 @@ export const CLIPS = [
 ];
 
 // ── Picks ────────────────────────────────────────────────────────────────────
-// SAMPLE picks. status: "pending" | "win" | "loss" | "push".
+// Set host to "joey" or "gino" to show the pick in that host’s column.
+// Pick status: "pending" | "win" | "loss" | "push".
 // IMPORTANT: this file ships to every visitor's browser. Do NOT put real
 // members-only picks here. For `members: true` entries leave `pick` out and
 // deliver the actual pick through your member Discord channel or membership platform.
-export const PICKS = [
-  {
-    id: "p1", date: "2026-10-19", team: "lions", game: "Lions vs. TBD (sample)",
-    pick: "Lions -3.5", odds: "-110", units: 1, confidence: "Lean", status: "pending",
-    members: false, note: "Sample pick. Replace with your write-up.",
-  },
-  {
-    id: "p2", date: "2026-10-19", team: "pistons", game: "Pistons vs. TBD (sample)",
-    pick: "Over 224.5", odds: "-110", units: 1, confidence: "Lean", status: "pending",
-    members: false, note: "Sample pick. Replace with your write-up.",
-  },
-  {
-    id: "p3", date: "2026-10-19", team: "tigers", game: "Tigers vs. TBD (sample)",
-    odds: "", units: 2, confidence: "Best bet", status: "pending", members: true,
-  },
-];
+export const PICKS = [];
 
 // ── Membership ───────────────────────────────────────────────────────────────
 // SAMPLE pricing.

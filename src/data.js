@@ -96,7 +96,44 @@ export const CLIPS = [
 // IMPORTANT: this file ships to every visitor's browser. Do NOT put real
 // members-only picks here. For `members: true` entries leave `pick` out and
 // deliver the actual pick through your member Discord channel or membership platform.
-export const PICKS = [];
+export const PICKS = [
+  {
+    "id": "gino-michigan-msu-2026-11-07",
+    "host": "gino",
+    "date": "2026-11-07",
+    "team": "michigan",
+    "game": "Michigan vs. Michigan State",
+    "pick": "Six-leg same-game parlay",
+    "note": "Gino’s ticket: $10 to win $128.",
+    "status": "pending",
+    "members": false,
+    "legs": [
+      {
+        "pick": "Michigan moneyline (-720)"
+      },
+      {
+        "pick": "Tommy Carr 200+ passing yards (-122)",
+        "note": "Carr threw for 167 yards against Indiana and 266 against Rutgers, an average of 216.5 yards in his first two starts."
+      },
+      {
+        "pick": "Michigan over 144.5 rushing yards",
+        "note": "Over the last five games, Michigan State has allowed 169.2 rushing yards per game, while Michigan has averaged 132.2. Gino likes Michigan’s chances with Savion Hiter, Jordan Marshall and the possibility of Carr adding yards on the ground."
+      },
+      {
+        "pick": "JJ Buchanan anytime touchdown",
+        "note": "Buchanan has been a go-to target all season, and Carr found him for a touchdown against Rutgers."
+      },
+      {
+        "pick": "JJ Buchanan over 4.5 receptions",
+        "note": "Buchanan has had fewer than four catches just once in his last five games. He caught 11 passes across Carr’s first two starts."
+      },
+      {
+        "pick": "Over 39.5 total points",
+        "note": "Michigan State’s last five games averaged 47.2 total points, or 40.2 excluding the overtime game against Illinois. Michigan’s last five averaged 36. Gino sees a path to 40 with Michigan favored by 14.5."
+      }
+    ]
+  }
+];
 
 // ── Membership ───────────────────────────────────────────────────────────────
 // SAMPLE pricing.

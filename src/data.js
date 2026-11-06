@@ -141,7 +141,7 @@ export const PICKS = [
     "team": "michigan",
     "game": "Michigan vs. Michigan State",
     "pick": "Six-leg same-game parlay",
-    "note": "Gino’s ticket: $10 to win $128.",
+    "note": "FanDuel · $10 to win $128.",
     "status": "pending",
     "members": false,
     "legs": [

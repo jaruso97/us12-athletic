@@ -238,7 +238,7 @@ export const MERCH = [
     "name": "Unisex T-Shirt",
     "category": "Apparel",
     "team": "default",
-    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/unisex-staple-t-shirt-black-heather-left-front-6aee3159cbd0d.jpg?v=1793995114",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/unisex-staple-t-shirt-black-heather-front-6aee3159cd939.jpg?v=1793995113",
     "url": "https://greatlakessportspod.myshopify.com/products/unisex-t-shirt"
   }
 ];

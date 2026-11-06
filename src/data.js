@@ -230,7 +230,7 @@ export const MERCH = [
     "name": "Unisex Hoodie",
     "category": "Apparel",
     "team": "default",
-    "image": "https://greatlakessportspod.myshopify.com/cdn/shop/files/unisex-heavy-blend-hoodie-black-front-6aee3366637f6.jpg?v=1793995665&width=1024",
+    "image": "https://greatlakessportspod.myshopify.com/cdn/shop/files/unisex-heavy-blend-hoodie-black-front-6aee4a32e2182.jpg?v=1794001469&width=1024",
     "url": "https://greatlakessportspod.myshopify.com/products/unisex-hoodie"
   },
   {
@@ -238,7 +238,7 @@ export const MERCH = [
     "name": "Unisex T-Shirt",
     "category": "Apparel",
     "team": "default",
-    "image": "https://greatlakessportspod.myshopify.com/cdn/shop/files/unisex-staple-t-shirt-black-heather-front-and-back-6aee3159ce3f6.jpg?v=1793995114&width=1024",
+    "image": "https://greatlakessportspod.myshopify.com/cdn/shop/files/unisex-staple-t-shirt-black-heather-front-6aee49aba5de2.jpg?v=1794001329&width=1024",
     "url": "https://greatlakessportspod.myshopify.com/products/unisex-t-shirt"
   }
 ];

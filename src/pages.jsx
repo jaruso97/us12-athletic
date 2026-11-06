@@ -468,7 +468,9 @@ export function MerchPage() {
 
   return (
     <div className="container page">
-      <PageHead title="Merch" sub="Wear the podcast. Orders are handled by our store." />
+      <PageHead title="Merch" sub="Wear the podcast. Orders are handled by our store.">
+        {shop && <ExtLink href={shop} className="btn btn-primary">Shop all merch <ExternalLink size={14} /></ExtLink>}
+      </PageHead>
       {!SITE.links.shop && <p className="notice">The store is opening soon. Prices below are placeholders.</p>}
       <div className="pills">
         {MERCH_CATS.map((c) => (
@@ -488,9 +490,9 @@ export function MerchPage() {
                 <span className="muted tiny">{item.category}</span>
                 <h3 className="card-title">{item.name}</h3>
                 <div className="product-foot">
-                  <span className="hl price">${item.price.toFixed(2)}</span>
+                  {item.price != null && <span className="hl price">${item.price.toFixed(2)}</span>}
                   {url ? (
-                    <ExtLink href={url} className="btn btn-primary btn-sm">Buy <ExternalLink size={11} /></ExtLink>
+                    <ExtLink href={url} className="btn btn-primary btn-sm">View on Shopify <ExternalLink size={11} /></ExtLink>
                   ) : (
                     <span className="btn btn-ghost btn-sm disabled">Coming soon</span>
                   )}

@@ -16,7 +16,7 @@ export const SITE = {
     apple: "",
        discord: "https://discord.gg/bPSm4WfdCU", // permanent Discord invite link
     membership: "", // Patreon, Stripe payment link, Buy Me a Coffee, etc.
-    shop: "", // storefront URL (Shopify, Printful, etc.)
+    shop: "https://greatlakessportspod.myshopify.com/", // storefront URL (Shopify, Printful, etc.)
     instagram: "",
     x: "",
   },

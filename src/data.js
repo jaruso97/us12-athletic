@@ -98,6 +98,43 @@ export const CLIPS = [
 // deliver the actual pick through your member Discord channel or membership platform.
 export const PICKS = [
   {
+    "id": "joey-lions-dolphins-2026-11-08",
+    "host": "joey",
+    "date": "2026-11-08",
+    "team": "lions",
+    "game": "Detroit Lions at Miami Dolphins",
+    "pick": "Six-leg same-game parlay",
+    "note": "FanDuel · $10 stake, $174.26 total payout.",
+    "status": "pending",
+    "members": false,
+    "legs": [
+      {
+        "pick": "Jameson Williams anytime touchdown",
+        "note": "Jamo is on a tear. He has five touchdown catches in his last three games, including the go-ahead score against Minnesota."
+      },
+      {
+        "pick": "Jameson Williams over 52.5 receiving yards",
+        "note": "Williams had 91 yards against Green Bay and 70 against Minnesota. He’s averaging 16.2 yards per catch this season and has cleared this line in three of seven games."
+      },
+      {
+        "pick": "Amon-Ra St. Brown 6+ receptions",
+        "note": "St. Brown has caught at least six passes in six of seven games, including nine against Green Bay and seven against Minnesota."
+      },
+      {
+        "pick": "Jared Goff over 261.5 passing yards",
+        "note": "Goff is averaging 280.6 passing yards and has cleared this line in five of seven games. Detroit won against Minnesota with 176 passing yards from Goff and 230 on the ground, so a run-heavy game makes this leg tougher."
+      },
+      {
+        "pick": "Jahmyr Gibbs anytime touchdown",
+        "note": "Gibbs has eight rushing touchdowns through seven games, including a 30-yard score against Minnesota."
+      },
+      {
+        "pick": "Jahmyr Gibbs over 98.5 rushing yards",
+        "note": "Gibbs has cleared this line in five of seven games, including three straight with 151, 116, and 153 yards. He had at least 23 carries in each of those three games."
+      }
+    ]
+  },
+  {
     "id": "gino-michigan-msu-2026-11-07",
     "host": "gino",
     "date": "2026-11-07",

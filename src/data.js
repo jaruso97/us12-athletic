@@ -81,14 +81,7 @@ const ADDED = Object.values(import.meta.glob("./articles/*.js", { eager: true, i
 // ── Podcast clips ────────────────────────────────────────────────────────────
 // Add the YouTube video ID (the part after v= in the URL) and the card becomes playable.
 // With youtubeId: null the card shows "Coming soon".
-export const CLIPS = [
-  { id: "c1", title: "Lions hot takes", team: "lions", episode: "Episode 1", youtubeId: null },
-  { id: "c2", title: "Tigers roster debate", team: "tigers", episode: "Episode 1", youtubeId: null },
-  { id: "c3", title: "Pistons: real or fake?", team: "pistons", episode: "Episode 1", youtubeId: null },
-  { id: "c4", title: "Red Wings goalie talk", team: "redwings", episode: "Episode 1", youtubeId: null },
-  { id: "c5", title: "Michigan vs. everyone", team: "michigan", episode: "Episode 1", youtubeId: null },
-  { id: "c6", title: "Spartans midseason", team: "msu", episode: "Episode 1", youtubeId: null },
-];
+export const CLIPS = [];
 
 // ── Picks ────────────────────────────────────────────────────────────────────
 // Set host to "joey" or "gino" to show the pick in that host’s column.

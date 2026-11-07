@@ -202,6 +202,14 @@ export const PLANS = [
 // Add `image: "https://..."` for a real photo and `url` for a direct product link.
 export const MERCH = [
   {
+    "id": "garment-dyed-heavyweight-long-sleeve-shirt",
+    "name": "Garment-Dyed Heavyweight Long-Sleeve Shirt",
+    "category": "Apparel",
+    "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/unisex-garment-dyed-heavyweight-long-sleeve-shirt-black-front-6aeea517bfa45.jpg?v=1794024743",
+    "url": "https://greatlakessportspod.myshopify.com/products/garment-dyed-heavyweight-long-sleeve-shirt"
+  },
+  {
     "id": "can-cooler",
     "name": "Can Cooler",
     "category": "Accessories",

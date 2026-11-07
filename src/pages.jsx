@@ -84,9 +84,15 @@ export function Home() {
       <div className="grid-main">
         <div className="main-col">
           <SectionHead title="Latest clips" to="clips" />
-          <div className="cards">
-            {CLIPS.slice(0, 3).map((c) => <ClipCard key={c.id} clip={c} onOpen={setClip} />)}
-          </div>
+          {CLIPS.length === 0 ? (
+            <Empty title="Clips coming soon">
+              <p className="muted">Joey and Gino are starting with audio episodes. Check back for highlights from the podcast.</p>
+            </Empty>
+          ) : (
+            <div className="cards">
+              {CLIPS.slice(0, 3).map((c) => <ClipCard key={c.id} clip={c} onOpen={setClip} />)}
+            </div>
+          )}
 
           <div className="gap" />
           <SectionHead title="Latest articles" to="articles" />
@@ -273,6 +279,17 @@ export function ClipsPage() {
   const [clip, setClip] = useState(null);
   const [team, setTeam] = useState("all");
   const list = team === "all" ? CLIPS : CLIPS.filter((c) => TEAMS[c.team]?.category === team);
+
+  if (CLIPS.length === 0) {
+    return (
+      <div className="container page">
+        <PageHead title="Podcast clips" sub="Highlights from Joey and Gino." />
+        <Empty title="Coming soon">
+          <p className="muted">We’re starting with audio episodes. Check back for highlights from the Great Lakes Sports Podcast.</p>
+        </Empty>
+      </div>
+    );
+  }
 
   return (
     <div className="container page">

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { AppCtx, useLocalStorage, useRoute, useScoresData } from "./hooks.js";
 import { ARTICLES, SITE } from "./data.js";
 import { Header, ScoreTicker, Footer, SearchOverlay } from "./components.jsx";
@@ -99,6 +100,7 @@ export default function App() {
         <Footer />
         {searchOpen && <SearchOverlay onClose={closeSearch} />}
       </div>
+      <Analytics />
     </AppCtx.Provider>
   );
 }

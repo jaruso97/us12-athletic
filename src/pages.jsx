@@ -530,7 +530,7 @@ export function MembershipPage() {
     return (
       <div className="container page">
         <PageHead title="Support the podcast" sub="The Great Lakes Sports Podcast brings you Detroit sports and Michigan college ball." />
-        <div className="panel">
+        <div className="panel" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 16 }}>
           <h2 className="hl">Join us on Patreon</h2>
           <p>Become a supporter to help us record episodes, improve the show, and keep bringing you our takes on the teams we follow. Thanks for helping us build the Great Lakes Sports Podcast.</p>
           <ExtLink href={url} className="btn btn-primary">Visit our Patreon <ExternalLink size={13} /></ExtLink>

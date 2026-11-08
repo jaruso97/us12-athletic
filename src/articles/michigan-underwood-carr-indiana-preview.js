@@ -1,6 +1,7 @@
 // One article per file. Any .js file in this folder is picked up automatically,
 // so adding an article never means editing data.js.
 export default {
+  sport: "Football",
   id: "michigan-underwood-carr-indiana-preview",
   team: "michigan",
   title: "Elite Defense, Broken Offense: Is Bryce Underwood a Bust, and Can Tommy Carr Save Michigan’s Season?",

@@ -1,4 +1,5 @@
 export default {
+  sport: "Basketball",
   "id": "michigan-banner-year-part-two",
   "title": "Banner Year, Part Two? Four Things Michigan Must Do to Dominate in 2026-27",
   "team": "michigan",

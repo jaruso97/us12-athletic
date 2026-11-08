@@ -186,6 +186,7 @@ ul { list-style: none; }
 .art-emoji { font-size: 54px; }
 .art-shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%); pointer-events: none; }
 .art-tags { position: absolute; top: 9px; left: 9px; display: flex; gap: 5px; z-index: 2; }
+.article-category-badge { font-size: 11px; font-weight: 800; letter-spacing: 0.045em; text-transform: uppercase; padding: 5px 9px; border-radius: 5px; white-space: nowrap; }
 .product-fallback { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px; text-align: center; color: #fff; }
 .product-fallback .hl { font-size: 24px; line-height: 1.05; }
 .product-badge { position: absolute; top: 9px; left: 9px; z-index: 2; }

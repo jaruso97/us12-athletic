@@ -102,11 +102,16 @@ export function ArticleCard({ article }) {
           <TeamArt team={article.team} src={article.image} />
           <div className="art-shade" />
           <div className="art-tags">
-            <TeamBadge team={article.team} />
-            {TEAMS[article.team]?.category === "college" && article.sport && (
-              <span className="badge">{article.sport}</span>
-            )}
-            {article.featured && <span className="badge badge-brand">Featured</span>}
+            <span
+              className="badge article-category-badge"
+              style={{
+                background: TEAMS[article.team]?.color ?? TEAMS.default.color,
+                color: article.team === "michigan" ? "#FFCB05" : (TEAMS[article.team]?.ink ?? TEAMS.default.ink),
+              }}
+            >
+              {TEAMS[article.team]?.name ?? TEAMS.default.name}
+              {TEAMS[article.team]?.category === "college" && article.sport ? ` ${article.sport}` : ""}
+            </span>
           </div>
         </div>
         <div className="card-body">

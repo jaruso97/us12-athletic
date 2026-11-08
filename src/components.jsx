@@ -103,6 +103,9 @@ export function ArticleCard({ article }) {
           <div className="art-shade" />
           <div className="art-tags">
             <TeamBadge team={article.team} />
+            {TEAMS[article.team]?.category === "college" && article.sport && (
+              <span className="badge">{article.sport}</span>
+            )}
             {article.featured && <span className="badge badge-brand">Featured</span>}
           </div>
         </div>

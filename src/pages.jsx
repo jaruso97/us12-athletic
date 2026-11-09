@@ -385,7 +385,7 @@ export function PicksPage() {
       </div>
       <div className="panel" style={{ marginBottom: 20 }}>
         <h2 className="hl">A note from The Great Lakes Sports Podcast</h2>
-        <p>This was a rough one, guys. Both six-leg parlays missed. St. Brown’s catches and Gibbs’ touchdown came through for Joey, but the rest of the Lions card fell short. Michigan’s offense never got going, and Gino’s card went 0-for-6. We’ll own the misses and keep the results here for everyone to see.</p>
+        <p>This was a rough one, guys. Hoping for some hits next week!</p>
         <p className="muted tiny">The record counts each parlay as one ticket. Individual legs are shown below. Units are unavailable because a unit size was not recorded.</p>
       </div>
       <p className="notice">Entertainment only. Must be 21+. If gambling is a problem, call 1-800-GAMBLER.</p>

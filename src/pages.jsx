@@ -346,6 +346,12 @@ function PickCard({ p }) {
               ))}
             </ol>
           )}
+          {p.betslipUrl && (
+            <div style={{ marginTop: 20 }}>
+              <ExtLink href={p.betslipUrl} className="btn btn-primary">Open bet slip <ExternalLink size={14} /></ExtLink>
+              <p className="muted tiny" style={{ marginTop: 12 }}>Choose your state and sportsbook. Lines and odds may change.</p>
+            </div>
+          )}
         </>
       )}
       {(p.units != null || p.confidence) && (
@@ -359,7 +365,8 @@ function PickCard({ p }) {
 }
 
 export function PicksPage() {
-  const unassignedPicks = PICKS.filter((p) => p.host !== "joey" && p.host !== "gino");
+  const currentPicks = PICKS.filter((p) => p.status === "pending");
+  const unassignedPicks = currentPicks.filter((p) => p.host !== "joey" && p.host !== "gino");
   const graded = PICKS.filter((p) => ["win", "loss", "push"].includes(p.status));
   const wins = graded.filter((p) => p.status === "win").length;
   const losses = graded.filter((p) => p.status === "loss").length;
@@ -372,27 +379,13 @@ export function PicksPage() {
         <div><span className="hl record-num">{wins}-{losses}-{pushes}</span><span className="muted tiny">Ticket record (W-L-P)</span></div>
         <div><span className="hl record-num">{PICKS.filter((p) => p.status === "pending").length}</span><span className="muted tiny">Pending</span></div>
       </div>
-      <div className="panel" style={{ marginBottom: 20 }}>
-        <h2 className="hl">A note from The Great Lakes Sports Podcast</h2>
-        <p>This was a rough one, guys. Hoping for some hits next week!</p>
-        <p className="muted tiny">The record counts each parlay as one ticket. Individual legs are shown below.</p>
-      </div>
       <p className="notice">Entertainment only. Must be 21+. If gambling is a problem, call 1-800-GAMBLER.</p>
-      <section className="panel" aria-labelledby="shared-betslip-title" style={{ marginBottom: 20 }}>
-        <h2 id="shared-betslip-title" className="hl">Pistons vs. Wizards · Six-leg parlay</h2>
-        <div style={{ marginTop: 16 }}>
-          <ExtLink href="https://quickpick.pikkit.com/betslip/32f65bdc3370f9541df596976" className="btn btn-primary">
-            Open bet slip <ExternalLink size={14} />
-          </ExtLink>
-        </div>
-        <p className="muted tiny" style={{ marginTop: 12 }}>Choose your state and sportsbook. Lines and odds may change.</p>
-      </section>
       <div className="cards" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))" }}>
         {[
           { id: "joey", title: "Joey's bets of the week" },
           { id: "gino", title: "Gino's bets of the week" },
         ].map(({ id, title }) => {
-          const picks = PICKS.filter((p) => p.host === id);
+          const picks = currentPicks.filter((p) => p.host === id);
           return (
             <section key={id} aria-labelledby={`picks-${id}`}>
               <h2 id={`picks-${id}`} className="hl">{title}</h2>
@@ -408,11 +401,28 @@ export function PicksPage() {
         })}
       </div>
       {unassignedPicks.length > 0 && (
-        <section aria-label="Other picks">
-          <SectionHead title="Other picks" />
+        <section aria-label="Podcast picks">
+          <SectionHead title="Podcast picks" />
           <div className="cards cards-wide">{unassignedPicks.map((p) => <PickCard key={p.id} p={p} />)}</div>
         </section>
       )}
+      <section aria-labelledby="picks-archive-title" style={{ marginTop: 32 }}>
+        <h2 id="picks-archive-title" className="hl">Parlay archive</h2>
+        <p className="muted" style={{ marginTop: 8, marginBottom: 16 }}>Our previous parlays and how they finished.</p>
+        {graded.length === 0 ? <Empty title="No previous parlays yet." /> : (
+          <div className="stack">
+            {[...graded].sort((a, b) => b.date.localeCompare(a.date)).map((p) => (
+              <details key={p.id} className="panel">
+                <summary style={{ cursor: "pointer", padding: "8px 0" }}>
+                  <strong>{p.host === "joey" ? "Joey" : p.host === "gino" ? "Gino" : "Great Lakes Sports Podcast"} · {p.game}</strong>
+                  <span className="muted tiny"> · {formatDate(`${p.date}T12:00:00`)} · {STATUS_LABEL[p.status]}</span>
+                </summary>
+                <div style={{ marginTop: 16 }}><PickCard p={p} /></div>
+              </details>
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }

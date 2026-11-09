@@ -378,6 +378,15 @@ export function PicksPage() {
         <p className="muted tiny">The record counts each parlay as one ticket. Individual legs are shown below.</p>
       </div>
       <p className="notice">Entertainment only. Must be 21+. If gambling is a problem, call 1-800-GAMBLER.</p>
+      <section className="panel" aria-labelledby="shared-betslip-title" style={{ marginBottom: 20 }}>
+        <h2 id="shared-betslip-title" className="hl">Pistons vs. Wizards · Six-leg parlay</h2>
+        <div style={{ marginTop: 16 }}>
+          <ExtLink href="https://quickpick.pikkit.com/betslip/32f65bdc3370f9541df596976" className="btn btn-primary">
+            Open bet slip <ExternalLink size={14} />
+          </ExtLink>
+        </div>
+        <p className="muted tiny" style={{ marginTop: 12 }}>Choose your state and sportsbook. Lines and odds may change.</p>
+      </section>
       <div className="cards" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))" }}>
         {[
           { id: "joey", title: "Joey's bets of the week" },

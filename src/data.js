@@ -90,6 +90,42 @@ export const CLIPS = [];
 // members-only picks here. For `members: true` entries leave `pick` out and
 // deliver the actual pick through your member Discord channel or membership platform.
 export const PICKS = [
+{
+  "id": "pistons-wizards-2026-11-09",
+  "date": "2026-11-09",
+  "team": "pistons",
+  "game": "Washington Wizards at Detroit Pistons",
+  "pick": "Six-leg same-game parlay",
+  "status": "pending",
+  "members": false,
+  "betslipUrl": "https://quickpick.pikkit.com/betslip/32f65bdc3370f9541df596976",
+  "legs": [
+    {
+      "pick": "Pistons moneyline",
+      "note": "Coming off a bad game at home, we’re expecting the Pistons to come out with a chip on their shoulder. This is a chance to bounce back and make a statement for the East."
+    },
+    {
+      "pick": "Duncan Robinson 3+ threes",
+      "note": "He’s shooting 45.2% from three this season. We’re backing him to knock down at least three tonight."
+    },
+    {
+      "pick": "Cade Cunningham over 40.5 points + rebounds + assists",
+      "note": "Cade finished with 26 in this category last night. We’re expecting a more aggressive game tonight, and he’s topped 40 in three of his last five games."
+    },
+    {
+      "pick": "Cade Cunningham 2+ steals",
+      "note": "Usually it’s Ausar dominating this stat, but Cade has 11 steals over his last five games and is averaging 1.6 per game this season. Right place, right time, and this one could hit."
+    },
+    {
+      "pick": "Kevin Huerter over 7.5 points",
+      "note": "After re-signing this offseason, Huerter seems to have found his spot. He looks like a good complement to Duncan Robinson in the bench group. He’s averaging 6.5 points per game."
+    },
+    {
+      "pick": "Kevin Huerter 2+ threes",
+      "note": "Huerter is coming off a 24-point game in which he went 4-for-8 from three. He’s averaging 1.6 made threes on 4.4 attempts per game. We just need two to fall."
+    }
+  ]
+},
   {
     "id": "joey-lions-dolphins-2026-11-08",
     "host": "joey",

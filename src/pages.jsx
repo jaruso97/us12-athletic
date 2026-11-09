@@ -314,15 +314,6 @@ export function ClipsPage() {
 // ── Picks ────────────────────────────────────────────────────────────────────
 const STATUS_LABEL = { pending: "Pending", win: "Win", loss: "Loss", push: "Push" };
 
-function profit(p) {
-  if (p.units == null) return 0;
-  if (p.status === "loss") return -p.units;
-  if (p.status !== "win") return 0;
-  const o = parseInt(p.odds, 10);
-  if (!o) return 0;
-  return o > 0 ? (p.units * o) / 100 : (p.units * 100) / Math.abs(o);
-}
-
 function PickCard({ p }) {
   return (
     <div className="card pick">
@@ -373,20 +364,18 @@ export function PicksPage() {
   const wins = graded.filter((p) => p.status === "win").length;
   const losses = graded.filter((p) => p.status === "loss").length;
   const pushes = graded.filter((p) => p.status === "push").length;
-  const units = graded.reduce((sum, p) => sum + profit(p), 0);
 
   return (
     <div className="container page">
       <PageHead title="Our picks" sub="What we like this week and why. Free picks are public; the full card is for members." />
       <div className="record">
         <div><span className="hl record-num">{wins}-{losses}-{pushes}</span><span className="muted tiny">Ticket record (W-L-P)</span></div>
-        <div><span className="hl record-num">{graded.some((p) => p.units != null) ? `${units >= 0 ? "+" : ""}${units.toFixed(1)}u` : "—"}</span><span className="muted tiny">Units</span></div>
         <div><span className="hl record-num">{PICKS.filter((p) => p.status === "pending").length}</span><span className="muted tiny">Pending</span></div>
       </div>
       <div className="panel" style={{ marginBottom: 20 }}>
         <h2 className="hl">A note from The Great Lakes Sports Podcast</h2>
         <p>This was a rough one, guys. Hoping for some hits next week!</p>
-        <p className="muted tiny">The record counts each parlay as one ticket. Individual legs are shown below. Units are unavailable because a unit size was not recorded.</p>
+        <p className="muted tiny">The record counts each parlay as one ticket. Individual legs are shown below.</p>
       </div>
       <p className="notice">Entertainment only. Must be 21+. If gambling is a problem, call 1-800-GAMBLER.</p>
       <div className="cards" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))" }}>

@@ -91,6 +91,35 @@ export const CLIPS = [];
 // deliver the actual pick through your member Discord channel or membership platform.
 export const PICKS = [
 {
+  "id": "joey-pistons-wizards-2026-11-09",
+  "host": "joey",
+  "date": "2026-11-09",
+  "team": "pistons",
+  "game": "Washington Wizards at Detroit Pistons",
+  "pick": "Four-leg same-game parlay",
+  "status": "pending",
+  "members": false,
+  "betslipUrl": "https://quickpick.pikkit.com/betslip/b3d3bf233912ffe4a41cb4754",
+  "legs": [
+    {
+      "pick": "Ausar Thompson over 1.5 steals",
+      "note": "We’re backing Ausar to cause problems tonight. Jump a passing lane, get his hands on a loose handle, and turn defense into offense. We need two steals, and an aggressive defensive performance gives this leg a chance."
+    },
+    {
+      "pick": "Cade Cunningham over 25.5 points",
+      "note": "After that Lakers loss, I want Cade coming out aggressive. Get downhill, get to the line, and set the tone early. We need 26 points, and we’re backing him to lead the response."
+    },
+    {
+      "pick": "Duncan Robinson over 15.5 points",
+      "note": "If Cade gets into the paint and draws help, Duncan needs to make Washington pay. A few early threes would get this moving. We need 16 points, so keep finding him and let him shoot."
+    },
+    {
+      "pick": "Cade Cunningham over 8.5 assists",
+      "note": "This connects with Duncan’s scoring pick. Cade can create the chances, but the guys around him have to finish. We need nine assists, and we’re betting on the offense moving the ball and knocking down its looks."
+    }
+  ]
+},
+{
   "id": "pistons-wizards-2026-11-09",
   "host": "gino",
   "date": "2026-11-09",

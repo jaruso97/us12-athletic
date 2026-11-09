@@ -139,7 +139,6 @@ export const PICKS = [
       }
     ],
     "sourceUrl": "https://www.covers.com/sport/football/nfl/matchup/380044",
-    "verification": "Graded against the posted lines using final game statistics. FanDuel ticket settlement, boosts and voids have not been verified."
   },
   {
     "id": "gino-michigan-msu-2026-11-07",
@@ -189,7 +188,6 @@ export const PICKS = [
       }
     ],
     "sourceUrl": "https://mgoblue.com/sports/football/stats/2026/michigan-state/boxscore/30382",
-    "verification": "Graded against the posted lines using final game statistics. FanDuel ticket settlement, boosts and voids have not been verified."
   }
 ];
 

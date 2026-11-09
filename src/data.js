@@ -92,6 +92,7 @@ export const CLIPS = [];
 export const PICKS = [
 {
   "id": "pistons-wizards-2026-11-09",
+  "host": "gino",
   "date": "2026-11-09",
   "team": "pistons",
   "game": "Washington Wizards at Detroit Pistons",

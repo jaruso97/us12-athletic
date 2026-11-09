@@ -7,7 +7,7 @@
 // week, so a date range can quietly return last week's games):
 //   1. the scoreboard for a date range
 //   2. the scoreboard's default view ("today" / the current week)
-//   3. the team's own season schedule (Detroit pro teams only)
+//   3. team season schedules (Detroit pro teams and the six requested basketball teams)
 
 const COLLEGE = /michigan|detroit mercy|oakland golden/i;
 
@@ -17,7 +17,7 @@ export const FEEDS = [
   { sport: "NBA", path: "basketball/nba", match: /detroit/i, teamId: 8 },
   { sport: "NHL", path: "hockey/nhl", match: /detroit/i, teamId: 5 },
   { sport: "CFB", path: "football/college-football", match: COLLEGE, extra: "groups=80" },
-  { sport: "CBB", path: "basketball/mens-college-basketball", match: COLLEGE, extra: "groups=50" },
+  { sport: "CBB", path: "basketball/mens-college-basketball", match: /^(Michigan Wolverines|Michigan State Spartans|Central Michigan Chippewas|Western Michigan Broncos|Eastern Michigan Eagles|Oakland Golden Grizzlies)$/i, extra: "groups=50", teamIds: [130, 127, 2117, 2711, 2199, 2473] },
 ];
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -123,10 +123,18 @@ async function fetchFeed(feed, range, win, fetchFn) {
     ["range", [`${base}?dates=${range}&limit=500${extra}`, `${base}?dates=${range}${extra}`]],
     ["today", [`${base}${feed.extra ? `?${feed.extra}` : ""}`]],
   ];
-  if (feed.teamId) {
+  if (feed.sport === "CBB") {
+    // This scoreboard rejects date ranges. Request each day for live scores.
+    sources.shift();
+    for (let day = -2; day <= 10; day += 1) {
+      const date = ymd(new Date(win.now + day * DAY));
+      sources.push([`day-${date}`, [`${base}?dates=${date}&limit=500${extra}`]]);
+    }
+  }
+  for (const teamId of feed.teamIds ?? (feed.teamId ? [feed.teamId] : [])) {
     sources.push([
-      "schedule",
-      [`https://site.api.espn.com/apis/site/v2/sports/${feed.path}/teams/${feed.teamId}/schedule`],
+      `schedule-${teamId}`,
+      [`https://site.api.espn.com/apis/site/v2/sports/${feed.path}/teams/${teamId}/schedule`],
     ]);
   }
 
@@ -162,7 +170,7 @@ async function fetchFeed(feed, range, win, fetchFn) {
 
 export async function fetchMichiganGames(fetchFn = (url) => fetch(url)) {
   const now = Date.now();
-  const win = { from: now - 2 * DAY, to: now + 10 * DAY };
+  const win = { now, from: now - 2 * DAY, to: now + 10 * DAY };
   const range = `${ymd(new Date(now - 2 * DAY))}-${ymd(new Date(now + 6 * DAY))}`;
 
   const results = await Promise.all(FEEDS.map((f) => fetchFeed(f, range, win, fetchFn)));

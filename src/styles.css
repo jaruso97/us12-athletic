@@ -108,7 +108,7 @@ ul { list-style: none; }
 .header-line { height: 3px; background: linear-gradient(90deg, var(--orange), var(--blue) 55%, var(--silver)); opacity: 0.85; }
 .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .brand-mark {
-  width: 46px; height: 46px; border-radius: 10px; object-fit: cover; flex-shrink: 0;
+  width: 46px; height: 46px; border-radius: 10px; object-fit: contain; object-position: center; padding: 3px; box-sizing: border-box; flex-shrink: 0;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14);
 }
 .brand-text { display: flex; flex-direction: column; gap: 2px; }

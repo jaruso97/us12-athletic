@@ -312,7 +312,7 @@ export function Header({ section, onSearch }) {
       <div className="container">
         <div className="header-row">
           <Link to="" className="brand" aria-label={`${SITE.name} home`}>
-            <img className="brand-mark" src="/great-lakes-sports-logo.png.PNG" alt="" width="46" height="46" />
+            <img className="brand-mark" src="https://raw.githubusercontent.com/jaruso97/us12-athletic/main/great-lakes-sports-logo.png.PNG" alt="" width="46" height="46" />
             <span className="brand-text">
               <span className="brand-name hl">Great Lakes <b>Sports</b></span>
               <span className="brand-sub">Podcast</span>
@@ -574,7 +574,7 @@ export function Footer() {
         <div className="footer-grid">
           <div>
             <div className="brand footer-brand">
-              <img className="brand-mark" src="/great-lakes-sports-logo.png.PNG" alt="" width="46" height="46" />
+              <img className="brand-mark" src="https://raw.githubusercontent.com/jaruso97/us12-athletic/main/great-lakes-sports-logo.png.PNG" alt="" width="46" height="46" />
               <span className="brand-name hl">Great Lakes <b>Sports</b> Podcast</span>
             </div>
             <p className="footer-blurb">

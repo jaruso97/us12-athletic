@@ -342,11 +342,14 @@ function PickCard({ p }) {
         <>
           <p className="pick-line hl">{p.pick} <span>{p.odds}</span></p>
           {p.note && <p className="muted">{p.note}</p>}
+          {p.verification && <p className="muted tiny">{p.verification}</p>}
+          {p.sourceUrl && <ExtLink href={p.sourceUrl} className="tiny">Result source <ExternalLink size={11} /></ExtLink>}
           {p.legs?.length > 0 && (
             <ol style={{ paddingInlineStart: "1.5em" }}>
               {p.legs.map((leg) => (
                 <li key={leg.pick}>
                   <strong>{leg.pick}</strong>
+                  {leg.result && <p><span className={`status ${leg.status}`}>{STATUS_LABEL[leg.status]}</span> {leg.result}</p>}
                   {leg.note && <p className="muted">{leg.note}</p>}
                 </li>
               ))}
@@ -376,9 +379,14 @@ export function PicksPage() {
     <div className="container page">
       <PageHead title="Our picks" sub="What we like this week and why. Free picks are public; the full card is for members." />
       <div className="record">
-        <div><span className="hl record-num">{wins}-{losses}-{pushes}</span><span className="muted tiny">Record</span></div>
-        <div><span className="hl record-num">{units >= 0 ? "+" : ""}{units.toFixed(1)}u</span><span className="muted tiny">Units</span></div>
+        <div><span className="hl record-num">{wins}-{losses}-{pushes}</span><span className="muted tiny">Ticket record (W-L-P)</span></div>
+        <div><span className="hl record-num">{graded.some((p) => p.units != null) ? `${units >= 0 ? "+" : ""}${units.toFixed(1)}u` : "—"}</span><span className="muted tiny">Units</span></div>
         <div><span className="hl record-num">{PICKS.filter((p) => p.status === "pending").length}</span><span className="muted tiny">Pending</span></div>
+      </div>
+      <div className="panel" style={{ marginBottom: 20 }}>
+        <h2 className="hl">A note from The Great Lakes Sports Podcast</h2>
+        <p>This was a rough one, guys. Both six-leg parlays missed. St. Brown’s catches and Gibbs’ touchdown came through for Joey, but the rest of the Lions card fell short. Michigan’s offense never got going, and Gino’s card went 0-for-6. We’ll own the misses and keep the results here for everyone to see.</p>
+        <p className="muted tiny">The record counts each parlay as one ticket. Individual legs are shown below. Units are unavailable because a unit size was not recorded.</p>
       </div>
       <p className="notice">Entertainment only. Must be 21+. If gambling is a problem, call 1-800-GAMBLER.</p>
       <div className="cards" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))" }}>

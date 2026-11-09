@@ -97,35 +97,49 @@ export const PICKS = [
     "team": "lions",
     "game": "Detroit Lions at Miami Dolphins",
     "pick": "Six-leg same-game parlay",
-    "note": "FanDuel · $10 stake, $174.26 total payout.",
-    "status": "pending",
+    "note": "FanDuel · $10 stake, $174.26 potential total payout before the game.",
+    "status": "loss",
     "members": false,
     "legs": [
       {
         "pick": "Jameson Williams anytime touchdown",
-        "note": "Jamo is on a tear. He has five touchdown catches in his last three games, including the go-ahead score against Minnesota."
+        "note": "Jamo is on a tear. He has five touchdown catches in his last three games, including the go-ahead score against Minnesota.",
+        "status": "loss",
+        "result": "No touchdown."
       },
       {
         "pick": "Jameson Williams over 52.5 receiving yards",
-        "note": "Williams had 91 yards against Green Bay and 70 against Minnesota. He’s averaging 16.2 yards per catch this season and has cleared this line in three of seven games."
+        "note": "Williams had 91 yards against Green Bay and 70 against Minnesota. He’s averaging 16.2 yards per catch this season and has cleared this line in three of seven games.",
+        "status": "loss",
+        "result": "31 receiving yards."
       },
       {
         "pick": "Amon-Ra St. Brown 6+ receptions",
-        "note": "St. Brown has caught at least six passes in six of seven games, including nine against Green Bay and seven against Minnesota."
+        "note": "St. Brown has caught at least six passes in six of seven games, including nine against Green Bay and seven against Minnesota.",
+        "status": "win",
+        "result": "8 receptions."
       },
       {
         "pick": "Jared Goff over 261.5 passing yards",
-        "note": "Goff is averaging 280.6 passing yards and has cleared this line in five of seven games. Detroit won against Minnesota with 176 passing yards from Goff and 230 on the ground, so a run-heavy game makes this leg tougher."
+        "note": "Goff is averaging 280.6 passing yards and has cleared this line in five of seven games. Detroit won against Minnesota with 176 passing yards from Goff and 230 on the ground, so a run-heavy game makes this leg tougher.",
+        "status": "loss",
+        "result": "170 passing yards."
       },
       {
         "pick": "Jahmyr Gibbs anytime touchdown",
-        "note": "Gibbs has eight rushing touchdowns through seven games, including a 30-yard score against Minnesota."
+        "note": "Gibbs has eight rushing touchdowns through seven games, including a 30-yard score against Minnesota.",
+        "status": "win",
+        "result": "1 rushing touchdown."
       },
       {
         "pick": "Jahmyr Gibbs over 98.5 rushing yards",
-        "note": "Gibbs has cleared this line in five of seven games, including three straight with 151, 116, and 153 yards. He had at least 23 carries in each of those three games."
+        "note": "Gibbs has cleared this line in five of seven games, including three straight with 151, 116, and 153 yards. He had at least 23 carries in each of those three games.",
+        "status": "loss",
+        "result": "74 rushing yards."
       }
-    ]
+    ],
+    "sourceUrl": "https://www.covers.com/sport/football/nfl/matchup/380044",
+    "verification": "Graded against the posted lines using final game statistics. FanDuel ticket settlement, boosts and voids have not been verified."
   },
   {
     "id": "gino-michigan-msu-2026-11-07",
@@ -134,34 +148,48 @@ export const PICKS = [
     "team": "michigan",
     "game": "Michigan vs. Michigan State",
     "pick": "Six-leg same-game parlay",
-    "note": "FanDuel · $10 stake, $128 total payout.",
-    "status": "pending",
+    "note": "FanDuel · $10 stake, $128 potential total payout before the game.",
+    "status": "loss",
     "members": false,
     "legs": [
       {
-        "pick": "Michigan moneyline (-720)"
+        "pick": "Michigan moneyline (-720)",
+        "status": "loss",
+        "result": "Michigan lost 15–6."
       },
       {
         "pick": "Tommy Carr 200+ passing yards (-122)",
-        "note": "Carr threw for 167 yards against Indiana and 266 against Rutgers, an average of 216.5 yards in his first two starts."
+        "note": "Carr threw for 167 yards against Indiana and 266 against Rutgers, an average of 216.5 yards in his first two starts.",
+        "status": "loss",
+        "result": "138 passing yards."
       },
       {
         "pick": "Michigan over 144.5 rushing yards",
-        "note": "Over the last five games, Michigan State has allowed 169.2 rushing yards per game, while Michigan has averaged 132.2. Gino likes Michigan’s chances with Savion Hiter, Jordan Marshall and the possibility of Carr adding yards on the ground."
+        "note": "Over the last five games, Michigan State has allowed 169.2 rushing yards per game, while Michigan has averaged 132.2. Gino likes Michigan’s chances with Savion Hiter, Jordan Marshall and the possibility of Carr adding yards on the ground.",
+        "status": "loss",
+        "result": "54 team rushing yards."
       },
       {
         "pick": "JJ Buchanan anytime touchdown",
-        "note": "Buchanan has been a go-to target all season, and Carr found him for a touchdown against Rutgers."
+        "note": "Buchanan has been a go-to target all season, and Carr found him for a touchdown against Rutgers.",
+        "status": "loss",
+        "result": "No touchdown."
       },
       {
         "pick": "JJ Buchanan over 4.5 receptions",
-        "note": "Buchanan has had fewer than four catches just once in his last five games. He caught 11 passes across Carr’s first two starts."
+        "note": "Buchanan has had fewer than four catches just once in his last five games. He caught 11 passes across Carr’s first two starts.",
+        "status": "loss",
+        "result": "2 receptions."
       },
       {
         "pick": "Over 39.5 total points",
-        "note": "Michigan State’s last five games averaged 47.2 total points, or 40.2 excluding the overtime game against Illinois. Michigan’s last five averaged 36. Gino sees a path to 40 with Michigan favored by 14.5."
+        "note": "Michigan State’s last five games averaged 47.2 total points, or 40.2 excluding the overtime game against Illinois. Michigan’s last five averaged 36. Gino sees a path to 40 with Michigan favored by 14.5.",
+        "status": "loss",
+        "result": "21 combined points."
       }
-    ]
+    ],
+    "sourceUrl": "https://mgoblue.com/sports/football/stats/2026/michigan-state/boxscore/30382",
+    "verification": "Graded against the posted lines using final game statistics. FanDuel ticket settlement, boosts and voids have not been verified."
   }
 ];
 

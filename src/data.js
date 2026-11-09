@@ -203,19 +203,11 @@ export const MERCH = [
     "url": "https://greatlakessportspod.myshopify.com/products/garment-dyed-heavyweight-long-sleeve-shirt"
   },
   {
-    "id": "can-cooler",
-    "name": "Can Cooler",
-    "category": "Accessories",
-    "team": "default",
-    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/can-cooler-white-regular-12-oz-front-6aee350dca00c.jpg?v=1793996071",
-    "url": "https://greatlakessportspod.myshopify.com/products/can-cooler"
-  },
-  {
     "id": "cuffed-beanie",
     "name": "Cuffed Beanie",
     "category": "Headwear",
     "team": "default",
-    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/cuffed-beanie-navy-front-6aee33ff42a81.jpg?v=1793995790",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/cuffed-beanie-black-front-6af14874278c1.jpg?v=1794197626",
     "url": "https://greatlakessportspod.myshopify.com/products/cuffed-beanie"
   },
   {
@@ -223,7 +215,7 @@ export const MERCH = [
     "name": "Foam Trucker Hat",
     "category": "Headwear",
     "team": "default",
-    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/foam-trucker-hat-black-one-size-front-6aee320da6941.jpg?v=1793995297",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/foam-trucker-hat-black-one-size-front-6af147a330405.jpg?v=1794197420",
     "url": "https://greatlakessportspod.myshopify.com/products/foam-trucker-hat"
   },
   {
@@ -231,7 +223,7 @@ export const MERCH = [
     "name": "Unisex Hoodie",
     "category": "Apparel",
     "team": "default",
-    "image": "https://greatlakessportspod.myshopify.com/cdn/shop/files/unisex-heavy-blend-hoodie-black-front-6aee4a32e2182.jpg?v=1794001469&width=1024",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/unisex-heavy-blend-hoodie-black-front-6af1480d810a8.jpg?v=1794197528",
     "url": "https://greatlakessportspod.myshopify.com/products/unisex-hoodie"
   },
   {
@@ -239,7 +231,7 @@ export const MERCH = [
     "name": "Unisex T-Shirt",
     "category": "Apparel",
     "team": "default",
-    "image": "https://greatlakessportspod.myshopify.com/cdn/shop/files/unisex-staple-t-shirt-black-heather-front-6aee49aba5de2.jpg?v=1794001329&width=1024",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/unisex-staple-t-shirt-black-heather-front-6af146ecf3f4d.jpg?v=1794197238",
     "url": "https://greatlakessportspod.myshopify.com/products/unisex-t-shirt"
   }
 ];

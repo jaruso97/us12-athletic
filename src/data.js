@@ -104,22 +104,22 @@ export const PICKS = [
   "legs": [
     {
       "pick": "Ausar Thompson over 1.5 steals",
-      "status": "win", "result": "2 steals."
+      "status": "win", "result": "2 steals.",
       "note": "We’re backing Ausar to cause problems tonight. Jump a passing lane, get his hands on a loose handle, and turn defense into offense. We need two steals, and an aggressive defensive performance gives this leg a chance."
     },
     {
       "pick": "Cade Cunningham over 25.5 points",
-      "status": "loss", "result": "17 points."
+      "status": "loss", "result": "17 points.",
       "note": "After that Lakers loss, I want Cade coming out aggressive. Get downhill, get to the line, and set the tone early. We need 26 points, and we’re backing him to lead the response."
     },
     {
       "pick": "Duncan Robinson over 15.5 points",
-      "status": "win", "result": "22 points."
+      "status": "win", "result": "22 points.",
       "note": "If Cade gets into the paint and draws help, Duncan needs to make Washington pay. A few early threes would get this moving. We need 16 points, so keep finding him and let him shoot."
     },
     {
       "pick": "Cade Cunningham over 8.5 assists",
-      "status": "loss", "result": "7 assists."
+      "status": "loss", "result": "7 assists.",
       "note": "This connects with Duncan’s scoring pick. Cade can create the chances, but the guys around him have to finish. We need nine assists, and we’re betting on the offense moving the ball and knocking down its looks."
     }
   ]
@@ -138,32 +138,32 @@ export const PICKS = [
   "legs": [
     {
       "pick": "Pistons moneyline",
-      "status": "win", "result": "Detroit won 122–111."
+      "status": "win", "result": "Detroit won 122–111.",
       "note": "Coming off a bad game at home, we’re expecting the Pistons to come out with a chip on their shoulder. This is a chance to bounce back and make a statement for the East."
     },
     {
       "pick": "Duncan Robinson 3+ threes",
-      "status": "win", "result": "4 made threes."
+      "status": "win", "result": "4 made threes.",
       "note": "He’s shooting 45.2% from three this season. We’re backing him to knock down at least three tonight."
     },
     {
       "pick": "Cade Cunningham over 40.5 points + rebounds + assists",
-      "status": "loss", "result": "27 PRA (17 points, 3 rebounds, 7 assists)."
+      "status": "loss", "result": "27 PRA (17 points, 3 rebounds, 7 assists).",
       "note": "Cade finished with 26 in this category last night. We’re expecting a more aggressive game tonight, and he’s topped 40 in three of his last five games."
     },
     {
       "pick": "Cade Cunningham 2+ steals",
-      "status": "loss", "result": "1 steal."
+      "status": "loss", "result": "1 steal.",
       "note": "Usually it’s Ausar dominating this stat, but Cade has 11 steals over his last five games and is averaging 1.6 per game this season. Right place, right time, and this one could hit."
     },
     {
       "pick": "Kevin Huerter over 7.5 points",
-      "status": "win", "result": "12 points."
+      "status": "win", "result": "12 points.",
       "note": "After re-signing this offseason, Huerter seems to have found his spot. He looks like a good complement to Duncan Robinson in the bench group. He’s averaging 6.5 points per game."
     },
     {
       "pick": "Kevin Huerter 2+ threes",
-      "status": "loss", "result": "0 made threes (0-for-5)."
+      "status": "loss", "result": "0 made threes (0-for-5).",
       "note": "Huerter is coming off a 24-point game in which he went 4-for-8 from three. He’s averaging 1.6 made threes on 4.4 attempts per game. We just need two to fall."
     }
   ]

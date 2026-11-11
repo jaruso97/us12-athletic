@@ -368,16 +368,20 @@ export function PicksPage() {
   const currentPicks = PICKS.filter((p) => p.status === "pending");
   const unassignedPicks = currentPicks.filter((p) => p.host !== "joey" && p.host !== "gino");
   const graded = PICKS.filter((p) => ["win", "loss", "push"].includes(p.status));
-  const wins = graded.filter((p) => p.status === "win").length;
-  const losses = graded.filter((p) => p.status === "loss").length;
-  const pushes = graded.filter((p) => p.status === "push").length;
+  const hostRecord = (host) => {
+    const tickets = graded.filter((p) => p.host === host);
+    const wins = tickets.filter((p) => p.status === "win").length;
+    const losses = tickets.filter((p) => p.status === "loss").length;
+    const pushes = tickets.filter((p) => p.status === "push").length;
+    return `${wins}-${losses}-${pushes}`;
+  };
 
   return (
     <div className="container page">
       <PageHead title="Our picks" sub="What we like this week and why. All of our picks are free for everyone." />
       <div className="record">
-        <div><span className="hl record-num">{wins}-{losses}-{pushes}</span><span className="muted tiny">Ticket record (W-L-P)</span></div>
-        <div><span className="hl record-num">{PICKS.filter((p) => p.status === "pending").length}</span><span className="muted tiny">Pending</span></div>
+        <div><span className="hl record-num">{hostRecord("joey")}</span><span className="muted tiny">Joey's record (W-L-P)</span></div>
+        <div><span className="hl record-num">{hostRecord("gino")}</span><span className="muted tiny">Gino's record (W-L-P)</span></div>
       </div>
       <p className="notice">Entertainment only. Must be 21+. If gambling is a problem, call 1-800-GAMBLER.</p>
       <div className="cards" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))" }}>

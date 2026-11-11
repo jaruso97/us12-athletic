@@ -32,5 +32,6 @@ export default {
     "## How will this affect Duke come March?",
     "Duke had a bad night, and any honest take has to say so. The Blue Devils shot 33% overall and 24% from three, so some of that was missed open looks. They also beat MSU on the glass, 40-38, with 15 offensive rebounds that turned into 14 second-chance points to MSU's six. Duke went to the line 37 times and made 26. If those shots go down, this is a much closer game.",
     "Duke also made it interesting late. It closed to 73-68 on Caleb Foster's free throws with 2:03 left before Scott's driving layup and Fears's free throws sealed it. And it's three games into the season. Duke will be a much better team in February than it was Tuesday, and MSU still has a heavy schedule ahead. A win like this doesn't win anything in March by itself. Nonetheless, this was a good win to feed off of going into the next string of tough non conference games. Michigan State will play Northern Iowa on November 13th at home at 7pm ET."
-  ]
+  ],
+  "sport": "Basketball"
 };

@@ -522,7 +522,7 @@ function MemberCard() {
   return (
     <div className="panel promo promo-member">
       <h3 className="hl promo-title">Become a member</h3>
-      <p>Full picks with write-ups, member-only Discord channels, early access to episodes and a promo code for a free hat.</p>
+      <p>Member-only Discord channels, early access to episodes, behind-the-scenes content and a promo code for a free hat.</p>
       <Link to="membership" className="btn btn-primary">See membership</Link>
     </div>
   );

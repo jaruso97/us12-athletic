@@ -496,12 +496,12 @@ function ScoresMini() {
 }
 
 function PicksTeaser() {
-  const free = PICKS.filter((p) => !p.members).slice(0, 2);
+  const free = PICKS.filter((p) => !p.members && p.status === "pending").slice(0, 2);
   return (
     <div className="panel">
       <h3 className="panel-title hl">Our picks</h3>
       {free.length === 0 ? (
-        <p className="empty-note">New picks are posted before game day.</p>
+        <p className="empty-note">No active bets right now. Check back for our next picks.</p>
       ) : (
         <div className="stack">
           {free.map((p) => (

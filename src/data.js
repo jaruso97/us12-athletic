@@ -279,13 +279,13 @@ export const PLANS = [
       "Podcast clips",
       "Live Michigan scores",
       "Public Discord channels",
+      "All picks and write-ups",
     ],
   },
   {
     id: "member", name: "Member", price: "$5", period: "per month", highlight: true,
     features: [
       "Everything in Free",
-      "Full picks with write-ups",
       "Member-only Discord channels",
       "Early access to new episodes",
       "Behind-the-scenes content",
@@ -349,6 +349,6 @@ export const CHANNELS = [
   { name: "wings-fans", desc: "Red Wings talk all season long.", members: false },
   { name: "college-talk", desc: "Michigan, Michigan State and the rest of the state.", members: false },
   { name: "podcast-feedback", desc: "Tell us what to cover next episode.", members: false },
-  { name: "picks-room", desc: "Our picks and the reasoning behind them.", members: true },
+  { name: "picks-room", desc: "Our free picks and the reasoning behind them.", members: false },
   { name: "member-lounge", desc: "Behind the scenes with the hosts.", members: true },
 ];

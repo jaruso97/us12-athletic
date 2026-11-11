@@ -374,7 +374,7 @@ export function PicksPage() {
 
   return (
     <div className="container page">
-      <PageHead title="Our picks" sub="What we like this week and why. Free picks are public; the full card is for members." />
+      <PageHead title="Our picks" sub="What we like this week and why. All of our picks are free for everyone." />
       <div className="record">
         <div><span className="hl record-num">{wins}-{losses}-{pushes}</span><span className="muted tiny">Ticket record (W-L-P)</span></div>
         <div><span className="hl record-num">{PICKS.filter((p) => p.status === "pending").length}</span><span className="muted tiny">Pending</span></div>

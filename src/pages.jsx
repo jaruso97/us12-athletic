@@ -86,7 +86,7 @@ export function Home() {
           <SectionHead title="Latest clips" to="clips" />
           {CLIPS.length === 0 ? (
             <Empty title="Clips coming soon">
-              <p className="muted">The Great Lakes Sports Podcast is launching with video and audio episodes. Check back soon for clips and highlights.</p>
+              <p className="muted">Our first full podcast episode is coming soon. Watch the show or listen to the audio-only version, and check back for highlights.</p>
             </Empty>
           ) : (
             <div className="cards">
@@ -285,7 +285,7 @@ export function ClipsPage() {
       <div className="container page">
         <PageHead title="Podcast clips" sub="Highlights from The Great Lakes Sports Podcast." />
         <Empty title="Coming soon">
-          <p className="muted">Our first video and audio podcast episode is coming soon. Check back for clips and highlights from the Great Lakes Sports Podcast.</p>
+          <p className="muted">Our first full podcast episode is coming soon. Watch the show or listen to the audio-only version. Clips and highlights are on the way.</p>
         </Empty>
       </div>
     );

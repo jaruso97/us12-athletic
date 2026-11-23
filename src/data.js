@@ -331,6 +331,14 @@ export const MERCH = [
     "url": "https://greatlakessportspod.myshopify.com/products/unisex-hoodie"
   },
   {
+    "id": "unisex-champion-hoodie",
+    "name": "Unisex Champion Hoodie",
+    "category": "Apparel",
+    "team": "default",
+    "image": "https://cdn.shopify.com/s/files/1/0717/7722/2740/files/unisex-champion-powerblend-hoodie-black-front-6b044adf6bfdb.jpg?v=1795443452",
+    "url": "https://greatlakessportspod.myshopify.com/products/unisex-champion-hoodie"
+  },
+  {
     "id": "unisex-t-shirt",
     "name": "Unisex T-Shirt",
     "category": "Apparel",
